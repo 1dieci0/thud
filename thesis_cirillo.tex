@@ -32,7 +32,7 @@
 %% hyperref: Regola le impostazioni della creazione del PDF... più tante altre cose. Ricordarsi di usare l'opzione pdfa.
 \usepackage[pdfa]{hyperref}
 %% tocbibind: Inserisce nell'indice anche la lista delle figure, la bibliografia, ecc.
-
+\graphicspath{ {./images/} }
 %% --- Stili di pagina disponibili (comando \pagestyle) ---
 %% sfbig (predefinito): Apertura delle parti e dei capitoli col numero grande; titoli delle parti e dei capitoli e intestazioni di pagina in sans serif.
 %% big: Come "sfbig", solo serif.
@@ -82,32 +82,96 @@ Donec pulvinar neque non lectus vulputate pellentesque. Quisque rutrum arcu veli
 \subsection{Sottosezione}
 Donec cursus tortor eget sem ornare imperdiet. Ut vel orci non ipsum condimentum laoreet vitae ut sapien. Aenean metus mi, vehicula quis turpis nec, porttitor blandit dui. Nullam sed sollicitudin quam. Fusce nisl ante, commodo eget lacus ac, mollis ullamcorper neque. Quisque faucibus dictum nisl, dignissim fermentum sapien fringilla vel. Proin dui velit, molestie sit amet sapien et, pellentesque tristique purus. Curabitur ac quam ac diam varius bibendum.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor odio sit amet tempor consequat. Suspendisse auctor vel augue ut aliquet. Suspendisse potenti. Nullam eget leo eu neque ornare mattis in in tortor. Phasellus finibus, orci nec interdum placerat, leo libero rutrum ipsum, vel varius elit leo vel lacus. Pellentesque a tristique nibh, dictum egestas augue. Aliquam egestas ligula nec diam vulputate, vel bibendum justo sodales. Nunc imperdiet ut est non ultrices. Pellentesque enim tortor, suscipit et neque vel, varius gravida dolor. In sed lobortis tellus. Duis ac sem ac mi aliquet imperdiet eu eget ligula. Aliquam ligula nisl, rhoncus eget orci a, cursus dapibus urna. Donec commodo consequat mi.
-
-Donec elementum erat vitae nunc commodo ultrices. Vivamus auctor arcu pharetra orci cursus, sodales dictum urna egestas. Pellentesque eget felis augue. Quisque tempus non nulla sed aliquam. Nam sagittis eros lectus, a mattis felis malesuada at. Sed et semper dui. Nunc luctus, diam ac ultricies euismod, augue odio consequat ante, vel vehicula ipsum mauris sed nunc. Pellentesque consequat, eros et volutpat maximus, justo metus commodo ante, vitae egestas nisl mi non orci.
-
-Vestibulum aliquet tempor magna sit amet tincidunt. Vivamus congue leo eu lectus vestibulum, ut tincidunt tellus viverra. Etiam sit amet blandit dolor. Sed eget varius dolor. Cras porta euismod mi feugiat posuere. Proin elit nulla, pulvinar vitae fermentum id, varius nec leo. Nullam eu erat nulla. Etiam erat ante, lobortis vel sagittis quis, pretium in lectus. Aenean accumsan, quam sagittis fringilla gravida, nulla massa ullamcorper nisi, non pretium leo magna ac tellus. Nunc vel lectus dapibus, pulvinar sem id, gravida urna. Duis tempor imperdiet consectetur. Quisque nec risus diam.
-
-Pellentesque purus dui, lobortis sed maximus at, consequat eu ex. Phasellus eu porttitor dolor. Integer ornare justo elit, eget porttitor tortor porta vel. Quisque sit amet urna tempor, mollis quam in, faucibus orci. Sed auctor efficitur malesuada. Aliquam lacinia laoreet augue, varius imperdiet sem bibendum at. Mauris neque nunc, fringilla ac commodo mollis, pellentesque tincidunt est.
-
-Nunc commodo, quam id maximus dignissim, ligula magna convallis mauris, a elementum nisl metus at nisl. Donec risus ante, maximus at iaculis eget, placerat nec nulla. Sed tincidunt sodales justo eget finibus. Sed urna magna, dapibus at massa scelerisque, facilisis fringilla justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla eleifend semper erat, ut placerat metus. Quisque laoreet ultrices est. Sed porta fermentum odio. Cras ornare erat nec ultricies hendrerit.
-
-Nunc commodo, libero consectetur imperdiet faucibus, nisi mauris pulvinar quam, pellentesque vehicula neque mi maximus justo. Nulla tristique, lacus et rhoncus varius, orci nibh dictum mauris, fringilla elementum elit elit ut tortor. Curabitur euismod quis sem et mollis. Sed feugiat dignissim tincidunt. Mauris cursus dictum venenatis. Nunc fermentum at metus ac vehicula. Duis sodales tellus magna, sit amet luctus urna imperdiet sed.
-
-Fusce dolor urna, suscipit sed mi aliquam, aliquam convallis leo. Pellentesque quam nunc, consequat non posuere sed, fermentum ut urna. Nullam vehicula rutrum ex, at vehicula sem rhoncus a. Vivamus scelerisque, dolor in tristique mollis, leo diam laoreet velit, at semper enim velit ac dui. Donec placerat, odio nec maximus ultricies, tellus nibh lobortis orci, ut gravida ligula nibh in ante. Aenean blandit viverra tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In vitae efficitur est. Nam venenatis, nisi vitae condimentum pretium, nunc libero accumsan nulla, in accumsan turpis enim at velit. Donec semper dolor posuere orci facilisis volutpat. Vestibulum lorem leo, tempor vitae porta id, mattis commodo dui. Cras aliquet non risus at accumsan. Suspendisse viverra, mi in blandit hendrerit, enim magna faucibus eros, id egestas lacus magna non leo.
-
-Morbi suscipit tempor ante a varius. Fusce eu lobortis eros. Quisque quis pharetra metus, dictum luctus ligula. In a tincidunt nibh, vel scelerisque arcu. Donec consequat justo condimentum tempus iaculis. Nullam interdum id metus vel sagittis. Proin ante tortor, posuere a vehicula sit amet, dapibus ut metus. Etiam consectetur, tortor sit amet lacinia varius, nibh purus vehicula ex, sit amet fermentum justo urna a ante.
-
-Phasellus feugiat neque sed risus faucibus tristique nec sit amet magna. Fusce lacus erat, fermentum non pharetra et, auctor et tellus. Donec gravida id urna quis auctor. Quisque ultrices id orci id posuere. In hac habitasse platea dictumst. Phasellus ante nibh, fermentum a vehicula sit amet, efficitur vel orci. Phasellus eget justo orci. Fusce ut tellus nisl. Nullam sit amet ipsum justo. Proin suscipit purus facilisis, tristique arcu in, venenatis dui. Quisque a pellentesque augue. Sed blandit viverra feugiat. Curabitur volutpat luctus maximus. Nulla sed condimentum nibh, sed rutrum velit. Cras pellentesque lectus est, vestibulum vehicula arcu elementum a.
-
-Sed dapibus augue rutrum augue ultrices, in tristique lectus malesuada. Praesent pharetra at arcu eu pellentesque. Cras ac est arcu. Suspendisse euismod pellentesque diam, id porta metus. Donec porta ex vel ornare tincidunt. Nunc non tortor sodales, lacinia diam quis, malesuada lectus. Cras a ultrices massa, a semper ligula.
 
 %% Capitolo
 \chapter{Stato dell'arte}
 \label{art}
 \section{Premessa}
-In questa tesi, si affronta il tema di rendere modulare un'architettura software esistente che non è stata progettata con tale criterio. L'obiettivo è di analizzare le metodologie e gli stumenti disponibili per affrontare questa sfida, valutandone i vantaggi e gli svantaggi.
+Questo capitolo è dedicato alla specificazione della architettura generale del sistema prima delle modifiche 
 
+\section{Architettura}
+Il sistema è composto da una architettura client-server nella quale il backend si occupa di fare le scansioni e di salvarne i risultati e di fornirli al frontend dove possono essere visualizzati dagli utenti dovrebbero interagire solo con esso. 
+
+\begin{figure}[h]
+\includegraphics[width=15cm, height=10cm]{client_server}
+\centering
+\end{figure}
+
+\section{Moduli}
+Il frontend è diviso in due moduli che permettono all'utente di interagire con il backend che a sua volta è composto da 5 moduli. 
+
+I due moduli del frontend sono:
+\begin{itemize}
+  \item L' \textbf{interfaccia web} che l'utente usa per interagire con il sistema. 
+  \item Un \textbf{binario eseguibile} che rende possibile l'interazione tra il backend ed l'interfaccia
+\end{itemize}
+
+Mentre i cinque moduli del backend:
+\begin{itemize}
+  \item Il \textbf{Server} che implementa un servizio REST, ovvero un interfaccia che può venir usata per lo scambio di informazioni tra 2 computer.
+  \item Lo \textbf{Scheduler} che aspetta per le nuove richieste di scansione e coordina appositamente lo \textit{Scanner} ed il \textit{Parser}.
+  \item Lo \textbf{Scanner} riceve la richieste dallo \textit{Scheduler} ed esegue la scansione di \textit{NMAP}.
+  \item Il \textbf{Parser} riceve i dati dallo \textit{Scanner} e li processa in modo adeguato.
+  \item Lo \textbf{Storage} infine salva e rende a disposizione i dati processati dal \textit{Parser} in un'apposito archivio.
+\end{itemize}
+
+\begin{figure}[h]
+\includegraphics[width=15cm, height=10cm]{moduli}
+\centering
+\end{figure}
+
+\section{Server}
+Il \textbf{Server} è il componente che si comporta da web server e che da a disposizione gli endpoints dell'API usata per la comunicazione tra i vari moduli.
+
+\section{Scanner}
+Lo \textbf{Scanner} è il modulo che fa partire la scansione di \textbf{NMAP} quando viene richiesta dallo scheduler. 
+NMAP è una utility gratis ed open source per fare network discovery anche usata da moltissimi amministratori di reti per fare inventari di rete e monitorare host e servizi. 
+Oltre ad essere popolare e molto potente è anche ben documentata, flessibile e supportata.
+
+\section{Scheduler}
+Lo \textbf{Scheduler} è implementato con un piccolo servizio web che ascolta per richieste POST dal frontend(utente) per poi inviare una richiesta json contentente i parametri di scansione allo scanner.
+
+\section{Parser}
+Il \textbf{Parser} dopo aver ricevuto in input dallo Scanner un documento \textbf{XML} creato da NMAP inizia un processo di deserializzazione in un oggetto capibile dal programma che poi verrà inserito nello storage.
+
+\section{Storage}
+Lo \textbf{Storage} viene gestito da un programma esterno chiamiato \textbf{MongoDB}. 
+MongoDB è un database \textbf{NoSQL} con scalabilità e flessibilità che salva i dati in documenti JSON-like facili da gestire.
+
+\section{Linguaggi di programmazione}
+Per il backend viene utilizzato Rust mentre per il frontend TypeScript. 
+\subsection{Rust}
+Rust è un linguaggio di programmazione moderno, compliato e multi-paradigma, sviluppato da Mozilla Research in collaborazoine con la comunità open-source. Nato con l'obiettivo di coniugare efficienza, sicurezza e affidabilità, Rust si distingue per le sue caratteristiche peculiari:
+\begin{itemize}
+  \item \textbf{Sicurezza della memoria}: Rust elimina la possibilità di dangling pointers e memory leaks, tipici problemi di altri linguaggi che causano crash e comportamenti inaspettati.
+  \item \textbf{Prestazioni elevate}: Rust offre prestazioni paragonabili a quelle del C++, grazie alla compilazione in codice macchina efficiente e all'assenza di runtime overhead.
+  \item \textbf{Concorrenza sicura}: Rust gestisce la concorrenza in modo nativo, prevenendo automaticamente i data race e garantendo la sicurezza dei thread senza la necessità di complessi meccanismi di sincronizzazione.
+  \item \textbf{Produttività}: Rust offre un sistema di ownership moderno e un potente sistema di tipi che aiutano a scrivere codice pulito, conciso e robusto.
+\end{itemize}
+
+\subsection{TypeScript}
+TypeScript è un superset di JavaScript, ovvero un linguaggio che estende le sue funzionalità con tipi statici, classi, interfacce e moduli opzionali. È stato sviluppato da Microsoft e rilasciato nel 2012, guadagnando rapidamente popolarità nella community di sviluppo web.
+Dei punti chiave di TypeScript sono:
+
+\begin{itemize}
+  \item \textbf{Tipizzazione statica}: TypeScript consente di definire i tipi di dati per variabili e funzioni, migliorando la leggibilità, la manutenibilità e la robustezza del codice. Il compilatore di TypeScript verifica che i tipi vengano utilizzati correttamente, aiutando a prevenire errori durante l'esecuzione.
+  \item \textbf{Maggiori funzionalità}: TypeScript introduce concetti come classi, interfacce e moduli, che facilitano la scrittura di codice strutturato, modulare e scalabile. Queste funzionalità sono particolarmente utili per progetti di grandi dimensioni.
+  \item \textbf{Compilazione in JavaScript}: Il codice TypeScript viene compilato in JavaScript puro, che può essere eseguito da qualsiasi browser o motore JavaScript. Questo significa che è possibile utilizzare TypeScript per sviluppare applicazioni web moderne senza preoccuparsi della compatibilità.
+\end{itemize}
+
+
+\section{Frameworks e librerie}
+\subsection{Rust}
+Le librerie principali usate in Rust sono:
+\begin{itemize}
+  \item \textbf{Serde}: un framwork per la serializzazione e la deserializzazione per Rust, che consente di convertire facilmente dati strutturati in formati binari come JSON, BSON, XML ed altri. 
+  \item \textbf{Tokio}: un runtime asincrono per Rust. Fornisce i mattoni essenziali per la scrittura di applicazioni di rete offrendo elevata velocità, scalabilità, facilità d'uso, affidabilità, robustezza e flessibilità.
+  \item \textbf{Tracing} è uno strumento prezioso per la risoluzione dei problemi, il debug e il monitoraggio delle prestazioni di applicazioni Rust complesse.
+\end{itemize}
+
+\subsection{TypeScript}
+La libreria principale per l'interfaccia grafica è React, una libreria open-source sviluppata da Meta per la creazoine di interfacce utente dinamiche e perfomanti. 
+Permette di costruire UI complesse scomponendole in componenti riutilizzabili, facilidando lo sviluppo e la manutenzoine di applicazioni web.
 
 %% Capitolo
 \chapter{Lavoro principale}
