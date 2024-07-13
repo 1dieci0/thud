@@ -97,6 +97,66 @@ Il sistema è composto da una architettura client-server nella quale il backend 
 \centering
 \end{figure}
 
+Per organizzazione e scalabilità abbiamo diviso l'architettura in 6 moduli principali.
+
+\begin{figure}[h]
+\includegraphics[width=15cm, height=10cm]{moduli_new}
+\centering
+\end{figure}
+
+\subsection{Scan Probes}
+\textbf{Scan Probes} sono moduli che vengono collocati in giro per la rete a raccogliere informazoini. 
+Ricevuto un comando il probe lo interpreta, esegue l'opportuna scansione e deserializza il 'output dello scan.
+
+\begin{figure}[h]
+  \includegraphics[width=15cm, height=10cm]{probe}
+\centering
+\end{figure}
+
+\subsection{Dispatcher} 
+Il \textbf{Dispatcher} è il modulo che controlla e coordina le operazioni necessarie per le esecuzioni delle scansioni.
+Riceve un comando dal Frontend che viene interpretato e mandato allo Scheduler che interagisce con l'Executer ed il Merger per eseguire la scansione e salvarla.
+
+\begin{figure}[h]
+  \includegraphics[width=15cm, height=10cm]{dispatcher}
+\centering
+\end{figure}
+
+
+\subsection{Executer} 
+L'\textbf{Executer} riceve un comando dallo scheduler e coordina gli Scan Probes nell'esecuzione della scansione per poi accumulare i loro risultati e mandarli al Knowledge Base Connector.
+
+\begin{figure}[h]
+  \includegraphics[width=15cm, height=10cm]{executer}
+\centering
+\end{figure}
+
+\subsection{Merger}
+Il \textbf{Merger} si occupa di ricevere i dati generati dai Scan Probes ed amalgamarli per creare un'immagine comprensibile della rete analizzata. 
+
+
+\begin{figure}[h]
+  \includegraphics[width=15cm, height=10cm]{merger}
+\centering
+\end{figure}
+
+
+\section{programmi}
+
+\subsection{Communication Backbone}
+Per comunicare con i probes situati per la rete viene usato MQTT (Message Queuing Telemtry Transport). 
+MQTT è un protocollo di messaggistica leggero e public/subscribe progettato per l'Internet of Things (IoT).
+Come broker MQTT viene usato Mosquitto per il suo supporto al Qualify of Service livello 2 che garantisce la recezione di messaggi exactly-once fra i probes e il sistema.
+
+\subsection{Scanner}
+I probe per eseguire le analisi usano NMAP che è una utility gratis ed open source per fare network discovery anche usata da moltissimi amministratori di reti per fare inventari di rete e monitorare host e servizi. 
+
+\subsection{Tauri}
+Il framework Tauri offre la creazione di interfacce moderne, intuitive e sicure.
+Per il frontend abbiamo scelto di usare principalmente React; una libreria di TypeScript  open-source sviluppata per la creazione di interfacce utente dinamiche e performanti tramite la costruzioni di UI complesse scomponibili in componenti riutilizzabili.
+Il frontend è soprattutto scritto in Rust; un linguaggio di programmazione moderno, compilato e multi-paradigma. Nato con l'obiettivo di coniugare efficienza, sicurezza e affidabilità.
+
+
 \section{Moduli}
 Il frontend è diviso in due moduli che permettono all'utente di interagire con il backend che a sua volta è composto da 5 moduli. 
 
