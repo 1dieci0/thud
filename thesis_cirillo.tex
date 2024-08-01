@@ -52,7 +52,7 @@
 
 %% Sommario (opzionale)
 \abstract
-Nunc ac dignissim ipsum, quis pulvinar elit. Mauris congue nec leo ornare lobortis. Nulla hendrerit pretium diam nec lobortis. Nullam aliquam laoreet nisl, sit amet facilisis lectus accumsan ut. Duis et elit hendrerit metus venenatis condimentum. Integer id eros molestie, interdum leo sit amet, aliquet metus. Integer fermentum tristique magna, vel luctus neque rhoncus vel. Ut hendrerit et quam et semper. Mauris egestas, odio sed aliquet luctus, magna orci euismod odio, vitae lacinia tellus tellus non lectus. Aliquam urna neque, porta et mattis aliquam, congue sit amet lorem. In ultrices augue sit amet ante vehicula, vitae rhoncus turpis auctor. Donec porta scelerisque eros, at mollis enim imperdiet ut. 
+La crescente complessità delle reti di calcolatori moderne richiede strumenti sofisticati per la loro analisi e gestione. Questa tesi presenta la progettazione e lo sviluppo di un sistema distribuito innovativo, capace di esplorare e mappare in modo efficiente le topologie di reti di grandi dimensioni. Il sistema proposto è in grado di estrarre informazioni significative sulla struttura della rete, identificando pattern, anomalie e potenziali vulnerabilità. L'obiettivo finale è fornire ai network administratori un quadro completo e dettagliato della loro infrastruttura, supportando decisioni informate e ottimizzando le performance della rete.
 
 %% Indice
 \tableofcontents
@@ -61,7 +61,8 @@ Nunc ac dignissim ipsum, quis pulvinar elit. Mauris congue nec leo ornare lobort
 %\listoftables
 
 %% Lista delle figure (se presenti)
-%\listoffigures
+\listoffigures
+!TODO
 
 %% Corpo principale del documento
 \mainmatter
@@ -72,16 +73,41 @@ Nunc ac dignissim ipsum, quis pulvinar elit. Mauris congue nec leo ornare lobort
 
 %% Capitolo
 \chapter{Introduzione}
-In hac habitasse platea dictumst. Vestibulum consectetur dictum pellentesque. Suspendisse nunc neque, commodo ac imperdiet nec, sollicitudin vitae libero. Donec bibendum vel nunc vitae pharetra. In vel volutpat odio, et interdum dui. Duis mauris ligula, congue eget molestie at, tincidunt nec diam. Nam vitae eros nec arcu suscipit vehicula. Aliquam consectetur imperdiet elit, eget pretium arcu fringilla at. Maecenas \cite{Knu86} sed libero pulvinar, mattis tortor vel, fermentum enim.
+Le reti informatiche moderne, caratterizzate da una crescente complessità e eterogeneità, richiedono strumenti di gestione sempre più sofisticati. Per decenni, il Simple Network Management Protocol (SNMP) ha rappresentato lo standard de facto per il monitoraggio e la gestione delle reti. Tuttavia, l'SNMP, pur essendo un protocollo ampiamente diffuso, presenta una serie di limitazioni che ne compromettono l'efficacia in ambienti altamente dinamici e distribuiti.
 
-%% Sezione
-\section{Titolo della Sezione}
-Donec pulvinar neque non lectus vulputate pellentesque. Quisque rutrum arcu velit, in feugiat sapien posuere vel. Praesent metus orci, aliquam ac cursus eget, fermentum a nisl. Etiam eu augue lacus. Nam nisi sapien, mattis sed vehicula non, pellentesque at quam. Sed euismod, dolor nec commodo lobortis, erat erat ultricies eros, bibendum dictum nulla felis in dui. Nulla blandit ultrices arcu, vitae lacinia tellus tempor sit amet. Nulla non tincidunt dolor. In eget luctus sem, sed elementum ligula. Proin elementum adipiscing sem, sit amet ultricies nisl tincidunt eu. Ut lobortis dui quam, et scelerisque erat ultrices sit amet. Sed libero sem, mollis quis euismod quis, suscipit ac justo.
+La natura centralizzata dell'SNMP, basata su un modello client-server, lo rende vulnerabile a punti di singolo fallimento e difficoltà di scalabilità in reti di grandi dimensioni. Inoltre, l'SNMP è stato progettato per un'era in cui i dispositivi di rete erano relativamente semplici e omogenei. Oggi, la proliferazione di dispositivi IoT, cloud computing e virtualizzazione ha reso le reti molto più complesse, richiedendo un approccio più flessibile e adattivo.
 
-%% Sottosezione
-\subsection{Sottosezione}
-Donec cursus tortor eget sem ornare imperdiet. Ut vel orci non ipsum condimentum laoreet vitae ut sapien. Aenean metus mi, vehicula quis turpis nec, porttitor blandit dui. Nullam sed sollicitudin quam. Fusce nisl ante, commodo eget lacus ac, mollis ullamcorper neque. Quisque faucibus dictum nisl, dignissim fermentum sapien fringilla vel. Proin dui velit, molestie sit amet sapien et, pellentesque tristique purus. Curabitur ac quam ac diam varius bibendum.
+Questa tesi presenta la progettazione e l'implementazione di un sistema distribuito innovativo, appositamente concepito per affrontare le complessità dell'analisi della topologia di rete. Sfruttando le potenzialità del calcolo distribuito e di algoritmi avanzati, il sistema proposto è in grado di esplorare e mappare in modo efficiente reti di qualsiasi dimensione e complessità, fornendo una rappresentazione visuale e analitica dettagliata della loro struttura.
 
+L'obiettivo principale di questa ricerca è sviluppare uno strumento che consenta ai network administratori di:
+
+\begin{itemize}
+  \item \textbf{Ottenere una visione olistica della rete}: Visualizzare la topologia della rete in modo intuitivo, identificando facilmente i punti di connessione, i dispositivi critici e le eventuali anomalie.
+  \item \textbf{Identificare i colli di bottiglia}: Individuare le parti della rete soggette a congestione, ottimizzando così l'allocazione delle risorse.
+  \item \textbf{Prevenire i guasti}: Monitorare lo stato dei dispositivi e delle connessioni, rilevando potenziali problemi prima che si verifichino.
+  \item \textbf{Facilitare la risoluzione dei problemi}: Utilizzare le informazioni sulla topologia per isolare rapidamente le cause di malfunzionamenti e pianificare interventi di manutenzione.
+\end{itemize}
+
+Il sistema proposto si distingue per le seguenti caratteristiche:
+
+\begin{itemize}
+  \item \textbf{Scalabilità}: Capacità di gestire reti di grandi dimensioni e in continua evoluzione.
+
+  \item \textbf{Efficienza}: Riduzione dei tempi di analisi grazie all'utilizzo di algoritmi paralleli e distribuiti.
+    
+  \item \textbf{Flessibilità}: Adattabilità a diverse tipologie di reti e protocolli di comunicazione.
+
+  \item \textbf{Intuitività}: Interfaccia utente user-friendly per una facile interpretazione dei risultati.
+\end{itemize}
+
+%%% Sezione
+%\section{Titolo della Sezione}
+%Donec pulvinar neque non lectus vulputate pellentesque. Quisque rutrum arcu velit, in feugiat sapien posuere vel. Praesent metus orci, aliquam ac cursus eget, fermentum a nisl. Etiam eu augue lacus. Nam nisi sapien, mattis sed vehicula non, pellentesque at quam. Sed euismod, dolor nec commodo lobortis, erat erat ultricies eros, bibendum dictum nulla felis in dui. Nulla blandit ultrices arcu, vitae lacinia tellus tempor sit amet. Nulla non tincidunt dolor. In eget luctus sem, sed elementum ligula. Proin elementum adipiscing sem, sit amet ultricies nisl tincidunt eu. Ut lobortis dui quam, et scelerisque erat ultrices sit amet. Sed libero sem, mollis quis euismod quis, suscipit ac justo.
+%
+%%% Sottosezione
+%\subsection{Sottosezione}
+%Donec cursus tortor eget sem ornare imperdiet. Ut vel orci non ipsum condimentum laoreet vitae ut sapien. Aenean metus mi, vehicula quis turpis nec, porttitor blandit dui. Nullam sed sollicitudin quam. Fusce nisl ante, commodo eget lacus ac, mollis ullamcorper neque. Quisque faucibus dictum nisl, dignissim fermentum sapien fringilla vel. Proin dui velit, molestie sit amet sapien et, pellentesque tristique purus. Curabitur ac quam ac diam varius bibendum.
+%
 
 %% Capitolo
 \chapter{Stato dell'arte}
