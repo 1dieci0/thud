@@ -37,6 +37,7 @@
 %% sfbig (predefinito): Apertura delle parti e dei capitoli col numero grande; titoli delle parti e dei capitoli e intestazioni di pagina in sans serif.
 %% big: Come "sfbig", solo serif.
 %% plain: Apertura delle parti e dei capitoli tradizionali di LaTeX; intestazioni di pagina come "big".
+\usepackage{placeins}
 
 \begin{document}
 \maketitle
@@ -118,114 +119,98 @@ Questo capitolo è dedicato alla specificazione della architettura generale del 
 \section{Architettura}
 Il sistema è composto da una architettura client-server nella quale il backend si occupa di fare le scansioni e di salvarne i risultati e di fornirli al frontend dove possono essere visualizzati dagli utenti dovrebbero interagire solo con esso. 
 
+
 \begin{figure}[h]
-\includegraphics[width=15cm, height=10cm]{client_server}
-\centering
+  \includegraphics[width=15cm, height=10cm]{client_server}
+  \centering
 \end{figure}
+
+\FloatBarrier
 
 Per organizzazione e scalabilità abbiamo diviso l'architettura in 6 moduli principali.
 
+
 \begin{figure}[h]
-\includegraphics[width=15cm, height=10cm]{moduli_new}
-\centering
+  \includegraphics[width=15cm, height=10cm]{moduli_new}
+  \centering
 \end{figure}
+
+\FloatBarrier
 
 \subsection{Scan Probes}
 \textbf{Scan Probes} sono moduli che vengono collocati in giro per la rete a raccogliere informazoini. 
 Ricevuto un comando il probe lo interpreta, esegue l'opportuna scansione e deserializza il 'output dello scan.
 
+
 \begin{figure}[h]
-  \includegraphics[width=15cm, height=10cm]{probe}
-\centering
+  \includegraphics[width=14cm, height=8cm]{probe}
+  \centering
 \end{figure}
+\FloatBarrier
+
 
 \subsection{Dispatcher} 
 Il \textbf{Dispatcher} è il modulo che controlla e coordina le operazioni necessarie per le esecuzioni delle scansioni.
 Riceve un comando dal Frontend che viene interpretato e mandato allo Scheduler che interagisce con l'Executer ed il Merger per eseguire la scansione e salvarla.
 
 \begin{figure}[h]
-  \includegraphics[width=15cm, height=10cm]{dispatcher}
-\centering
+  \includegraphics[width=14cm, height=8cm]{dispatcher}
+  \centering
 \end{figure}
 
+\FloatBarrier
 
 \subsection{Executer} 
 L'\textbf{Executer} riceve un comando dallo scheduler e coordina gli Scan Probes nell'esecuzione della scansione per poi accumulare i loro risultati e mandarli al Knowledge Base Connector.
 
 \begin{figure}[h]
-  \includegraphics[width=15cm, height=10cm]{executer}
-\centering
+  \includegraphics[width=14cm, height=8cm]{executer}
+  \centering
 \end{figure}
+
+\FloatBarrier
+
+\newpage
 
 \subsection{Merger}
 Il \textbf{Merger} si occupa di ricevere i dati generati dai Scan Probes ed amalgamarli per creare un'immagine comprensibile della rete analizzata. 
 
 
 \begin{figure}[h]
-  \includegraphics[width=15cm, height=10cm]{merger}
-\centering
+  \includegraphics[width=14cm, height=8cm]{merger}
+  \centering
 \end{figure}
 
+\FloatBarrier
 
-\section{programmi}
+\chapter{Implementazione}
 
-\subsection{Communication Backbone}
-Per comunicare con i probes situati per la rete viene usato MQTT (Message Queuing Telemtry Transport). 
+\section{Identificazione univoca dei probe}
+Per distinguire i probe abbiamo deciso di utilizzare il loro indirizzo MAC (Medium Access Controll)ovvero un indirizzo di 12 caratteri alfanumerici (es. 00:11:22:33:44:55) che viene assegnato ad ogni dispositivo di rete e indentifica in modo univoco la scheda di rete del dispositivo.
+
+\section{Parsing XML}
+Lo scan di NMAP ritorna uno stream di dati in XML molto grande ed aspettare che l'intero stream di dati finisca per poi effettuare il parsing può essere pericoloso (es. va via la corrente e si perdono ore di computazione). Analizzando la struttura del XML che viene generato da NMAP tramite l'apposito DTD (Document Type Definition) abbiamo dedotto che fare un parsing incrementale su ogni tag host è la soluzione più ottimale per diminuire possibili problemi.
+
+\section{Configurazione}
+!TODO
+
+\section{Software usati}
+
+\subsection{Backbone di comunicazione}
+Per comunicare con i probe situati per la rete viene usato MQTT (Message Queuing Telemtry Transport). 
 MQTT è un protocollo di messaggistica leggero e public/subscribe progettato per l'Internet of Things (IoT).
 Come broker MQTT viene usato Mosquitto per il suo supporto al Qualify of Service livello 2 che garantisce la recezione di messaggi exactly-once fra i probes e il sistema.
 
 \subsection{Scanner}
 I probe per eseguire le analisi usano NMAP che è una utility gratis ed open source per fare network discovery anche usata da moltissimi amministratori di reti per fare inventari di rete e monitorare host e servizi. 
 
+\subsection{Database}
+!TODO
+
 \subsection{Tauri}
-Il framework Tauri offre la creazione di interfacce moderne, intuitive e sicure.
-Per il frontend abbiamo scelto di usare principalmente React; una libreria di TypeScript  open-source sviluppata per la creazione di interfacce utente dinamiche e performanti tramite la costruzioni di UI complesse scomponibili in componenti riutilizzabili.
-Il frontend è soprattutto scritto in Rust; un linguaggio di programmazione moderno, compilato e multi-paradigma. Nato con l'obiettivo di coniugare efficienza, sicurezza e affidabilità.
+Tauri è un framework innovativo che permette di creare applicazioni desktop utilizzando tecnologie web familiari come HTML, CSS, JS. L'applicazione web, invece di venire eseguita in un browser, è trasformata in un'app desktop completa, con tutte le funzionalità native di un'applicazione tradizionale.
+Per il frontend abbiamo scelto di usare principalmente React, e per il backend Rust.
 
-
-\section{Moduli}
-Il frontend è diviso in due moduli che permettono all'utente di interagire con il backend che a sua volta è composto da 5 moduli. 
-
-I due moduli del frontend sono:
-\begin{itemize}
-  \item L' \textbf{interfaccia web} che l'utente usa per interagire con il sistema. 
-  \item Un \textbf{binario eseguibile} che rende possibile l'interazione tra il backend ed l'interfaccia
-\end{itemize}
-
-Mentre i cinque moduli del backend:
-\begin{itemize}
-  \item Il \textbf{Server} che implementa un servizio REST, ovvero un interfaccia che può venir usata per lo scambio di informazioni tra 2 computer.
-  \item Lo \textbf{Scheduler} che aspetta per le nuove richieste di scansione e coordina appositamente lo \textit{Scanner} ed il \textit{Parser}.
-  \item Lo \textbf{Scanner} riceve la richieste dallo \textit{Scheduler} ed esegue la scansione di \textit{NMAP}.
-  \item Il \textbf{Parser} riceve i dati dallo \textit{Scanner} e li processa in modo adeguato.
-  \item Lo \textbf{Storage} infine salva e rende a disposizione i dati processati dal \textit{Parser} in un'apposito archivio.
-\end{itemize}
-
-\begin{figure}[h]
-\includegraphics[width=15cm, height=10cm]{moduli}
-\centering
-\end{figure}
-
-\section{Server}
-Il \textbf{Server} è il componente che si comporta da web server e che da a disposizione gli endpoints dell'API usata per la comunicazione tra i vari moduli.
-
-\section{Scanner}
-Lo \textbf{Scanner} è il modulo che fa partire la scansione di \textbf{NMAP} quando viene richiesta dallo scheduler. 
-NMAP è una utility gratis ed open source per fare network discovery anche usata da moltissimi amministratori di reti per fare inventari di rete e monitorare host e servizi. 
-Oltre ad essere popolare e molto potente è anche ben documentata, flessibile e supportata.
-
-\section{Scheduler}
-Lo \textbf{Scheduler} è implementato con un piccolo servizio web che ascolta per richieste POST dal frontend(utente) per poi inviare una richiesta json contentente i parametri di scansione allo scanner.
-
-\section{Parser}
-Il \textbf{Parser} dopo aver ricevuto in input dallo Scanner un documento \textbf{XML} creato da NMAP inizia un processo di deserializzazione in un oggetto capibile dal programma che poi verrà inserito nello storage.
-
-\section{Storage}
-Lo \textbf{Storage} viene gestito da un programma esterno chiamiato \textbf{MongoDB}. 
-MongoDB è un database \textbf{NoSQL} con scalabilità e flessibilità che salva i dati in documenti JSON-like facili da gestire.
-
-\section{Linguaggi di programmazione}
-Per il backend viene utilizzato Rust mentre per il frontend TypeScript. 
 \subsection{Rust}
 Rust è un linguaggio di programmazione moderno, compliato e multi-paradigma, sviluppato da Mozilla Research in collaborazoine con la comunità open-source. Nato con l'obiettivo di coniugare efficienza, sicurezza e affidabilità, Rust si distingue per le sue caratteristiche peculiari:
 \begin{itemize}
@@ -235,15 +220,10 @@ Rust è un linguaggio di programmazione moderno, compliato e multi-paradigma, sv
   \item \textbf{Produttività}: Rust offre un sistema di ownership moderno e un potente sistema di tipi che aiutano a scrivere codice pulito, conciso e robusto.
 \end{itemize}
 
+
 \subsection{TypeScript}
 TypeScript è un superset di JavaScript, ovvero un linguaggio che estende le sue funzionalità con tipi statici, classi, interfacce e moduli opzionali. È stato sviluppato da Microsoft e rilasciato nel 2012, guadagnando rapidamente popolarità nella community di sviluppo web.
 Dei punti chiave di TypeScript sono:
-
-\begin{itemize}
-  \item \textbf{Tipizzazione statica}: TypeScript consente di definire i tipi di dati per variabili e funzioni, migliorando la leggibilità, la manutenibilità e la robustezza del codice. Il compilatore di TypeScript verifica che i tipi vengano utilizzati correttamente, aiutando a prevenire errori durante l'esecuzione.
-  \item \textbf{Maggiori funzionalità}: TypeScript introduce concetti come classi, interfacce e moduli, che facilitano la scrittura di codice strutturato, modulare e scalabile. Queste funzionalità sono particolarmente utili per progetti di grandi dimensioni.
-  \item \textbf{Compilazione in JavaScript}: Il codice TypeScript viene compilato in JavaScript puro, che può essere eseguito da qualsiasi browser o motore JavaScript. Questo significa che è possibile utilizzare TypeScript per sviluppare applicazioni web moderne senza preoccuparsi della compatibilità.
-\end{itemize}
 
 
 \section{Frameworks e librerie}
@@ -258,6 +238,13 @@ Le librerie principali usate in Rust sono:
 \subsection{TypeScript}
 La libreria principale per l'interfaccia grafica è React, una libreria open-source sviluppata da Meta per la creazoine di interfacce utente dinamiche e perfomanti. 
 Permette di costruire UI complesse scomponendole in componenti riutilizzabili, facilidando lo sviluppo e la manutenzoine di applicazioni web.
+
+\begin{itemize}
+  \item \textbf{Tipizzazione statica}: TypeScript consente di definire i tipi di dati per variabili e funzioni, migliorando la leggibilità, la manutenibilità e la robustezza del codice. Il compilatore di TypeScript verifica che i tipi vengano utilizzati correttamente, aiutando a prevenire errori durante l'esecuzione.
+  \item \textbf{Maggiori funzionalità}: TypeScript introduce concetti come classi, interfacce e moduli, che facilitano la scrittura di codice strutturato, modulare e scalabile. Queste funzionalità sono particolarmente utili per progetti di grandi dimensioni.
+  \item \textbf{Compilazione in JavaScript}: Il codice TypeScript viene compilato in JavaScript puro, che può essere eseguito da qualsiasi browser o motore JavaScript. Questo significa che è possibile utilizzare TypeScript per sviluppare applicazioni web moderne senza preoccuparsi della compatibilità.
+\end{itemize}
+
 
 %% Capitolo
 \chapter{Lavoro principale}
