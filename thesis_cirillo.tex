@@ -52,8 +52,8 @@
 %Sed vel lorem a arcu faucibus aliquet eu semper tortor. Aliquam dolor lacus, semper vitae ligula sed, blandit iaculis leo. Nam pharetra lobortis leo nec auctor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce ac risus pulvinar, congue eros non, interdum metus. Mauris tincidunt neque et aliquam imperdiet. Aenean ac tellus id nibh pellentesque pulvinar ut eu lacus. Proin tempor facilisis tortor, et hendrerit purus commodo laoreet. Quisque sed augue id ligula consectetur adipiscing. Vestibulum libero metus, lacinia ac vestibulum eu, varius non arcu. Nam et gravida velit.
 
 %% Sommario (opzionale)
-\abstract
-La crescente complessità delle reti di calcolatori moderne richiede strumenti sofisticati per la loro analisi e gestione. Questa tesi presenta la progettazione e lo sviluppo di un sistema distribuito innovativo, capace di esplorare e mappare in modo efficiente le topologie di reti di grandi dimensioni. Il sistema proposto è in grado di estrarre informazioni significative sulla struttura della rete, identificando pattern, anomalie e potenziali vulnerabilità. L'obiettivo finale è fornire ai network administratori un quadro completo e dettagliato della loro infrastruttura, supportando decisioni informate e ottimizzando le performance della rete.
+%\abstract
+%La crescente complessità delle reti di calcolatori moderne richiede strumenti sofisticati per la loro analisi e gestione. Questa tesi presenta la progettazione e lo sviluppo di un sistema distribuito innovativo, capace di esplorare e mappare in modo efficiente le topologie di reti di grandi dimensioni. Il sistema proposto è in grado di estrarre informazioni significative sulla struttura della rete, identificando pattern, anomalie e potenziali vulnerabilità. L'obiettivo finale è fornire ai network administratori un quadro completo e dettagliato della loro infrastruttura, supportando decisioni informate e ottimizzando le performance della rete.
 
 %% Indice
 \tableofcontents
@@ -87,6 +87,7 @@ L'analisi della topologia di rete è un'attività cruciale per la gestione, la s
 
 \subsection{Scopi e obiettivi della tesi.}
 La tesi ha come scopo principale la progettazione e lo sviluppo di un sistema distribuito innovativo per l'analisi della topologia di reti di calcolatori, che superi i limiti degli strumenti attualmente disponibili, come SNMP (Simple Network Management Protocol) e altri metodi tradizionali.
+\newline
 Obiettivi Specifici:
 \begin{itemize}
   \item Identificazione delle Limitazioni degli Strumenti Esistenti:
@@ -101,17 +102,17 @@ Obiettivi Specifici:
       \item Garantire che il sistema sia scalabile e in grado di gestire grandi reti eterogenee, mantenendo un basso impatto sulle risorse di rete.
     \end{itemize}
     
-  \item Sviluppo di Algoritmi Innovativi:
-    \begin{itemize}
-      \item Progettare e implementare algoritmi avanzati per il rilevamento e l'analisi della topologia, che siano in grado di adattarsi dinamicamente ai cambiamenti della rete.
-      \item Migliorare l'efficienza del sistema, riducendo la latenza e ottimizzando l'uso delle risorse.
-    \end{itemize}
+  %\item Sviluppo di Algoritmi Innovativi:
+  %  \begin{itemize}
+  %    \item Progettare e implementare algoritmi avanzati per il rilevamento e l'analisi della topologia, che siano in grado di adattarsi dinamicamente ai cambiamenti della rete.
+  %    \item Migliorare l'efficienza del sistema, riducendo la latenza e ottimizzando l'uso delle risorse.
+  %  \end{itemize}
 
-  \item Valutazione delle Prestazioni:
-    \begin{itemize}
-      \item Confrontare le prestazioni del sistema proposto con quelle degli strumenti esistenti, utilizzando criteri come accuratezza della mappatura, tempo di risposta, utilizzo delle risorse e sicurezza.
-      \item Testare il sistema in diversi scenari reali per valutarne l'efficacia e identificare eventuali aree di miglioramento.
-    \end{itemize}
+  %\item Valutazione delle Prestazioni:
+  %  \begin{itemize}
+  %    \item Confrontare le prestazioni del sistema proposto con quelle degli strumenti esistenti, utilizzando criteri come accuratezza della mappatura, tempo di risposta, utilizzo delle risorse e sicurezza.
+  %    \item Testare il sistema in diversi scenari reali per valutarne l'efficacia e identificare eventuali aree di miglioramento.
+  %  \end{itemize}
 
 
   \item Contributo alla Comunità Scientifica e Industriale:
@@ -126,7 +127,7 @@ Obiettivi Specifici:
 
 \section{Struttura della Tesi}
 \subsection{Breve panoramica dei capitoli successivi.}
-Questa tesi è organizzata in otto capitoli, ciascuno dei quali affronta aspetti fondamentali dello sviluppo e dell'analisi di un sistema distribuito per l'analisi della topologia di reti di calcolatori. Di seguito viene presentata una panoramica della struttura della tesi.
+Questa tesi è organizzata in x(!TODO) capitoli, ciascuno dei quali affronta aspetti fondamentali dello sviluppo e dell'analisi di un sistema distribuito per l'analisi della topologia di reti di calcolatori. Di seguito viene presentata una panoramica della struttura della tesi.
 
 \begin{itemize}
   \item Capitolo 1: Introduzione
@@ -140,33 +141,33 @@ Questa tesi è organizzata in otto capitoli, ciascuno dei quali affronta aspetti
     \end{itemize}
 
 
-  \item Capitolo 3: Problemi Identificati
-    \begin{itemize}
-      \item In questo capitolo vengono discussi in dettaglio i problemi principali che emergono dall'utilizzo degli strumenti esistenti per l'analisi della topologia di rete. Vengono identificati e descritti i limiti in termini di accuratezza, scalabilità, latenza, efficienza, sicurezza e privacy.
-    \end{itemize}
+  %\item Capitolo 3: Problemi Identificati
+  %  \begin{itemize}
+  %    \item In questo capitolo vengono discussi in dettaglio i problemi principali che emergono dall'utilizzo degli strumenti esistenti per l'analisi della topologia di rete. Vengono identificati e descritti i limiti in termini di accuratezza, scalabilità, latenza, efficienza, sicurezza e privacy.
+  %  \end{itemize}
 
 
-  \item    Capitolo 4: Requisiti per un Nuovo Sistema
+  \item    Capitolo 3: Requisiti per un Nuovo Sistema
     \begin{itemize}
       \item Questo capitolo delinea gli obiettivi e i requisiti di un sistema distribuito innovativo, progettato per superare i limiti degli strumenti esistenti. Viene presentata un'architettura distribuita proposta, insieme ai meccanismi e alle strategie necessari per un'efficace raccolta e analisi dei dati di rete.
     \end{itemize}
 
-  \item Capitolo 5: Progettazione del Sistema Proposto
+  \item Capitolo 4: Progettazione del Sistema Proposto
     \begin{itemize}
-      \item Il quinto capitolo descrive in dettaglio l'architettura del sistema proposto, i protocolli di comunicazione utilizzati, gli algoritmi sviluppati per l'analisi della topologia e le misure di sicurezza adottate. Viene fornita una descrizione tecnica della progettazione del sistema, enfatizzando le soluzioni innovative implementate.
+      \item Il quarto capitolo descrive in dettaglio l'architettura del sistema proposto, i protocolli di comunicazione utilizzati, gli algoritmi sviluppati per l'analisi della topologia e le misure di sicurezza adottate. Viene fornita una descrizione tecnica della progettazione del sistema, enfatizzando le soluzioni innovative implementate.
     \end{itemize}
 
-  \item Capitolo 6: Implementazione
+  \item Capitolo 5: Implementazione
     \begin{itemize}
       \item In questo capitolo viene descritta l'implementazione pratica del sistema proposto. Viene esaminata la scelta delle tecnologie utilizzate, il processo di sviluppo del prototipo e i test effettuati per validare il sistema. Sono inoltre inclusi dettagli sull'integrazione delle diverse componenti.
     \end{itemize}
 
-  \item Capitolo 7: Valutazione delle Prestazioni
+  \item Capitolo 6: Valutazione delle Prestazioni
     \begin{itemize}
-      \item Il settimo capitolo presenta una valutazione delle prestazioni del sistema sviluppato, confrontandolo con gli strumenti esistenti. Vengono analizzati i risultati dei test effettuati in vari scenari, evidenziando i punti di forza e le possibili aree di miglioramento del sistema proposto.
+      \item Il sesto capitolo presenta una valutazione delle prestazioni del sistema sviluppato, confrontandolo con gli strumenti esistenti. Vengono analizzati i risultati dei test effettuati in vari scenari, evidenziando i punti di forza e le possibili aree di miglioramento del sistema proposto.
     \end{itemize}
 
-  \item Capitolo 8: Conclusioni e Lavori Futuri
+  \item Capitolo 7: Conclusioni e Lavori Futuri
     \begin{itemize}
       \item L'ultimo capitolo riassume i principali risultati ottenuti nel corso della tesi, riflettendo sui limiti della soluzione proposta e suggerendo direzioni future per la ricerca e lo sviluppo in questo campo.
     \end{itemize}
@@ -308,15 +309,10 @@ Le limitazioni in termini di scalabilità e accuratezza hanno implicazioni signi
 
 
 
-
-
-
-
-\section{Premessa}
-Questo capitolo è dedicato alla specificazione della architettura generale del sistema prima delle modifiche 
-
-\section{Architettura}
-Il sistema è composto da una architettura client-server nella quale il backend si occupa di fare le scansioni e di salvarne i risultati e di fornirli al frontend dove possono essere visualizzati dagli utenti dovrebbero interagire solo con esso. 
+\chapter{Progettazione del Sistema}
+\section{Architettura del Sistema}
+\subsection{Descrizione dettagliata dell'architettura distribuita}
+Il sistema è composto da una architettura client-server nella quale il backend si occupa di fare le scansioni, di salvarne i risultati e di fornirli al frontend dove possono essere visualizzati dagli utenti dovrebbero interagire solo con esso. 
 
 
 \begin{figure}[h]
@@ -336,9 +332,9 @@ Per organizzazione e scalabilità abbiamo diviso l'architettura in 6 moduli prin
 
 \FloatBarrier
 
-\subsection{Scan Probes}
-\textbf{Scan Probes} sono moduli che vengono collocati in giro per la rete a raccogliere informazoini. 
-Ricevuto un comando il probe lo interpreta, esegue l'opportuna scansione e deserializza il 'output dello scan.
+\subsubsection{Scan Probes}
+Gli Scan Probes sono moduli che vengono collocati in giro per la rete a raccogliere informazioni. 
+Ricevuto un comando il probe lo interpreta, esegue l'opportuna scansione e deserializza l'output dello scan.
 
 
 \begin{figure}[h]
@@ -348,8 +344,8 @@ Ricevuto un comando il probe lo interpreta, esegue l'opportuna scansione e deser
 \FloatBarrier
 
 
-\subsection{Dispatcher} 
-Il \textbf{Dispatcher} è il modulo che controlla e coordina le operazioni necessarie per le esecuzioni delle scansioni.
+\subsubsection{Dispatcher} 
+Il Dispatcher è il modulo che controlla e coordina le operazioni necessarie per le esecuzioni delle scansioni.
 Riceve un comando dal Frontend che viene interpretato e mandato allo Scheduler che interagisce con l'Executer ed il Merger per eseguire la scansione e salvarla.
 
 \begin{figure}[h]
@@ -359,8 +355,8 @@ Riceve un comando dal Frontend che viene interpretato e mandato allo Scheduler c
 
 \FloatBarrier
 
-\subsection{Executer} 
-L'\textbf{Executer} riceve un comando dallo scheduler e coordina gli Scan Probes nell'esecuzione della scansione per poi accumulare i loro risultati e mandarli al Knowledge Base Connector.
+\subsubsection{Executer} 
+L'Executer riceve un comando dallo Scheduler e coordina gli Scan Probes nell'esecuzione della scansione tramite un broker di messaggi idoneo. I risultati delle scansioni vengono poi salvati nel Network Knowledge Base.
 
 \begin{figure}[h]
   \includegraphics[width=14cm, height=8cm]{executer}
@@ -369,16 +365,27 @@ L'\textbf{Executer} riceve un comando dallo scheduler e coordina gli Scan Probes
 
 \FloatBarrier
 
-\newpage
+%/newpage
 
-\subsection{Merger}
-Il \textbf{Merger} si occupa di ricevere i dati generati dai Scan Probes ed amalgamarli per creare un'immagine comprensibile della rete analizzata. 
+\subsubsection{Network Knowledge Base} 
+Il Network Knowledge Base è la componente dove vengono salvati tutti i dati delle scansioni in modo persistente e che permette la visualizzazione di uno storico delle precedenti analisi.
+
+\FloatBarrier
+
+\subsubsection{Merger}
+Il Merger si occupa di ricevere i dati generati dai Scan Probes ed amalgamarli per creare un'immagine comprensibile della rete analizzata. 
 
 
 \begin{figure}[h]
   \includegraphics[width=14cm, height=8cm]{merger}
   \centering
 \end{figure}
+
+\FloatBarrier
+
+
+\subsubsection{GUI} 
+La GUI (Graphical User Interface) è un'interfaccia grafica che viene provvista a gli amministratori di rete per richiedere scansioni e visualizzarne i risultati.
 
 \FloatBarrier
 
