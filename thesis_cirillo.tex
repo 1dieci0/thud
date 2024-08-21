@@ -132,12 +132,12 @@ Questa tesi è organizzata in x(!TODO) capitoli, ciascuno dei quali affronta asp
 \begin{itemize}
   \item Capitolo 1: Introduzione
   \begin{itemize}
-    \item Questo capitolo introduce il tema centrale della tesi, evidenziando l'importanza dell'analisi della topologia di rete. Vengono inoltre delineati gli scopi e gli obiettivi del lavoro, insieme alla struttura generale della tesi.
+    \item[] Questo capitolo introduce il tema centrale della tesi, evidenziando l'importanza dell'analisi della topologia di rete. Vengono inoltre delineati gli scopi e gli obiettivi del lavoro, insieme alla struttura generale della tesi.
   \end{itemize}
 
   \item Capitolo 2: Stato dell'Arte
     \begin{itemize}
-      \item Nel secondo capitolo vengono esaminati i concetti fondamentali di topologia di rete e vengono descritti i metodi comuni utilizzati per la sua analisi. Viene inoltre condotta un'analisi critica degli strumenti attualmente disponibili, con particolare attenzione ai loro limiti e alle carenze, soprattutto riguardo a SNMP.
+      \item[] Nel secondo capitolo vengono esaminati i concetti fondamentali di topologia di rete e vengono descritti i metodi comuni utilizzati per la sua analisi. Viene inoltre condotta un'analisi critica degli strumenti attualmente disponibili, con particolare attenzione ai loro limiti e alle carenze, soprattutto riguardo a SNMP.
     \end{itemize}
 
 
@@ -149,27 +149,27 @@ Questa tesi è organizzata in x(!TODO) capitoli, ciascuno dei quali affronta asp
 
   \item    Capitolo 3: Requisiti per un Nuovo Sistema
     \begin{itemize}
-      \item Questo capitolo delinea gli obiettivi e i requisiti di un sistema distribuito innovativo, progettato per superare i limiti degli strumenti esistenti. Viene presentata un'architettura distribuita proposta, insieme ai meccanismi e alle strategie necessari per un'efficace raccolta e analisi dei dati di rete.
+      \item[] Questo capitolo delinea gli obiettivi e i requisiti di un sistema distribuito innovativo, progettato per superare i limiti degli strumenti esistenti. Viene presentata un'architettura distribuita proposta, insieme ai meccanismi e alle strategie necessari per un'efficace raccolta e analisi dei dati di rete.
     \end{itemize}
 
   \item Capitolo 4: Progettazione del Sistema Proposto
     \begin{itemize}
-      \item Il quarto capitolo descrive in dettaglio l'architettura del sistema proposto, i protocolli di comunicazione utilizzati, gli algoritmi sviluppati per l'analisi della topologia e le misure di sicurezza adottate. Viene fornita una descrizione tecnica della progettazione del sistema, enfatizzando le soluzioni innovative implementate.
+      \item[] Il quarto capitolo descrive in dettaglio l'architettura del sistema proposto, i protocolli di comunicazione utilizzati, gli algoritmi sviluppati per l'analisi della topologia e le misure di sicurezza adottate. Viene fornita una descrizione tecnica della progettazione del sistema, enfatizzando le soluzioni innovative implementate.
     \end{itemize}
 
   \item Capitolo 5: Implementazione
     \begin{itemize}
-      \item In questo capitolo viene descritta l'implementazione pratica del sistema proposto. Viene esaminata la scelta delle tecnologie utilizzate, il processo di sviluppo del prototipo e i test effettuati per validare il sistema. Sono inoltre inclusi dettagli sull'integrazione delle diverse componenti.
+      \item[] In questo capitolo viene descritta l'implementazione pratica del sistema proposto. Viene esaminata la scelta delle tecnologie utilizzate, il processo di sviluppo del prototipo e i test effettuati per validare il sistema. Sono inoltre inclusi dettagli sull'integrazione delle diverse componenti.
     \end{itemize}
 
   \item Capitolo 6: Valutazione delle Prestazioni
     \begin{itemize}
-      \item Il sesto capitolo presenta una valutazione delle prestazioni del sistema sviluppato, confrontandolo con gli strumenti esistenti. Vengono analizzati i risultati dei test effettuati in vari scenari, evidenziando i punti di forza e le possibili aree di miglioramento del sistema proposto.
+      \item[] Il sesto capitolo presenta una valutazione delle prestazioni del sistema sviluppato, confrontandolo con gli strumenti esistenti. Vengono analizzati i risultati dei test effettuati in vari scenari, evidenziando i punti di forza e le possibili aree di miglioramento del sistema proposto.
     \end{itemize}
 
   \item Capitolo 7: Conclusioni e Lavori Futuri
     \begin{itemize}
-      \item L'ultimo capitolo riassume i principali risultati ottenuti nel corso della tesi, riflettendo sui limiti della soluzione proposta e suggerendo direzioni future per la ricerca e lo sviluppo in questo campo.
+      \item[] L'ultimo capitolo riassume i principali risultati ottenuti nel corso della tesi, riflettendo sui limiti della soluzione proposta e suggerendo direzioni future per la ricerca e lo sviluppo in questo campo.
     \end{itemize}
 
 \end{itemize}
@@ -180,38 +180,35 @@ Questa tesi è organizzata in x(!TODO) capitoli, ciascuno dei quali affronta asp
 \section{Analisi della Topologia di Rete}
 \subsection{Metodi comuni di analisi della topologia.}
 L'analisi della topologia di rete implica l'identificazione, la mappatura e la valutazione della struttura della rete, al fine di ottimizzarne il funzionamento e la gestione. Ecco i metodi più comuni utilizzati per questa analisi:
-\begin{itemize}
-  \item SNMP (Simple Network Management Protocol):
+\subsubsection{SNMP (Simple Network Management Protocol):}
     \begin{itemize}
       \item Descrizione: SNMP è un protocollo standardizzato per la gestione e il monitoraggio dei dispositivi di rete. Utilizzato per raccogliere informazioni sulla configurazione e lo stato dei dispositivi di rete, come router e switch.
       \item Vantaggi: Facilità d'uso, ampiamente supportato dai dispositivi di rete, consente di monitorare e gestire una vasta gamma di informazioni.
       \item Svantaggi: Limitato nella capacità di rilevare dinamicamente i cambiamenti nella topologia, difficoltà nell'analizzare reti complesse o eterogenee, problemi di scalabilità.
     \end{itemize}
 
-  \item Traceroute:
+\subsubsection{Traceroute:}
     \begin{itemize}
       \item Descrizione: Traceroute è uno strumento diagnostico che mostra il percorso che i pacchetti di dati seguono attraverso una rete IP verso una destinazione specifica, identificando tutti i router attraversati.
       \item Vantaggi: Utile per diagnosticare problemi di rete e identificare i percorsi dei dati tra dispositivi.
       \item Svantaggi: Limitato alle reti IP, non fornisce una visione completa della topologia, può essere bloccato da firewall o altri dispositivi di sicurezza.
     \end{itemize}
 
-    \item NetFlow/IPFIX:
+\subsubsection{NetFlow/IPFIX:}
     \begin{itemize}
       \item Descrizione: NetFlow (e la sua evoluzione IPFIX) è un protocollo sviluppato da Cisco per raccogliere informazioni sui flussi di dati che attraversano un router o uno switch. Fornisce dettagli sulle conversazioni di rete tra dispositivi.
       \item Vantaggi: Permette di monitorare il traffico di rete in dettaglio, utile per analisi del traffico e rilevamento di anomalie.
       \item Svantaggi: Non fornisce direttamente una mappa della topologia, ma piuttosto informazioni sui flussi di traffico, richiede una notevole capacità di elaborazione e archiviazione dei dati.
     \end{itemize}
 
-  \item LLDP (Link Layer Discovery Protocol):
+\subsubsection{LLDP (Link Layer Discovery Protocol):}
     \begin{itemize}
       \item Descrizione: LLDP è un protocollo di livello datalink utilizzato per scoprire dispositivi vicini e condividere informazioni sulla loro configurazione.
       \item Vantaggi: Consente la scoperta automatica dei dispositivi connessi alla rete e facilita la gestione della rete.
       \item Svantaggi: Limitato al livello 2 (livello di collegamento dati) della pila OSI, quindi non fornisce una visione completa della topologia a livello IP o superiore.
     \end{itemize}
 
-\end{itemize}
-
-Questi metodi offrono diverse prospettive sull'analisi della topologia di rete, ognuno con i propri punti di forza e debolezze. Tuttavia, nessuno di essi, preso singolarmente, offre una soluzione completa per l'analisi della topologia di reti complesse e dinamiche, evidenziando la necessità di strumenti più avanzati e integrati.
+\noindent Questi metodi offrono diverse prospettive sull'analisi della topologia di rete, ognuno con i propri punti di forza e debolezze. Tuttavia, nessuno di essi, preso singolarmente, offre una soluzione completa per l'analisi della topologia di reti complesse e dinamiche, evidenziando la necessità di strumenti più avanzati e integrati.
 
 \subsection{Problemi dell'utilizzo di SNMP per l'Analisi della Topologia}
 SNMP (Simple Network Management Protocol) è uno dei protocolli più utilizzati per il monitoraggio e la gestione delle reti, ma presenta diversi limiti significativi quando viene utilizzato per l'analisi della topologia di rete. Di seguito vengono analizzati i principali problemi associati all'uso di SNMP in questo contesto.
@@ -257,57 +254,20 @@ SNMP (Simple Network Management Protocol) è uno dei protocolli più utilizzati 
 \end{itemize}
 
 
-\subsection{Limiti di Scalabilità e Accuratezza degli Strumenti Esistenti}
-Gli strumenti attualmente utilizzati per l'analisi della topologia di rete presentano diverse limitazioni in termini di scalabilità e accuratezza. Questi limiti sono particolarmente rilevanti quando si tratta di gestire reti di grandi dimensioni o altamente dinamiche. Di seguito vengono analizzati i principali problemi legati alla scalabilità e all'accuratezza degli strumenti esistenti.
+\chapter{Soluzione proposta}
+Il sistema che propongo per l'analisi della topologia di rete è basato su un'architettura distribuita che sfrutta un insieme di probes (sonde) per scansionare contemporaneamente diverse sezioni della rete. Ogni probe utilizza Nmap per raccogliere informazioni dettagliate, che vengono poi aggregate in un database centralizzato. Questo approccio consente di ottenere una visione completa e accurata della topologia di rete, superando i limiti di scalabilità e accuratezza degli strumenti tradizionali.
 
-\subsubsection{Limiti di Scalabilità}
-La scalabilità è una delle sfide più importanti quando si gestiscono reti in crescita. Molti degli strumenti attuali non sono progettati per operare efficacemente in ambienti su larga scala.
+Nell'architettura proposta, le probes sono distribuite strategicamente all'interno della rete, con ciascuna di esse responsabile di una specifica area. Operando simultaneamente, le probes eseguono scansioni parallele, raccogliendo dati sui dispositivi di rete, sulle connessioni e sui servizi attivi. I dati raccolti vengono inviati a un database centralizzato, dove vengono normalizzati e aggregati per creare una mappa coerente e dettagliata della rete. L'architettura include anche un sistema di visualizzazione interattivo che permette agli amministratori di esplorare la topologia in tempo reale, monitorando le modifiche e aggiornando continuamente le informazioni.
 
-Overhead di Gestione:
-\begin{itemize}
-  \item SNMP: Come già discusso, SNMP si basa su un sistema di polling, dove il sistema di gestione interroga periodicamente i dispositivi di rete per raccogliere dati. In reti estese, questo approccio può generare un considerevole traffico di gestione, aumentando il carico sia sulla rete che sui dispositivi. L'aumento del numero di dispositivi comporta una crescita esponenziale delle richieste SNMP, riducendo l'efficienza complessiva del sistema.
-  \item Traceroute: In reti molto grandi, l'utilizzo di Traceroute per mappare i percorsi tra tutti i nodi può diventare impraticabile, poiché il numero di possibili percorsi cresce rapidamente. Questo può comportare tempi di esecuzione estremamente lunghi e risultati incompleti.
-\end{itemize}
-Capacità di Elaborazione:
-\begin{itemize}
-  \item NetFlow e IPFIX: Questi strumenti generano un'enorme quantità di dati, soprattutto in reti su larga scala. L'elaborazione di tali volumi richiede notevoli risorse di calcolo e storage. Man mano che la rete cresce, la capacità di elaborare questi dati in modo tempestivo diventa una sfida, limitando la scalabilità di questi strumenti.
-  \item SDN (Software-Defined Networking): Anche se SDN offre flessibilità e centralizzazione, la gestione di una rete SDN su larga scala richiede controller molto potenti e una rete di back-end robusta. La crescita della rete può portare a colli di bottiglia nel controller centrale, compromettendo le prestazioni e la scalabilità del sistema.
-\end{itemize}
-Interoperabilità e Standardizzazione:
-\begin{itemize}
-  \item Strumenti Proprietari: Molti strumenti di gestione della rete sono sviluppati da specifici vendor e sono ottimizzati per funzionare con dispositivi dello stesso produttore. Questo può limitare la loro scalabilità in ambienti di rete eterogenei, dove sono presenti dispositivi di diversi vendor. La mancanza di standardizzazione impedisce l'integrazione efficace di strumenti diversi, limitando la capacità di espandere e gestire la rete in modo coerente.
-\end{itemize}
+Uno dei principali vantaggi di questo sistema è la sua scalabilità. A differenza degli approcci centralizzati, che possono soffrire di colli di bottiglia man mano che la rete cresce, l'uso di probes distribuite consente di gestire efficacemente anche le reti più estese. L'elaborazione parallela delle scansioni riduce il tempo necessario per mappare l'intera rete, distribuendo il carico di lavoro e prevenendo sovraccarichi sui singoli dispositivi.
 
-\subsubsection{Limiti di Accuratezza}
-L'accuratezza nell'analisi della topologia di rete è cruciale per garantire che le decisioni di gestione siano basate su informazioni corrette e aggiornate. Tuttavia, gli strumenti esistenti presentano diverse limitazioni in questo ambito.
+Un altro vantaggio significativo riguarda l'accuratezza dei dati raccolti. Poiché ogni probe ha una visione dettagliata della porzione di rete che le è assegnata, il sistema garantisce una copertura completa e precisa della topologia. Inoltre, il processo di aggregazione centralizzato consente di risolvere eventuali discrepanze nei dati e di eliminare le ridondanze, fornendo una rappresentazione accurata e aggiornata della rete.
 
-Informazioni Parziali:
-\begin{itemize}
-  \item SNMP: SNMP fornisce una visione limitata e parziale della topologia di rete, focalizzandosi principalmente sui dati dei singoli dispositivi piuttosto che sulle connessioni tra di essi. Questo può portare a una rappresentazione incompleta della rete, dove le relazioni tra i nodi non sono chiaramente definite.
-  \item LLDP (Link Layer Discovery Protocol): Sebbene LLDP possa fornire informazioni sui dispositivi direttamente collegati, la sua capacità di mappare l'intera topologia è limitata. LLDP non offre una visione globale della rete, ma solo uno spaccato locale, rendendo difficile ottenere un'accurata mappa della topologia su larga scala.
+L'architettura proposta offre anche maggiore resilienza rispetto ai sistemi tradizionali. Se una o più probes dovessero fallire, il sistema può continuare a funzionare con le probes rimanenti, garantendo la continuità operativa. Inoltre, il sistema è altamente flessibile: può essere facilmente adattato per includere nuove probes o per modificare l'area di scansione di quelle esistenti, rendendolo capace di rispondere rapidamente ai cambiamenti nella rete.
 
-\end{itemize}
-  Ritardi nella Rilevazione dei Cambiamenti:
-\begin{itemize}
-  \item SNMP e Polling Basato su Eventi: L'approccio basato su polling utilizzato da SNMP introduce ritardi nella rilevazione dei cambiamenti nella rete. In ambienti dove la topologia è in costante mutamento, come nelle reti virtualizzate o nelle infrastrutture cloud, questi ritardi possono significare che la mappa della rete è spesso obsoleta e non riflette la configurazione corrente.
-  \item Tecniche di Scansione (es. Nmap): Gli strumenti di scansione come Nmap forniscono un'istantanea della rete al momento della scansione. Tuttavia, in reti dinamiche, questa istantanea può diventare rapidamente non rappresentativa della realtà, poiché nuovi dispositivi possono essere aggiunti o rimossi, o le configurazioni possono cambiare tra una scansione e l'altra.
-\end{itemize}
-Limitazioni nei Dati di Livello Inferiore:
-\begin{itemize}
-  \item Assenza di Dettagli di Livello 2: Molti strumenti di analisi della topologia si concentrano principalmente sui dati di livello 3 (IP), trascurando informazioni cruciali di livello 2 (Ethernet), come VLAN e configurazioni switch. Questa mancanza di dettagli può compromettere l'accuratezza della mappa della rete, soprattutto in reti complesse con segmentazioni logiche avanzate.
-  \item Rilevazione Incompleta dei Collegamenti: Strumenti come SNMP e Traceroute non sempre rilevano correttamente tutti i collegamenti tra i dispositivi, specialmente in presenza di reti virtualizzate o tecnologie di tunneling, portando a mappe topologiche incomplete o errate.
+Dal punto di vista della sicurezza, il sistema è progettato per ridurre al minimo l'esposizione a potenziali attacchi. I dati raccolti vengono trasmessi al database centrale utilizzando canali sicuri e crittografati, proteggendo le informazioni sensibili da eventuali intercettazioni.
 
-\end{itemize}
-
-\subsubsection{Implicazioni dei Limiti di Scalabilità e Accuratezza}
-Le limitazioni in termini di scalabilità e accuratezza hanno implicazioni significative per la gestione delle reti:
-\begin{itemize}
-  \item Rischi Operativi: Una mappa della rete incompleta o non aggiornata può portare a decisioni di gestione errate, aumentando il rischio di downtime, vulnerabilità di sicurezza e problemi di prestazioni.
-  \item Aumento dei Costi: La necessità di risorse aggiuntive per gestire e analizzare i dati della rete, specialmente quando gli strumenti non sono in grado di scalare in modo efficiente, può comportare un aumento significativo dei costi operativi.
-  \item Impossibilità di Adattarsi a Reti Moderne: Le reti moderne richiedono strumenti che possano scalare rapidamente e fornire dati accurati in tempo reale. Gli strumenti esistenti, con i loro limiti, spesso non riescono a soddisfare queste esigenze, rendendo difficile per le organizzazioni mantenere una gestione efficace delle loro infrastrutture di rete.
-\end{itemize}
-
-
+In sintesi, l'architettura distribuita proposta rappresenta un significativo miglioramento rispetto agli strumenti tradizionali di analisi della topologia di rete. Essa combina scalabilità, accuratezza, resilienza e sicurezza, offrendo una soluzione completa per la mappatura e il monitoraggio delle reti moderne.
 
 \chapter{Progettazione del Sistema}
 \section{Architettura del Sistema}
@@ -392,7 +352,7 @@ La GUI (Graphical User Interface) è un'interfaccia grafica che viene provvista 
 \chapter{Implementazione}
 
 \section{Identificazione univoca dei probe}
-Per distinguire i probe abbiamo deciso di utilizzare il loro indirizzo MAC (Medium Access Controll)ovvero un indirizzo di 12 caratteri alfanumerici (es. 00:11:22:33:44:55) che viene assegnato ad ogni dispositivo di rete e indentifica in modo univoco la scheda di rete del dispositivo.
+Per distinguire i probe abbiamo deciso di utilizzare il loro indirizzo MAC (Medium Access Controll) ovvero un indirizzo di 12 caratteri alfanumerici (es. 00:11:22:33:44:55) che viene assegnato ad ogni dispositivo di rete e indentifica in modo univoco la scheda di rete del dispositivo.
 
 \section{Parsing XML}
 Lo scan di NMAP ritorna uno stream di dati in XML molto grande ed aspettare che l'intero stream di dati finisca per poi effettuare il parsing può essere pericoloso (es. va via la corrente e si perdono ore di computazione). Analizzando la struttura del XML che viene generato da NMAP tramite l'apposito DTD (Document Type Definition) abbiamo dedotto che fare un parsing incrementale su ogni tag host è la soluzione più ottimale per diminuire possibili problemi.
