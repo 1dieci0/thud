@@ -139,19 +139,12 @@ Questa tesi è organizzata in x(!TODO) capitoli, ciascuno dei quali affronta asp
       \item[] Nel secondo capitolo vengono esaminati i concetti fondamentali di topologia di rete e vengono descritti i metodi comuni utilizzati per la sua analisi. Viene inoltre condotta un'analisi critica degli strumenti attualmente disponibili, con particolare attenzione ai loro limiti e alle carenze, soprattutto riguardo a SNMP.
     \end{itemize}
 
-
-  %\item Capitolo 3: Problemi Identificati
-  %  \begin{itemize}
-  %    \item In questo capitolo vengono discussi in dettaglio i problemi principali che emergono dall'utilizzo degli strumenti esistenti per l'analisi della topologia di rete. Vengono identificati e descritti i limiti in termini di accuratezza, scalabilità, latenza, efficienza, sicurezza e privacy.
-  %  \end{itemize}
-
-
-  \item    Capitolo 3: Requisiti per un Nuovo Sistema
+  \item    Capitolo 3: Soluzione Proposta
     \begin{itemize}
-      \item[] Questo capitolo delinea gli obiettivi e i requisiti di un sistema distribuito innovativo, progettato per superare i limiti degli strumenti esistenti. Viene presentata un'architettura distribuita proposta, insieme ai meccanismi e alle strategie necessari per un'efficace raccolta e analisi dei dati di rete.
+      \item[] In questo capitolo viene descritto il sistema proposto per l'analisi e la topologia di rete che vogliamo progettare evidenziando possibili vantaggi che altri strumenti come SNMP non possiedono.
     \end{itemize}
 
-  \item Capitolo 4: Progettazione del Sistema Proposto
+  \item Capitolo 4: Progettazione del Sistema
     \begin{itemize}
       \item[] Il quarto capitolo descrive in dettaglio l'architettura del sistema proposto, i protocolli di comunicazione utilizzati, gli algoritmi sviluppati per l'analisi della topologia e le misure di sicurezza adottate. Viene fornita una descrizione tecnica della progettazione del sistema, enfatizzando le soluzioni innovative implementate.
     \end{itemize}
@@ -161,14 +154,14 @@ Questa tesi è organizzata in x(!TODO) capitoli, ciascuno dei quali affronta asp
       \item[] In questo capitolo viene descritta l'implementazione pratica del sistema proposto. Viene esaminata la scelta delle tecnologie utilizzate, il processo di sviluppo del prototipo e i test effettuati per validare il sistema. Sono inoltre inclusi dettagli sull'integrazione delle diverse componenti.
     \end{itemize}
 
-  \item Capitolo 6: Valutazione delle Prestazioni
+  \item Capitolo 6: Lavoro principale 
     \begin{itemize}
-      \item[] Il sesto capitolo presenta una valutazione delle prestazioni del sistema sviluppato, confrontandolo con gli strumenti esistenti. Vengono analizzati i risultati dei test effettuati in vari scenari, evidenziando i punti di forza e le possibili aree di miglioramento del sistema proposto.
+      \item[] Il sesto capitolo presenta una descrizione dei miei contributi specifici che ho apportato al progetto evidenziando come abbia affrontato varie sfide tecniche e collaborato con il team per migliorare l'architettura.
     \end{itemize}
 
-  \item Capitolo 7: Conclusioni e Lavori Futuri
+  \item Capitolo 7: Conclusioni
     \begin{itemize}
-      \item[] L'ultimo capitolo riassume i principali risultati ottenuti nel corso della tesi, riflettendo sui limiti della soluzione proposta e suggerendo direzioni future per la ricerca e lo sviluppo in questo campo.
+      \item[] L'ultimo capitolo riflette sul mio percorso personale durante lo sviluppo del progetto sottolineando l'importanza della collaborazione e del lavoro di squadra nel raggiungimento dei risultati ottenuti. 
     \end{itemize}
 
 \end{itemize}
@@ -254,15 +247,15 @@ SNMP (Simple Network Management Protocol) è uno dei protocolli più utilizzati 
 
 
 \chapter{Soluzione proposta}
-Il sistema che propongo per l'analisi della topologia di rete è basato su un'architettura distribuita che sfrutta un insieme di probes (sonde) per scansionare contemporaneamente diverse sezioni della rete. Ogni probe utilizza Nmap per raccogliere informazioni dettagliate, che vengono poi aggregate in un database centralizzato. Questo approccio consente di ottenere una visione completa e accurata della topologia di rete, superando i limiti di scalabilità e accuratezza degli strumenti tradizionali.
+Il sistema proposto per l'analisi della topologia di rete è basato su un'architettura distribuita che sfrutta un insieme di probes (sonde) per scansionare contemporaneamente diverse sezioni della rete. Ogni probe utilizza Nmap per raccogliere informazioni dettagliate, che vengono poi aggregate in un database centralizzato. Questo approccio consente di ottenere una visione completa e accurata della topologia di rete, superando i limiti di scalabilità e accuratezza degli strumenti tradizionali.
 
-Nell'architettura proposta, le probes sono distribuite strategicamente all'interno della rete, con ciascuna di esse responsabile di una specifica area. Operando simultaneamente, le probes eseguono scansioni parallele, raccogliendo dati sui dispositivi di rete, sulle connessioni e sui servizi attivi. I dati raccolti vengono inviati a un database centralizzato, dove vengono normalizzati e aggregati per creare una mappa coerente e dettagliata della rete. L'architettura include anche un sistema di visualizzazione interattivo che permette agli amministratori di esplorare la topologia in tempo reale, monitorando le modifiche e aggiornando continuamente le informazioni.
+Nell'architettura proposta, i probes sono distribuiti strategicamente all'interno della rete, con ciascuno di essi responsabile di una specifica area. Operando simultaneamente, i probes eseguono scansioni parallele, raccogliendo dati sui dispositivi di rete, sulle connessioni e sui servizi attivi. I dati raccolti vengono inviati a un database centralizzato, dove vengono normalizzati e aggregati per creare una mappa coerente e dettagliata della rete. L'architettura include anche un sistema di visualizzazione interattivo che permette agli amministratori di esplorare la topologia in tempo reale, monitorando le modifiche e aggiornando continuamente le informazioni.
 
-Uno dei principali vantaggi di questo sistema è la sua scalabilità. A differenza degli approcci centralizzati, che possono soffrire di colli di bottiglia man mano che la rete cresce, l'uso di probes distribuite consente di gestire efficacemente anche le reti più estese. L'elaborazione parallela delle scansioni riduce il tempo necessario per mappare l'intera rete, distribuendo il carico di lavoro e prevenendo sovraccarichi sui singoli dispositivi.
+Uno dei principali vantaggi di questo sistema è la sua scalabilità. A differenza degli approcci centralizzati, che possono soffrire di colli di bottiglia man mano che la rete cresce, l'uso di probes distribuiti consente di gestire efficacemente anche le reti più estese. L'elaborazione parallela delle scansioni riduce il tempo necessario per mappare l'intera rete, distribuendo il carico di lavoro e prevenendo sovraccarichi sui singoli dispositivi.
 
-Un altro vantaggio significativo riguarda l'accuratezza dei dati raccolti. Poiché ogni probe ha una visione dettagliata della porzione di rete che le è assegnata, il sistema garantisce una copertura completa e precisa della topologia. Inoltre, il processo di aggregazione centralizzato consente di risolvere eventuali discrepanze nei dati e di eliminare le ridondanze, fornendo una rappresentazione accurata e aggiornata della rete.
+Un altro vantaggio significativo riguarda l'accuratezza dei dati raccolti. Poiché ogni probe ha una visione dettagliata della porzione di rete che gli è assegnato, il sistema garantisce una copertura completa e precisa della topologia. Inoltre, il processo di aggregazione centralizzato consente di risolvere eventuali discrepanze nei dati e di eliminare le ridondanze, fornendo una rappresentazione accurata e aggiornata della rete.
 
-L'architettura proposta offre anche maggiore resilienza rispetto ai sistemi tradizionali. Se una o più probes dovessero fallire, il sistema può continuare a funzionare con le probes rimanenti, garantendo la continuità operativa. Inoltre, il sistema è altamente flessibile: può essere facilmente adattato per includere nuove probes o per modificare l'area di scansione di quelle esistenti, rendendolo capace di rispondere rapidamente ai cambiamenti nella rete.
+L'architettura proposta offre anche maggiore resilienza rispetto ai sistemi tradizionali. Se uno o più probes dovessero fallire, il sistema può continuare a funzionare con i probes rimanenti, garantendo la continuità operativa. Inoltre, il sistema è altamente flessibile: può essere facilmente adattato per includere nuovi probes o per modificare l'area di scansione di quelle esistenti, rendendolo capace di rispondere rapidamente ai cambiamenti nella rete.
 
 Dal punto di vista della sicurezza, il sistema è progettato per ridurre al minimo l'esposizione a potenziali attacchi. I dati raccolti vengono trasmessi al database centrale utilizzando canali sicuri e crittografati, proteggendo le informazioni sensibili da eventuali intercettazioni.
 
@@ -353,24 +346,31 @@ Per l'implementazione del sistema proposto, abbiamo scelto tecnologie moderne e 
 
 \begin{itemize}
 
-  \item Linguaggio di Programmazione e Librerie L'intero core del sistema è stato sviluppato in Rust, un linguaggio noto per le sue elevate prestazioni e sicurezza nella gestione della memoria. Rust è stato scelto per la sua capacità di gestire in modo efficiente operazioni parallele e concorrenti, essenziali per il funzionamento delle probes distribuite. Le principali librerie utilizzate includono:
+  \item \subsubsection{Linguaggio di Programmazione e Librerie}
+    L'intero core del sistema è stato sviluppato in Rust, un linguaggio noto per le sue elevate prestazioni e sicurezza nella gestione della memoria. Rust è stato scelto per la sua capacità di gestire in modo efficiente operazioni parallele e concorrenti, essenziali per il funzionamento dei probes distribuiti. Le principali librerie utilizzate includono:
   \begin{itemize}
-    \item Serde: Utilizzata per la serializzazione e deserializzazione dei dati, facilitando la conversione tra strutture dati Rust e formati come JSON o YAML.
-    \item Tokio: Un runtime asincrono che ci ha permesso di gestire in modo efficiente le operazioni I/O non bloccanti, fondamentali per il funzionamento simultaneo delle probes.
-    \item Tracing: Utilizzata per la registrazione e il monitoraggio delle attività all'interno del sistema, fornendo strumenti per tracciare le prestazioni e diagnosticare problemi.
+      \item[] Serde: Utilizzata per la serializzazione e deserializzazione dei dati, facilitando la conversione tra strutture dati Rust e formati come JSON o YAML.
+      \item[] Tokio: Un runtime asincrono che ci ha permesso di gestire in modo efficiente le operazioni I/O non bloccanti, fondamentali per il funzionamento simultaneo delle probes.
+      \item[] Tracing: Utilizzata per la registrazione e il monitoraggio delle attività all'interno del sistema, fornendo strumenti per tracciare le prestazioni e diagnosticare problemi.
   \end{itemize}
 
-  \item Scansione della Rete Per la scansione della rete, il sistema utilizza Nmap, uno strumento potente e versatile per la mappatura della topologia di rete. Nmap permette di identificare dispositivi di rete, porte aperte, servizi attivi e altre informazioni critiche necessarie per l'analisi della topologia. Le probes distribuite utilizzano Nmap per eseguire le scansioni in parallelo su diverse sezioni della rete.
+\item \subsubsection{Scansione della Rete}
+  Per la scansione della rete il sistema utilizza Nmap, uno strumento potente e versatile per la mappatura della topologia di rete. Nmap permette di identificare dispositivi di rete, porte aperte, servizi attivi e altre informazioni critiche necessarie per l'analisi della topologia. Le probes distribuite utilizzano Nmap per eseguire le scansioni in parallelo su diverse sezioni della rete.
 
-  \item Interfaccia Grafica Per lo sviluppo della GUI (Graphical User Interface), abbiamo utilizzato React, una libreria JavaScript particolarmente adatta per costruire interfacce utente interattive e dinamiche. L'uso di React ci ha permesso di sviluppare una GUI reattiva, in grado di visualizzare in tempo reale la topologia della rete e di offrire un'esperienza utente fluida.
+\item \subsubsection{Interfaccia Grafica}
+  Per lo sviluppo della GUI (Graphical User Interface), abbiamo utilizzato React, una libreria JavaScript particolarmente adatta per costruire interfacce utente interattive e dinamiche. L'uso di React ci ha permesso di sviluppare una GUI reattiva, in grado di visualizzare in tempo reale la topologia della rete e di offrire un'esperienza utente fluida.
 
-  \item Applicazione Desktop Abbiamo scelto Tauri come framework per l'implementazione dell'applicazione desktop. Tauri, combinato con React, ci ha permesso di creare un'applicazione leggera e performante, che offre la possibilità di distribuire il sistema come applicazione nativa su diverse piattaforme, mantenendo al contempo il codice base in JavaScript e Rust.
+\item \subsubsection{Applicazione Desktop}
+  Abbiamo scelto Tauri come framework per l'implementazione dell'applicazione desktop. Tauri, combinato con React, ci ha permesso di creare un'applicazione leggera e performante, che offre la possibilità di distribuire il sistema come applicazione nativa su diverse piattaforme, mantenendo al contempo il codice base in JavaScript e Rust.
 
-  \item Comunicazione tra Moduli Per la comunicazione tra i diversi moduli del sistema, abbiamo implementato un sistema di messaggistica basato su MQTT, utilizzando Mosquitto come broker. Mosquitto è un broker MQTT leggero e affidabile, ideale per gestire la comunicazione in tempo reale tra le probes distribuite, il backend e la GUI, garantendo una bassa latenza e una gestione efficiente dei messaggi.
+\item \subsubsection{Comunicazione tra Moduli}
+  Per la comunicazione tra i diversi moduli del sistema, abbiamo implementato un sistema di messaggistica basato su MQTT, utilizzando Mosquitto come broker. Mosquitto è un broker MQTT leggero e affidabile, ideale per gestire la comunicazione in tempo reale tra le probes distribuite, il backend e la GUI, garantendo una bassa latenza e una gestione efficiente dei messaggi.
 
-  \item Gestione del Database Per l'archiviazione e la gestione dei dati raccolti, abbiamo utilizzato PostgreSQL. Questo sistema di gestione di database relazionale è stato scelto per la sua robustezza, scalabilità e capacità di gestire grandi volumi di dati in modo efficiente. PostgreSQL supporta anche funzionalità avanzate di analisi dei dati, che possono essere utili per elaborazioni future.
+\item \subsubsection{Gestione del Database}
+  Per l'archiviazione e la gestione dei dati raccolti, abbiamo utilizzato PostgreSQL(!TODO ancora non abbiamo scelto). Questo sistema di gestione di database relazionale è stato scelto per la sua robustezza, scalabilità e capacità di gestire grandi volumi di dati in modo efficiente. PostgreSQL supporta anche funzionalità avanzate di analisi dei dati, che possono essere utili per elaborazioni future.
 
-  \item Contenitori e Distribuzione Infine, abbiamo adottato Docker per la gestione delle istanze del database e del frontend. Docker ci ha permesso di isolare l'ambiente di esecuzione, garantendo che ogni componente del sistema funzioni in modo coerente su qualsiasi piattaforma. L'uso di Docker semplifica anche il processo di distribuzione e aggiornamento del sistema, facilitando l'integrazione continua e il deployment.
+\item \subsubsection{Contenitori e Distribuzione}
+  Infine, abbiamo adottato Docker per la gestione delle istanze del database e del frontend. Docker ci ha permesso di isolare l'ambiente di esecuzione, garantendo che ogni componente del sistema funzioni in modo coerente su qualsiasi piattaforma. L'uso di Docker semplifica anche il processo di distribuzione e aggiornamento del sistema, facilitando l'integrazione continua e il deployment.
 
 \end{itemize}
 
