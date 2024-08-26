@@ -62,8 +62,7 @@
 %\listoftables
 
 %% Lista delle figure (se presenti)
-\listoffigures
-!TODO
+%\listoffigures
 
 %% Corpo principale del documento
 \mainmatter
@@ -349,90 +348,80 @@ La GUI (Graphical User Interface) è un'interfaccia grafica che viene provvista 
 
 \FloatBarrier
 
-\chapter{Implementazione}
-
-\section{Identificazione univoca dei probe}
-Per distinguire i probe abbiamo deciso di utilizzare il loro indirizzo MAC (Medium Access Controll) ovvero un indirizzo di 12 caratteri alfanumerici (es. 00:11:22:33:44:55) che viene assegnato ad ogni dispositivo di rete e indentifica in modo univoco la scheda di rete del dispositivo.
-
-\section{Parsing XML}
-Lo scan di NMAP ritorna uno stream di dati in XML molto grande ed aspettare che l'intero stream di dati finisca per poi effettuare il parsing può essere pericoloso (es. va via la corrente e si perdono ore di computazione). Analizzando la struttura del XML che viene generato da NMAP tramite l'apposito DTD (Document Type Definition) abbiamo dedotto che fare un parsing incrementale su ogni tag host è la soluzione più ottimale per diminuire possibili problemi.
-
-\section{Configurazione}
-!TODO
-
-\section{Software usati}
-
-\subsection{Backbone di comunicazione}
-Per comunicare con i probe situati per la rete viene usato MQTT (Message Queuing Telemtry Transport). 
-MQTT è un protocollo di messaggistica leggero e public/subscribe progettato per l'Internet of Things (IoT).
-Come broker MQTT viene usato Mosquitto per il suo supporto al Qualify of Service livello 2 che garantisce la recezione di messaggi exactly-once fra i probes e il sistema.
-
-\subsection{Scanner}
-I probe per eseguire le analisi usano NMAP che è una utility gratis ed open source per fare network discovery anche usata da moltissimi amministratori di reti per fare inventari di rete e monitorare host e servizi. 
-
-\subsection{Database}
-!TODO
-
-\subsection{Tauri}
-Tauri è un framework innovativo che permette di creare applicazioni desktop utilizzando tecnologie web familiari come HTML, CSS, JS. L'applicazione web, invece di venire eseguita in un browser, è trasformata in un'app desktop completa, con tutte le funzionalità native di un'applicazione tradizionale.
-Per il frontend abbiamo scelto di usare principalmente React, e per il backend Rust.
-
-\subsection{Rust}
-Rust è un linguaggio di programmazione moderno, compliato e multi-paradigma, sviluppato da Mozilla Research in collaborazoine con la comunità open-source. Nato con l'obiettivo di coniugare efficienza, sicurezza e affidabilità, Rust si distingue per le sue caratteristiche peculiari:
-\begin{itemize}
-  \item \textbf{Sicurezza della memoria}: Rust elimina la possibilità di dangling pointers e memory leaks, tipici problemi di altri linguaggi che causano crash e comportamenti inaspettati.
-  \item \textbf{Prestazioni elevate}: Rust offre prestazioni paragonabili a quelle del C++, grazie alla compilazione in codice macchina efficiente e all'assenza di runtime overhead.
-  \item \textbf{Concorrenza sicura}: Rust gestisce la concorrenza in modo nativo, prevenendo automaticamente i data race e garantendo la sicurezza dei thread senza la necessità di complessi meccanismi di sincronizzazione.
-  \item \textbf{Produttività}: Rust offre un sistema di ownership moderno e un potente sistema di tipi che aiutano a scrivere codice pulito, conciso e robusto.
-\end{itemize}
-
-
-\subsection{TypeScript}
-TypeScript è un superset di JavaScript, ovvero un linguaggio che estende le sue funzionalità con tipi statici, classi, interfacce e moduli opzionali. È stato sviluppato da Microsoft e rilasciato nel 2012, guadagnando rapidamente popolarità nella community di sviluppo web.
-Dei punti chiave di TypeScript sono:
-
-
-\section{Frameworks e librerie}
-\subsection{Rust}
-Le librerie principali usate in Rust sono:
-\begin{itemize}
-  \item \textbf{Serde}: un framwork per la serializzazione e la deserializzazione per Rust, che consente di convertire facilmente dati strutturati in formati binari come JSON, BSON, XML ed altri. 
-  \item \textbf{Tokio}: un runtime asincrono per Rust. Fornisce i mattoni essenziali per la scrittura di applicazioni di rete offrendo elevata velocità, scalabilità, facilità d'uso, affidabilità, robustezza e flessibilità.
-  \item \textbf{Tracing} è uno strumento prezioso per la risoluzione dei problemi, il debug e il monitoraggio delle prestazioni di applicazioni Rust complesse.
-\end{itemize}
-
-\subsection{TypeScript}
-La libreria principale per l'interfaccia grafica è React, una libreria open-source sviluppata da Meta per la creazoine di interfacce utente dinamiche e perfomanti. 
-Permette di costruire UI complesse scomponendole in componenti riutilizzabili, facilidando lo sviluppo e la manutenzoine di applicazioni web.
+\chapter{Implementazione del Sistema}
+Per l'implementazione del sistema proposto, abbiamo scelto tecnologie moderne e performanti che garantiscono efficienza, scalabilità e una buona esperienza utente. Di seguito, descriviamo i principali strumenti e librerie utilizzati.
 
 \begin{itemize}
-  \item \textbf{Tipizzazione statica}: TypeScript consente di definire i tipi di dati per variabili e funzioni, migliorando la leggibilità, la manutenibilità e la robustezza del codice. Il compilatore di TypeScript verifica che i tipi vengano utilizzati correttamente, aiutando a prevenire errori durante l'esecuzione.
-  \item \textbf{Maggiori funzionalità}: TypeScript introduce concetti come classi, interfacce e moduli, che facilitano la scrittura di codice strutturato, modulare e scalabile. Queste funzionalità sono particolarmente utili per progetti di grandi dimensioni.
-  \item \textbf{Compilazione in JavaScript}: Il codice TypeScript viene compilato in JavaScript puro, che può essere eseguito da qualsiasi browser o motore JavaScript. Questo significa che è possibile utilizzare TypeScript per sviluppare applicazioni web moderne senza preoccuparsi della compatibilità.
+
+  \item Linguaggio di Programmazione e Librerie L'intero core del sistema è stato sviluppato in Rust, un linguaggio noto per le sue elevate prestazioni e sicurezza nella gestione della memoria. Rust è stato scelto per la sua capacità di gestire in modo efficiente operazioni parallele e concorrenti, essenziali per il funzionamento delle probes distribuite. Le principali librerie utilizzate includono:
+  \begin{itemize}
+    \item Serde: Utilizzata per la serializzazione e deserializzazione dei dati, facilitando la conversione tra strutture dati Rust e formati come JSON o YAML.
+    \item Tokio: Un runtime asincrono che ci ha permesso di gestire in modo efficiente le operazioni I/O non bloccanti, fondamentali per il funzionamento simultaneo delle probes.
+    \item Tracing: Utilizzata per la registrazione e il monitoraggio delle attività all'interno del sistema, fornendo strumenti per tracciare le prestazioni e diagnosticare problemi.
+  \end{itemize}
+
+  \item Scansione della Rete Per la scansione della rete, il sistema utilizza Nmap, uno strumento potente e versatile per la mappatura della topologia di rete. Nmap permette di identificare dispositivi di rete, porte aperte, servizi attivi e altre informazioni critiche necessarie per l'analisi della topologia. Le probes distribuite utilizzano Nmap per eseguire le scansioni in parallelo su diverse sezioni della rete.
+
+  \item Interfaccia Grafica Per lo sviluppo della GUI (Graphical User Interface), abbiamo utilizzato React, una libreria JavaScript particolarmente adatta per costruire interfacce utente interattive e dinamiche. L'uso di React ci ha permesso di sviluppare una GUI reattiva, in grado di visualizzare in tempo reale la topologia della rete e di offrire un'esperienza utente fluida.
+
+  \item Applicazione Desktop Abbiamo scelto Tauri come framework per l'implementazione dell'applicazione desktop. Tauri, combinato con React, ci ha permesso di creare un'applicazione leggera e performante, che offre la possibilità di distribuire il sistema come applicazione nativa su diverse piattaforme, mantenendo al contempo il codice base in JavaScript e Rust.
+
+  \item Comunicazione tra Moduli Per la comunicazione tra i diversi moduli del sistema, abbiamo implementato un sistema di messaggistica basato su MQTT, utilizzando Mosquitto come broker. Mosquitto è un broker MQTT leggero e affidabile, ideale per gestire la comunicazione in tempo reale tra le probes distribuite, il backend e la GUI, garantendo una bassa latenza e una gestione efficiente dei messaggi.
+
+  \item Gestione del Database Per l'archiviazione e la gestione dei dati raccolti, abbiamo utilizzato PostgreSQL. Questo sistema di gestione di database relazionale è stato scelto per la sua robustezza, scalabilità e capacità di gestire grandi volumi di dati in modo efficiente. PostgreSQL supporta anche funzionalità avanzate di analisi dei dati, che possono essere utili per elaborazioni future.
+
+  \item Contenitori e Distribuzione Infine, abbiamo adottato Docker per la gestione delle istanze del database e del frontend. Docker ci ha permesso di isolare l'ambiente di esecuzione, garantendo che ogni componente del sistema funzioni in modo coerente su qualsiasi piattaforma. L'uso di Docker semplifica anche il processo di distribuzione e aggiornamento del sistema, facilitando l'integrazione continua e il deployment.
+
 \end{itemize}
+
 
 
 %% Capitolo
 \chapter{Lavoro principale}
-In hac habitasse platea dictumst. Vestibulum consectetur dictum pellentesque. Suspendisse nunc neque, commodo ac imperdiet nec, sollicitudin vitae libero. Donec bibendum vel nunc vitae pharetra. In vel volutpat odio, et interdum dui. Duis mauris ligula, congue eget molestie at, tincidunt nec diam. Nam vitae eros nec arcu suscipit vehicula. Aliquam consectetur imperdiet elit, eget pretium arcu fringilla at. Maecenas \cite{Knu86} sed libero pulvinar, mattis tortor vel, fermentum enim.
+Nel corso dello sviluppo del sistema di analisi della topologia di rete, mi sono concentrato su diversi aspetti chiave dell'implementazione, contribuendo con soluzioni che hanno migliorato la leggibilità del codice, l'efficienza del sistema e la gestione dei dati. Di seguito, descrivo il lavoro che ho svolto.
 
+\section{Miglioramento del Parser XML}
+Inizialmente, il parser per i dati XML era implementato come una macchina a stati finiti. Questo approccio, sebbene funzionante, rendeva il codice complesso, difficile da leggere e da mantenere. Dopo un'analisi approfondita, ho suggerito di adottare un approccio di parsing incrementale utilizzando la libreria Serde.
+
+Quando ho iniziato a lavorare su questo progetto, non avevo ancora una conoscenza approfondita di Rust. Ho provato a scrivere del codice per implementare il parser, ma non ha funzionato come previsto. Il codice per il parser finale è stato quindi scritto da un altro membro del team, ma la mia analisi e le mie raccomandazioni hanno guidato la transizione verso l'uso di Serde, migliorando significativamente la qualità del codice.
+
+\section{Generazione di ID Unici per le Probes}
+Ho scritto il codice per la generazione di un ID univoco per ciascuna probe, basato sul loro MAC address. Questo ID univoco è essenziale per identificare in modo preciso e inequivocabile ogni probe all'interno del sistema distribuito, garantendo la coerenza e l'integrità dei dati raccolti.
+
+\section{Unit Testing e Risoluzione di Problemi nel Parser}
+Mi sono occupato della scrittura degli unit test per il parser XML, con l'obiettivo di garantire che il nuovo approccio basato su Serde funzionasse correttamente in tutti i casi previsti. Durante la fase di testing, ho identificato alcuni problemi relativi alle strutture dati che avevamo creato per Serde. In particolare, ho rilevato incongruenze che avrebbero potuto compromettere l'efficacia del parsing. Grazie a questi test, siamo stati in grado di risolvere i problemi e di ottimizzare ulteriormente le strutture dati utilizzate.
+
+\section{Modifica della Gestione del File di Configurazione}
+Un'altra area su cui ho lavorato è stata la gestione del file di configurazione delle probes. Originariamente, questo file veniva creato nella directory in cui veniva eseguito il programma, una pratica che poteva causare confusione e problemi di gestione, soprattutto su sistemi multiutente. Ho modificato il codice affinché il file di configurazione venga ora creato in una directory standard di Linux per le configurazioni delle applicazioni: ~/.config/netstaldi/Config.toml. Questo cambiamento migliora la coerenza con le convenzioni di sistema e facilita la gestione delle configurazioni.
+
+\section{Valutazione del Database Ottimale}
+Attualmente sto contribuendo alla valutazione del database più adatto da utilizzare per l'archiviazione dei dati raccolti. Inizialmente, abbiamo considerato l'uso di ScyllaDB per il suo supporto integrato ai JSON, che sembrava promettente per le nostre esigenze. Tuttavia, ho scoperto che ScyllaDB non supporta i JSON nidificati, una limitazione che potrebbe ostacolare la nostra capacità di gestire dati complessi in futuro. Questa scoperta ha portato a riconsiderare le opzioni disponibili, e sto collaborando con il team per esplorare alternative più adatte alle nostre necessità.
 
 %% Capitolo
-\chapter{Risultati}
-In hac habitasse platea dictumst. Vestibulum consectetur dictum pellentesque. Suspendisse nunc neque, commodo ac imperdiet nec, sollicitudin vitae libero. Donec bibendum vel nunc vitae pharetra. In vel volutpat odio, et interdum dui. Duis mauris ligula, congue eget molestie at, tincidunt nec diam. Nam vitae eros nec arcu suscipit vehicula. Aliquam consectetur imperdiet elit, eget pretium arcu fringilla at. Maecenas \cite{Knu86} sed libero pulvinar, mattis tortor vel, fermentum enim.
+%\chapter{Risultati}
 
 
 %% Capitolo
 \chapter{Conclusioni}
-In hac habitasse platea dictumst. Vestibulum consectetur dictum pellentesque. Suspendisse nunc neque, commodo ac imperdiet nec, sollicitudin vitae libero. Donec bibendum vel nunc vitae pharetra. In vel volutpat odio, et interdum dui. Duis mauris ligula, congue eget molestie at, tincidunt nec diam. Nam vitae eros nec arcu suscipit vehicula. Aliquam consectetur imperdiet elit, eget pretium arcu fringilla at. Maecenas \cite{Knu86} sed libero pulvinar, mattis tortor vel, fermentum enim.
+Questo progetto ha rappresentato per me una sfida entusiasmante e formativa, poiché è stata la prima volta che ho avuto l'opportunità di lavorare su un'iniziativa di media grandezza insieme ad altre persone. All'inizio, mi sentivo come se fossi in mare aperto, senza una chiara direzione e sopraffatto dalla complessità del lavoro. Il codice da scrivere, le tecnologie da apprendere e la necessità di collaborare efficacemente con il resto del team sembravano compiti immensi e difficili da gestire.
 
-%% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
-\appendix
+Tuttavia, grazie al sostegno e alla collaborazione degli altri membri del team, sono riuscito a superare queste difficoltà iniziali. Ho avuto l'opportunità di imparare moltissimo, sia dal punto di vista tecnico che umano. Le sfide che mi sembravano insormontabili sono diventate, grazie all'aiuto e alla guida dei miei colleghi, delle opportunità di crescita. La mia conoscenza di Rust è notevolmente migliorata, e ho acquisito una comprensione più profonda delle pratiche di sviluppo collaborativo e delle dinamiche di un progetto su larga scala.
+
+Guardando al percorso che abbiamo compiuto finora, sono estremamente emozionato per come il progetto sta prendendo forma. La nostra architettura sta dimostrando di essere robusta e scalabile, e i miglioramenti che ho contribuito a implementare stanno avendo un impatto tangibile sulla qualità complessiva del sistema.
+
+Ma non è solo il successo tecnico a motivarmi. Lavorare in un team che condivide la mia passione per la tecnologia e l'innovazione è stato incredibilmente gratificante. L'ambiente collaborativo e il continuo scambio di idee hanno reso questo progetto un'esperienza unica e preziosa per il mio sviluppo professionale e personale.
+
+Per il futuro, sono determinato a continuare a contribuire a questo progetto. C'è ancora molto lavoro da fare, molte sfide da affrontare e molte opportunità di miglioramento e innovazione. Sono impaziente di vedere dove ci porterà questo viaggio e sono entusiasta di poter continuare a far parte del team che lo sta rendendo possibile.
+
+In sintesi, questo progetto non è stato solo un'opportunità per applicare e sviluppare le mie competenze tecniche, ma è stato anche un'esperienza di crescita personale. La collaborazione, la condivisione delle conoscenze e il supporto reciproco sono stati elementi chiave per superare le difficoltà iniziali e portare avanti un lavoro di qualità. Sono grato per l'opportunità di far parte di questo team e sono entusiasta di continuare a contribuire al successo del progetto.
+
+%%% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
+%\appendix
 
 %\part{Appendici}
 
-\chapter{Titolo della prima appendice}
-Sed purus libero, vestibulum ut nibh vitae, mollis ultricies augue. Pellentesque velit libero, tempor sed pulvinar non, fermentum eu leo. Duis posuere eleifend nulla eget sagittis. Nam laoreet accumsan rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur eget libero quis leo porttitor vehicula eget nec odio. Proin euismod interdum ligula non ultricies. Maecenas sit amet accumsan sapien.
+%%\chapter{Titolo della prima appendice}
+%Sed purus libero, vestibulum ut nibh vitae, mollis ultricies augue. Pellentesque velit libero, tempor sed pulvinar non, fermentum eu leo. Duis posuere eleifend nulla eget sagittis. Nam laoreet accumsan rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur eget libero quis leo porttitor vehicula eget nec odio. Proin euismod interdum ligula non ultricies. Maecenas sit amet accumsan sapien.
 
 %% Parte conclusiva del documento; tipicamente per riassunto, bibliografia e/o indice analitico.
 \backmatter
