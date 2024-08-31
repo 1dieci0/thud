@@ -75,7 +75,7 @@
 \chapter{Introduzione}
 \section{Motivazioni dello Studio}
 \subsection{Importanza dell'analisi della topologia di rete.}
-L'analisi della topologia di rete è un'attività cruciale per la gestione, la sicurezza e l'ottimizzazione delle infrastrutture di rete. La topologia di rete rappresenta la struttura fisica e logica di una rete, delineando come i dispositivi (come router, switch, server, ecc.) siano interconnessi e come i dati fluiscano tra di essi. Una comprensione dettagliata della topologia è essenziale per diverse ragioni:
+Come descritto in \cite{tanenbaum2011computer} l'analisi della topologia di rete è un'attività cruciale per la gestione, la sicurezza e l'ottimizzazione delle infrastrutture di rete. La topologia di rete rappresenta la struttura fisica e logica di una rete, delineando come i dispositivi (come router, switch, server, ecc.) siano interconnessi e come i dati fluiscano tra di essi. Una comprensione dettagliata della topologia è essenziale per diverse ragioni:
 \begin{itemize}
   \item Ottimizzazione delle Prestazioni: Una corretta analisi della topologia consente di identificare colli di bottiglia, percorsi inefficienti e configurazioni subottimali che possono influenzare negativamente le prestazioni della rete. Migliorando la topologia, si possono ottenere connessioni più rapide e una distribuzione del traffico più bilanciata.
   \item Gestione e Manutenzione: Conoscere la topologia della rete permette agli amministratori di pianificare meglio le operazioni di manutenzione, minimizzando i tempi di inattività e assicurando la continuità dei servizi. Inoltre, facilita la gestione delle risorse di rete, come l'allocazione degli indirizzi IP e la configurazione dei dispositivi.
@@ -85,7 +85,7 @@ L'analisi della topologia di rete è un'attività cruciale per la gestione, la s
 \end{itemize}
 
 \subsection{Scopi e obiettivi della tesi.}
-La tesi ha come scopo principale la progettazione e lo sviluppo di un sistema distribuito innovativo per l'analisi della topologia di reti di calcolatori, che superi i limiti degli strumenti attualmente disponibili, come SNMP (Simple Network Management Protocol) e altri metodi tradizionali.
+La tesi ha come scopo principale la progettazione e lo sviluppo di un sistema distribuito innovativo per l'analisi della topologia di reti di calcolatori, che superi i limiti degli strumenti attualmente disponibili, come SNMP (Simple Network Management Protocol) \cite{rfc1157} e altri metodi tradizionali.
 \newline
 Obiettivi Specifici:
 \begin{itemize}
@@ -172,28 +172,28 @@ Questa tesi è organizzata in x(!TODO) capitoli, ciascuno dei quali affronta asp
 \section{Analisi della Topologia di Rete}
 \subsection{Metodi comuni di analisi della topologia.}
 L'analisi della topologia di rete implica l'identificazione, la mappatura e la valutazione della struttura della rete, al fine di ottimizzarne il funzionamento e la gestione. Ecco i metodi più comuni utilizzati per questa analisi:
-\subsubsection{SNMP (Simple Network Management Protocol):}
+\subsubsection{SNMP (Simple Network Management Protocol) \cite{rfc1157}:}
     \begin{itemize}
       \item Descrizione: SNMP è un protocollo standardizzato per la gestione e il monitoraggio dei dispositivi di rete. Utilizzato per raccogliere informazioni sulla configurazione e lo stato dei dispositivi di rete, come router e switch.
       \item Vantaggi: Facilità d'uso, ampiamente supportato dai dispositivi di rete, consente di monitorare e gestire una vasta gamma di informazioni.
       \item Svantaggi: Limitato nella capacità di rilevare dinamicamente i cambiamenti nella topologia, difficoltà nell'analizzare reti complesse o eterogenee, problemi di scalabilità.
     \end{itemize}
 
-\subsubsection{Traceroute:}
+\subsubsection{Traceroute \cite{netbrain_traceroute}:}
     \begin{itemize}
       \item Descrizione: Traceroute è uno strumento diagnostico che mostra il percorso che i pacchetti di dati seguono attraverso una rete IP verso una destinazione specifica, identificando tutti i router attraversati.
       \item Vantaggi: Utile per diagnosticare problemi di rete e identificare i percorsi dei dati tra dispositivi.
       \item Svantaggi: Limitato alle reti IP, non fornisce una visione completa della topologia, può essere bloccato da firewall o altri dispositivi di sicurezza.
     \end{itemize}
 
-\subsubsection{NetFlow/IPFIX:}
+\subsubsection{NetFlow/IPFIX \cite{rfc7011}:}
     \begin{itemize}
       \item Descrizione: NetFlow (e la sua evoluzione IPFIX) è un protocollo sviluppato da Cisco per raccogliere informazioni sui flussi di dati che attraversano un router o uno switch. Fornisce dettagli sulle conversazioni di rete tra dispositivi.
       \item Vantaggi: Permette di monitorare il traffico di rete in dettaglio, utile per analisi del traffico e rilevamento di anomalie.
       \item Svantaggi: Non fornisce direttamente una mappa della topologia, ma piuttosto informazioni sui flussi di traffico, richiede una notevole capacità di elaborazione e archiviazione dei dati.
     \end{itemize}
 
-\subsubsection{LLDP (Link Layer Discovery Protocol):}
+\subsubsection{LLDP (Link Layer Discovery Protocol) \cite{ieee_lldp}:}
     \begin{itemize}
       \item Descrizione: LLDP è un protocollo di livello datalink utilizzato per scoprire dispositivi vicini e condividere informazioni sulla loro configurazione.
       \item Vantaggi: Consente la scoperta automatica dei dispositivi connessi alla rete e facilita la gestione della rete.
@@ -246,7 +246,9 @@ SNMP (Simple Network Management Protocol) è uno dei protocolli più utilizzati 
 \end{itemize}
 
 
-\chapter{Soluzione proposta}
+\chapter{Progettazione del Sistema}
+
+\section{Soluzione proposta}
 Il sistema proposto per l'analisi della topologia di rete è basato su un'architettura distribuita che sfrutta un insieme di probes (sonde) per scansionare contemporaneamente diverse sezioni della rete. Ogni probe utilizza Nmap per raccogliere informazioni dettagliate, che vengono poi aggregate in un database centralizzato. Questo approccio consente di ottenere una visione completa e accurata della topologia di rete, superando i limiti di scalabilità e accuratezza degli strumenti tradizionali.
 
 Nell'architettura proposta, i probes sono distribuiti strategicamente all'interno della rete, con ciascuno di essi responsabile di una specifica area. Operando simultaneamente, i probes eseguono scansioni parallele, raccogliendo dati sui dispositivi di rete, sulle connessioni e sui servizi attivi. I dati raccolti vengono inviati a un database centralizzato, dove vengono normalizzati e aggregati per creare una mappa coerente e dettagliata della rete. L'architettura include anche un sistema di visualizzazione interattivo che permette agli amministratori di esplorare la topologia in tempo reale, monitorando le modifiche e aggiornando continuamente le informazioni.
@@ -261,7 +263,6 @@ Dal punto di vista della sicurezza, il sistema è progettato per ridurre al mini
 
 In sintesi, l'architettura distribuita proposta rappresenta un significativo miglioramento rispetto agli strumenti tradizionali di analisi della topologia di rete. Essa combina scalabilità, accuratezza, resilienza e sicurezza, offrendo una soluzione completa per la mappatura e il monitoraggio delle reti moderne.
 
-\chapter{Progettazione del Sistema}
 \section{Architettura del Sistema}
 \subsection{Descrizione dettagliata dell'architettura distribuita}
 Il sistema è composto da una architettura client-server nella quale il backend si occupa di fare le scansioni, di salvarne i risultati e di fornirli al frontend dove possono essere visualizzati dagli utenti dovrebbero interagire solo con esso. 
@@ -347,30 +348,30 @@ Per l'implementazione del sistema proposto, abbiamo scelto tecnologie moderne e 
 \begin{itemize}
 
   \item \subsubsection{Linguaggio di Programmazione e Librerie}
-    L'intero core del sistema è stato sviluppato in Rust, un linguaggio noto per le sue elevate prestazioni e sicurezza nella gestione della memoria. Rust è stato scelto per la sua capacità di gestire in modo efficiente operazioni parallele e concorrenti, essenziali per il funzionamento dei probes distribuiti. Le principali librerie utilizzate includono:
+    L'intero core del sistema è stato sviluppato in Rust \cite{rust2024}, un linguaggio noto per le sue elevate prestazioni e sicurezza nella gestione della memoria. Rust è stato scelto per la sua capacità di gestire in modo efficiente operazioni parallele e concorrenti, essenziali per il funzionamento dei probes distribuiti. Le principali librerie utilizzate includono:
   \begin{itemize}
-      \item[] Serde: Utilizzata per la serializzazione e deserializzazione dei dati, facilitando la conversione tra strutture dati Rust e formati come JSON o YAML.
-      \item[] Tokio: Un runtime asincrono che ci ha permesso di gestire in modo efficiente le operazioni I/O non bloccanti, fondamentali per il funzionamento simultaneo delle probes.
-      \item[] Tracing: Utilizzata per la registrazione e il monitoraggio delle attività all'interno del sistema, fornendo strumenti per tracciare le prestazioni e diagnosticare problemi.
+    \item[] Serde \cite{serde2024}: Utilizzata per la serializzazione e deserializzazione dei dati, facilitando la conversione tra strutture dati Rust e formati come JSON o YAML.
+    \item[] Toki \cite{tokio2024}o: Un runtime asincrono che ci ha permesso di gestire in modo efficiente le operazioni I/O non bloccanti, fondamentali per il funzionamento simultaneo delle probes.
+    \item[] Tracing \cite{tracing2024}: Utilizzata per la registrazione e il monitoraggio delle attività all'interno del sistema, fornendo strumenti per tracciare le prestazioni e diagnosticare problemi.
   \end{itemize}
 
 \item \subsubsection{Scansione della Rete}
   Per la scansione della rete il sistema utilizza Nmap, uno strumento potente e versatile per la mappatura della topologia di rete. Nmap permette di identificare dispositivi di rete, porte aperte, servizi attivi e altre informazioni critiche necessarie per l'analisi della topologia. Le probes distribuite utilizzano Nmap per eseguire le scansioni in parallelo su diverse sezioni della rete.
 
 \item \subsubsection{Interfaccia Grafica}
-  Per lo sviluppo della GUI (Graphical User Interface), abbiamo utilizzato React, una libreria JavaScript particolarmente adatta per costruire interfacce utente interattive e dinamiche. L'uso di React ci ha permesso di sviluppare una GUI reattiva, in grado di visualizzare in tempo reale la topologia della rete e di offrire un'esperienza utente fluida.
+  Per lo sviluppo della GUI (Graphical User Interface), abbiamo utilizzato React \cite{react2024}, una libreria JavaScript particolarmente adatta per costruire interfacce utente interattive e dinamiche. L'uso di React ci ha permesso di sviluppare una GUI reattiva, in grado di visualizzare in tempo reale la topologia della rete e di offrire un'esperienza utente fluida.
 
 \item \subsubsection{Applicazione Desktop}
-  Abbiamo scelto Tauri come framework per l'implementazione dell'applicazione desktop. Tauri, combinato con React, ci ha permesso di creare un'applicazione leggera e performante, che offre la possibilità di distribuire il sistema come applicazione nativa su diverse piattaforme, mantenendo al contempo il codice base in JavaScript e Rust.
+  Abbiamo scelto Tauri \cite{tauri2024} come framework per l'implementazione dell'applicazione desktop. Tauri, combinato con React, ci ha permesso di creare un'applicazione leggera e performante, che offre la possibilità di distribuire il sistema come applicazione nativa su diverse piattaforme, mantenendo al contempo il codice base in JavaScript e Rust.
 
 \item \subsubsection{Comunicazione tra Moduli}
-  Per la comunicazione tra i diversi moduli del sistema, abbiamo implementato un sistema di messaggistica basato su MQTT, utilizzando Mosquitto come broker. Mosquitto è un broker MQTT leggero e affidabile, ideale per gestire la comunicazione in tempo reale tra le probes distribuite, il backend e la GUI, garantendo una bassa latenza e una gestione efficiente dei messaggi.
+  Per la comunicazione tra i diversi moduli del sistema, abbiamo implementato un sistema di messaggistica basato su MQTT \cite{mqtt2024}, utilizzando Mosquitto \cite{mosquitto2024} come broker. Mosquitto è un broker MQTT leggero e affidabile, ideale per gestire la comunicazione in tempo reale tra le probes distribuite, il backend e la GUI, garantendo una bassa latenza e una gestione efficiente dei messaggi.
 
 \item \subsubsection{Gestione del Database}
   Per l'archiviazione e la gestione dei dati raccolti, abbiamo utilizzato PostgreSQL(!TODO ancora non abbiamo scelto). Questo sistema di gestione di database relazionale è stato scelto per la sua robustezza, scalabilità e capacità di gestire grandi volumi di dati in modo efficiente. PostgreSQL supporta anche funzionalità avanzate di analisi dei dati, che possono essere utili per elaborazioni future.
 
 \item \subsubsection{Contenitori e Distribuzione}
-  Infine, abbiamo adottato Docker per la gestione delle istanze del database e del frontend. Docker ci ha permesso di isolare l'ambiente di esecuzione, garantendo che ogni componente del sistema funzioni in modo coerente su qualsiasi piattaforma. L'uso di Docker semplifica anche il processo di distribuzione e aggiornamento del sistema, facilitando l'integrazione continua e il deployment.
+  Infine, abbiamo adottato Docker \cite{docker2024} per la gestione delle istanze del database e del frontend. Docker ci ha permesso di isolare l'ambiente di esecuzione, garantendo che ogni componente del sistema funzioni in modo coerente su qualsiasi piattaforma. L'uso di Docker semplifica anche il processo di distribuzione e aggiornamento del sistema, facilitando l'integrazione continua e il deployment.
 
 \end{itemize}
 
