@@ -342,6 +342,63 @@ La GUI (Graphical User Interface) è un'interfaccia grafica che viene provvista 
 
 \FloatBarrier
 
+\chapter{In Dettaglio: Executer}
+In questo capitolo viene descritto in dettaglio il funzionamento dell'executer che, come spiegato in breve nel capitolo prima, funge da componente centrale per la gestione della comunicazione e della supervisione delle attività all'interno di un sistema distribuito.
+
+
+\begin{figure}[h]
+  \includegraphics[width=14cm, height=8cm]{executer}
+  \centering
+\end{figure}
+
+\FloatBarrier
+
+
+\subsection{Dispatcher Communicator}
+Il Dispatcher Communicator è il componente responsabile di ricevere comandi o dati dal modulo Dispatcher esterno. Il Dispatcher è un'entità centrale che invia istruzioni al Executer all'interno del sistema distribuito, fungendo da orchestratore. Il ruolo principale del Dispatcher Communicator è quello di stabilire una connessione stabile e affidabile con il Dispatcher e garantire che i messaggi inviati vengano processati correttamente. Una volta ricevuti i dati, il Dispatcher Communicator passa l'informazione al Supervisor per ulteriori azioni.
+Oltre alla ricezione, il Dispatcher Communicator dovrebbe anche gestire l'eventuale feedback o risposta da inviare al Dispatcher, ad esempio conferme di esecuzione o report di stato. In scenari di reti distribuite su larga scala, il Dispatcher Communicator deve garantire che i messaggi siano consegnati anche in condizioni di rete congestionata o instabile. A tal fine, nell'implementazione  abbiamo utilizzando protocolli di rete affidabili come MQTT che verranno descritti nel capitolo successivo. L'efficacia di questo componente è cruciale per mantenere la sincronia e l'affidabilità del sistema, poiché è il punto di ingresso primario per le richieste di esecuzione di task.
+
+
+\subsection{Supervisor}
+Il Supervisor è il componente centrale dell'Executer che coordina e supervisiona l'esecuzione delle varie operazioni. Agisce come un gestore dei task, ricevendo input dal Dispatcher Communicator e determinando come e quando delegare i compiti agli altri moduli interni dell'Executer. Il Supervisor decide quali azioni intraprendere in base ai dati ricevuti e alle informazioni raccolte all'interno del sistema, interagendo costantemente con gli altri componenti come il Broker Communicator e il Collector.
+Il Supervisor svolge un ruolo fondamentale nel garantire che le risorse vengano allocate correttamente e che i flussi di lavoro seguano un percorso ottimale. Può anche implementare logiche di fault-tolerance, monitorando lo stato delle varie parti del sistema e intervenendo in caso di malfunzionamenti. Inoltre, il Supervisor è responsabile di gestire la concorrenza tra task, assicurando che più operazioni possano essere eseguite in parallelo senza interferenze o colli di bottiglia. In un'architettura distribuita, il Supervisor deve essere altamente reattivo e scalabile, capace di orchestrare task in tempo reale e mantenere un alto grado di coerenza e integrità dei dati.
+
+\subsection{Broker Communicator}
+Il Broker Communicator gestisce la comunicazione tra l'Executer e un modulo esterno denominato Broker. Il Broker è un middleware che facilita lo scambio di messaggi tra i vari componenti di un sistema distribuito, e può utilizzare protocolli come MQTT, Kafka o altri sistemi di messaggistica. Il ruolo del Broker Communicator è quello di inviare e ricevere dati dal Broker, garantendo che i messaggi siano consegnati in modo affidabile e che le informazioni siano correttamente inoltrate tra i componenti del sistema.
+Il Broker Communicator deve gestire più canali di comunicazione contemporaneamente, inviando messaggi a diversi destinatari e ricevendo dati da più fonti. In scenari di monitoraggio e analisi della rete. Una delle principali sfide affrontate dal Broker Communicator è garantire che i messaggi siano consegnati in maniera affidabile e senza perdita di dati, anche in ambienti di rete instabili. 
+
+\subsection{Collector}
+Il Collector è il componente che si occupa della raccolta e aggregazione dei dati all'interno del sistema. Riceve le informazioni dal Broker Communicator e la sua funzione principale è quella di raccogliere, filtrare e organizzare i dati che saranno poi utilizzati per aggiornare la Network Knowledge Base attraverso il Knowledge Base Connector.
+Il Collector potrebbe avere la capacità di analizzare i dati raccolti in tempo reale, aggregarli, trasformarli in un formato standardizzato e fornire insight utili al Supervisor come il termine di una scansione. Inoltre, potrebbe essere responsabile della gestione delle metriche di performance e dello stato della rete. In sistemi di rete complessi, il Collector deve essere in grado di elaborare grandi quantità di dati in maniera efficiente, assicurandosi che la latenza sia ridotta al minimo. La sua scalabilità è critica in ambienti di rete di grandi dimensioni, poiché deve gestire un flusso continuo di dati provenienti da diverse fonti distribuite.
+
+\subsection{Knowledge Base Connector}
+l Knowledge Base Connector è il modulo che interfaccia l'Executer con una Network Knowledge Base esterna, il cui scopo è raccogliere e mantenere la conoscenza relativa alla topologia della rete, alle metriche di performance e ad altri dati critici. Questo componente funge da ponte tra il sistema distribuito e la base di conoscenza, permettendo al sistema di aggiornare continuamente il database con nuove informazioni ottenute dal Collector.
+Il Knowledge Base Connector potrebbe inviare dati strutturati, come informazioni sui nodi e sui dispositivi della rete, configurazioni, e statistiche sulle performance, alla Knowledge Base. Per garantire l'affidabilità, potrebbe utilizzare protocolli di rete sicuri e meccanismi di autenticazione per proteggere i dati sensibili. In un sistema distribuito complesso, è essenziale che il Knowledge Base Connector garantisca l'accuratezza e la tempestività degli aggiornamenti, poiché la Knowledge Base funge da risorsa centrale per l'analisi della rete e la previsione di problemi futuri.
+
+\chapter{Implementazione Executer}
+\subsection{Supervisor}
+Il Supervisor per poter eseguire il suo ruolo deve essere a conoscenza dei Probe funzionanti nel sistema, infatti quando un nuovo Probe si attiva manda un messaggio di registrazione contenente il suo Probe ID associato e il supervisor lo salva in una sua struttura dati interna. L'algoritmo di load balancing che è stato scelto per ora è un semplice Round Robin \cite{wiki:rr}, ovvero per ogni probe viene assegnato lo stesso tempo in un ordine circolare, ma in futuro avrà più senso aggiungere una priorità ai Probe che gestiscono una parte di rete più ampia in modo che tutti i Probe non finiscano in starvation.
+
+\subsection{Broker Communicator}
+Il Broker Communicator scambia i messaggi con Mosquitto, un Broker MQTT, in due modi:
+\begin{itemize}
+  \item L'Invio della scansione richiesta e ricevuta dal Supervisor incorporandola nel messaggi MQTT e pubblicandoli.
+  \item La Ricezione è divisa in 3 tipi di messaggi:
+    \begin{itemize}
+      \item Register: notifica di iscrizione di un Probe.
+      \item Result: i risultati di una scansione terminata da un Probe.
+      \item Info: eventuali errori e altri dati relativi alle scansioni.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Collector}
+
+
+
+
+
+
+
 \chapter{Implementazione del Sistema}
 Per l'implementazione del sistema proposto, abbiamo scelto tecnologie moderne e performanti che garantiscono efficienza, scalabilità e una buona esperienza utente. Di seguito, descriviamo i principali strumenti e librerie utilizzati.
 
