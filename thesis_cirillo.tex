@@ -245,6 +245,41 @@ SNMP (Simple Network Management Protocol) è uno dei protocolli più utilizzati 
     \end{itemize}
 \end{itemize}
 
+\chapter{Requisiti di un buon sistema}
+Per garantire una mappatura accurata ed efficiente della topologia di rete, un buon sistema di analisi dovrebbe soddisfare una serie di requisiti fondamentali. Questi requisiti derivano dagli svantaggi riscontrati negli strumenti esistenti, come SNMP.:
+
+\section{Scalabilità}
+Il sistema deve essere in grado di gestire reti di dimensioni variabili, dalla piccola rete locale fino a infrastrutture complesse e distribuite su scala geografica. È essenziale che il sistema possa espandersi senza perdere efficienza e senza introdurre colli di bottiglia man mano che il numero di dispositivi e sottoreti cresce.
+
+\section{Distribuzione del carico}
+Un buon sistema dovrebbe essere in grado di distribuire il carico di lavoro tra più nodi o moduli, per garantire che l'analisi non sia concentrata su un unico punto. Questo aiuta a evitare situazioni di sovraccarico e assicura che le risorse di rete vengano utilizzate in modo ottimale.
+
+\section{Bassa latenza e alta efficienza}
+Il sistema deve poter rispondere rapidamente alle richieste e aggiornare la topologia della rete in tempo quasi reale. In una rete dinamica, dove i dispositivi possono connettersi o disconnettersi frequentemente, la capacità di reagire in modo tempestivo è cruciale. Allo stesso tempo, il sistema deve minimizzare l'impatto delle sue operazioni sulla rete monitorata, evitando di introdurre latenza o carico eccessivo.
+
+\section{Accuratezza}
+La rappresentazione della topologia deve essere il più possibile fedele alla realtà. Ciò significa che il sistema deve essere in grado di rilevare non solo la presenza dei dispositivi, ma anche le loro connessioni, ruoli e attributi, con un livello di dettaglio elevato. Un aspetto cruciale è che il sistema riesca a scoprire e interpretare correttamente i dispositivi eterogenei, indipendentemente dalla loro posizione nella rete.
+
+\section{Affidabilità e tolleranza ai guasti}
+Dato che un sistema distribuito potrebbe essere soggetto a guasti di rete o problemi locali nei dispositivi di analisi, è essenziale che il sistema sia resiliente. Deve continuare a funzionare, anche in presenza di malfunzionamenti parziali, senza compromettere l'accuratezza o la continuità delle operazioni.
+
+\section{Modularità e facilità di aggiornamento}
+Un buon sistema deve essere progettato in modo modulare, consentendo di aggiungere o rimuovere facilmente componenti senza impattare sull'intero sistema. Questo approccio facilita gli aggiornamenti, permettendo di introdurre nuovi algoritmi o metodi di analisi man mano che la rete evolve o emergono nuove esigenze.
+
+\section{Efficienza della comunicazione}
+La comunicazione tra i vari componenti del sistema deve essere efficiente e basata su protocolli standard. In un sistema distribuito, è importante ridurre al minimo la latenza nella trasmissione dei dati tra i diversi moduli di analisi, garantendo che le informazioni vengano propagate e aggregate senza ritardi eccessivi.
+
+\section{Flessibilità di vari protocolli e strumenti} Il sistema dovrebbe essere in grado di adattarsi all'uso di diversi strumenti di analisi e scansione. Questo garantisce una maggiore copertura delle situazioni e permette di sfruttare le potenzialità di strumenti differenti a seconda delle esigenze specifiche della rete monitorata.
+
+\section{Riduzione delle limitazioni dei protocolli tradizionali}
+Molti strumenti tradizionali, come SNMP, soffrono di limitazioni in termini di accuratezza e copertura della rete, non riuscendo a rappresentare correttamente la topologia o a gestire scenari di rete più complessi. Un buon sistema dovrebbe superare questi limiti, fornendo una visione dettagliata e comprensiva della rete senza dipendere da protocolli legacy con capacità limitate
+
+\section{Sicurezza nelle comunicazioni}
+Le operazioni di analisi della topologia devono avvenire in un ambiente sicuro, proteggendo i dati scambiati tra i vari moduli del sistema. È essenziale garantire l'integrità e la riservatezza delle informazioni raccolte e trasmesse durante il monitoraggio della rete, in particolare in contesti dove si monitorano reti sensibili o ad alto valore strategico.
+
+\section{Conclusioni}
+
+In sintesi, un sistema per l'analisi della topologia di rete deve essere progettato per operare in modo efficiente, scalabile e affidabile, con un forte focus sulla distribuzione del carico, l'accuratezza dei dati raccolti e la resilienza del sistema nel suo complesso. Rispondendo a questi requisiti, si possono ottenere risultati migliori rispetto agli strumenti tradizionali, soprattutto in reti complesse o in continua evoluzione.
 
 \chapter{Progettazione del Sistema}
 
@@ -343,7 +378,7 @@ La GUI (Graphical User Interface) è un'interfaccia grafica che viene provvista 
 \FloatBarrier
 
 \chapter{In Dettaglio: Executer}
-In questo capitolo viene descritto in dettaglio il funzionamento dell'executer che, come spiegato in breve nel capitolo prima, funge da componente centrale per la gestione della comunicazione e della supervisione delle attività all'interno di un sistema distribuito.
+In questo capitolo viene descritto in dettaglio il funzionamento dell'executer che, come spiegato in breve nel capitolo prima, funge da componente centrale per la gestione della comunicazione e della supervisione delle attività all'interno del sistema.
 
 
 \begin{figure}[h]
@@ -376,87 +411,125 @@ l Knowledge Base Connector è il modulo che interfaccia l'Executer con una Netwo
 Il Knowledge Base Connector potrebbe inviare dati strutturati, come informazioni sui nodi e sui dispositivi della rete, configurazioni, e statistiche sulle performance, alla Knowledge Base. Per garantire l'affidabilità, potrebbe utilizzare protocolli di rete sicuri e meccanismi di autenticazione per proteggere i dati sensibili. In un sistema distribuito complesso, è essenziale che il Knowledge Base Connector garantisca l'accuratezza e la tempestività degli aggiornamenti, poiché la Knowledge Base funge da risorsa centrale per l'analisi della rete e la previsione di problemi futuri.
 
 \chapter{Implementazione Executer}
-\subsection{Supervisor}
-Il Supervisor per poter eseguire il suo ruolo deve essere a conoscenza dei Probe funzionanti nel sistema, infatti quando un nuovo Probe si attiva manda un messaggio di registrazione contenente il suo Probe ID associato e il supervisor lo salva in una sua struttura dati interna. L'algoritmo di load balancing che è stato scelto per ora è un semplice Round Robin \cite{wiki:rr}, ovvero per ogni probe viene assegnato lo stesso tempo in un ordine circolare, ma in futuro avrà più senso aggiungere una priorità ai Probe che gestiscono una parte di rete più ampia in modo che tutti i Probe non finiscano in starvation.
+In questo capitolo verranno descritte in dettaglio le scelte di implementazione adottate per i vari sottomoduli dell'Executer, illustrando come ciascuna componente è stata progettata per garantire una comunicazione efficiente e un'operatività ottimale all'interno del sistema distribuito.
+Di seguito le soluzioni tecniche adottate, le librerie e gli strumenti utilizzati, nonché le motivazioni alla base di tali scelte, con particolare attenzione all'efficienza, scalabilità e modularità del sistema.
 
-\subsection{Broker Communicator}
-Il Broker Communicator scambia i messaggi con Mosquitto, un Broker MQTT, in due modi:
+\section{Comunicazione interna}
+I sottomoduli dell'Executer comunicano fra loro direttamente all'interno del linguaggio Rust utilizzando il meccanismo di comunicazione basato su canali, fornito dalla libreria standard tramite il modulo std::sync::mpsc \cite{rust_mpsc}. Questo approccio permette la trasmissione di messaggi tra componenti in modo sicuro e asincrono, evitando condizioni di gara e garantendo un flusso ordinato di dati.
+\subsection{std::sync::mpsc}
+mpsc sta per multi-producer, single-consumer. Questo significa che più produttori (sorgenti di dati) possono inviare messaggi su un canale verso un unico consumatore (ricevitore). Ogni sottomodulo dell'Executer che deve inviare dati a un altro modulo agisce come produttore, mentre il destinatario agisce come consumatore.
+Un canale è un concetto utilizzato per trasmettere dati o messaggi tra diverse parti di un programma tra tra thread che definiscono i sottomoduli. Rust implementa i canali con due entità principali:
+
 \begin{itemize}
-  \item L'Invio della scansione richiesta e ricevuta dal Supervisor incorporandola nel messaggi MQTT e pubblicandoli.
-  \item La Ricezione è divisa in 3 tipi di messaggi:
-    \begin{itemize}
-      \item Register: notifica di iscrizione di un Probe.
-      \item Result: i risultati di una scansione terminata da un Probe.
-      \item Info: eventuali errori e altri dati relativi alle scansioni.
-    \end{itemize}
+  \item Sender: Lato del produttore del canale. Qualsiasi sottomodulo che deve inviare dati ad altri moduli utilizza un'istanza di Sender.
+  \item Receiver: Lato del consumatore. Il modulo che riceve i messaggi avrà un'istanza di Receiver.
+\end{itemize}
+FIFO (First In, First Out): La coda che gestisce i messaggi all'interno del canale segue la politica FIFO. Ciò significa che i messaggi vengono ricevuti nell'ordine in cui sono stati inviati, garantendo che i dati siano elaborati in modo sequenziale e prevedibile. Questo è particolarmente importante in un contesto distribuito, dove l'ordine delle operazioni può influenzare l'integrità del sistema.
+\subsection{Vantaggi di mpsc}
+\textbf{Sicurezza concorrente}: Utilizzando mpsc, si evita l'uso di memoria condivisa o accessi simultanei alle stesse risorse da parte di più thread. Ogni modulo comunica tramite messaggi, mantenendo l'isolamento dei dati e prevenendo deadlock o race conditions, che potrebbero compromettere la correttezza del sistema. 
+\newline
+\textbf{Asincronia}: I canali sono non bloccanti, quindi il modulo produttore può continuare a funzionare anche dopo aver inviato un messaggio, senza doversi preoccupare se il messaggio sia stato già ricevuto o elaborato. Il modulo consumatore, invece, può leggere i messaggi appena necessario.
+\newline
+\textbf{Scalabilità}: La capacità di avere più produttori garantisce che il sistema possa scalare facilmente aggiungendo nuovi componenti che inviano dati su un singolo canale, senza dover cambiare la logica del consumatore.
+\subsection{Utilizzo nell'Executer}
+In questo contesto, ogni sottomodulo dell'Executer (come il Supervisor, il Dispatcher Communicator, il Broker Communicator, etc.) funge da produttore o consumatore, a seconda del flusso di comunicazione richiesto. Ad esempio il Dispatcher Communicator può inviare comandi al Supervisor attraverso un canale.
+\newline
+Questo schema di comunicazione rende il sistema modulare e facile da estendere, poiché ogni modulo è indipendente dagli altri e può essere collegato a più sottomoduli tramite semplici meccanismi di invio e ricezione di messaggi.
+
+\section{Comunicazione esterna}
+All'interno dell'architettura dell'Executer, i vari sottomoduli comunicano fra loro utilizzando rust ma per la comunicazione fra diversi moduli, quindi ad esempio la comunicazione fra Executer e Dispatcher, viene usato il protocollo MQTT (Message Queuing Telemtry Transport) \cite{mqtt2024}, un protocollo di messaggistica leggero e asincrono, particolarmente adatto per ambienti distribuiti e reti connesse. Come broker MQTT, viene utilizzato Mosquitto \cite{mosquitto2024}, un'implementazione open-source ampiamente diffusa e affidabile. 
+\subsection{Cos'è MQTT?}
+MQTT è un protocollo di messaggistica basato sul paradigma publish/subscribe. Invece di inviare messaggi direttamente tra un mittente e un destinatario, come nei tradizionali modelli point-to-point, MQTT opera attraverso un broker centrale che gestisce la comunicazione tra i vari partecipanti al sistema.
+\begin{itemize}
+  \item \textbf{Publish/Subscribe}: I moduli del sistema non comunicano direttamente tra loro, ma attraverso argomenti (topics). Un modulo pubblica messaggi su un determinato topic e uno o più moduli che si sono iscritti (subscribed) a quel topic ricevono il messaggio. Questo permette una comunicazione altamente decoupled, dove i moduli non hanno bisogno di conoscere direttamente gli altri moduli con cui comunicano.
+  \item \textbf{Asincrono e leggero}: MQTT è progettato per essere leggero, ideale per reti a larghezza di banda limitata o dispositivi con capacità ridotte. La comunicazione è asincrona, quindi i moduli possono inviare e ricevere messaggi senza bloccare le proprie operazioni, favorendo la scalabilità.
+  \item \textbf{Qualità del servizio (QoS)}: MQTT offre vari livelli di garanzia sulla consegna dei messaggi, permettendo di scegliere tra una semplice "fire-and-forget" (livello 0), conferma di ricezione (livello 1), o consegna garantita esattamente una volta (livello 2). Questa flessibilità consente di bilanciare affidabilità e prestazioni a seconda dei requisiti del sistema.
 \end{itemize}
 
-\subsection{Collector}
-
-
-
-
-
-
-
-\chapter{Implementazione del Sistema}
-Per l'implementazione del sistema proposto, abbiamo scelto tecnologie moderne e performanti che garantiscono efficienza, scalabilità e una buona esperienza utente. Di seguito, descriviamo i principali strumenti e librerie utilizzati.
-
+\subsection{Cos'è Mosquitto?}
+Mosquitto è un'implementazione open-source del broker MQTT, che funge da intermediario per la comunicazione tra i vari moduli del sistema. È responsabile della gestione degli argomenti e della distribuzione dei messaggi ai moduli corretti, in base agli argomenti a cui sono iscritti.
 \begin{itemize}
-
-  \item \subsubsection{Linguaggio di Programmazione e Librerie}
-    L'intero core del sistema è stato sviluppato in Rust \cite{rust2024}, un linguaggio noto per le sue elevate prestazioni e sicurezza nella gestione della memoria. Rust è stato scelto per la sua capacità di gestire in modo efficiente operazioni parallele e concorrenti, essenziali per il funzionamento dei probes distribuiti. Le principali librerie utilizzate includono:
-  \begin{itemize}
-    \item[] Serde \cite{serde2024}: Utilizzata per la serializzazione e deserializzazione dei dati, facilitando la conversione tra strutture dati Rust e formati come JSON o YAML.
-    \item[] Toki \cite{tokio2024}o: Un runtime asincrono che ci ha permesso di gestire in modo efficiente le operazioni I/O non bloccanti, fondamentali per il funzionamento simultaneo delle probes.
-    \item[] Tracing \cite{tracing2024}: Utilizzata per la registrazione e il monitoraggio delle attività all'interno del sistema, fornendo strumenti per tracciare le prestazioni e diagnosticare problemi.
-  \end{itemize}
-
-\item \subsubsection{Scansione della Rete}
-  Per la scansione della rete il sistema utilizza Nmap, uno strumento potente e versatile per la mappatura della topologia di rete. Nmap permette di identificare dispositivi di rete, porte aperte, servizi attivi e altre informazioni critiche necessarie per l'analisi della topologia. Le probes distribuite utilizzano Nmap per eseguire le scansioni in parallelo su diverse sezioni della rete.
-
-\item \subsubsection{Interfaccia Grafica}
-  Per lo sviluppo della GUI (Graphical User Interface), abbiamo utilizzato React \cite{react2024}, una libreria JavaScript particolarmente adatta per costruire interfacce utente interattive e dinamiche. L'uso di React ci ha permesso di sviluppare una GUI reattiva, in grado di visualizzare in tempo reale la topologia della rete e di offrire un'esperienza utente fluida.
-
-\item \subsubsection{Applicazione Desktop}
-  Abbiamo scelto Tauri \cite{tauri2024} come framework per l'implementazione dell'applicazione desktop. Tauri, combinato con React, ci ha permesso di creare un'applicazione leggera e performante, che offre la possibilità di distribuire il sistema come applicazione nativa su diverse piattaforme, mantenendo al contempo il codice base in JavaScript e Rust.
-
-\item \subsubsection{Comunicazione tra Moduli}
-  Per la comunicazione tra i diversi moduli del sistema, abbiamo implementato un sistema di messaggistica basato su MQTT \cite{mqtt2024}, utilizzando Mosquitto \cite{mosquitto2024} come broker. Mosquitto è un broker MQTT leggero e affidabile, ideale per gestire la comunicazione in tempo reale tra le probes distribuite, il backend e la GUI, garantendo una bassa latenza e una gestione efficiente dei messaggi.
-
-\item \subsubsection{Gestione del Database}
-  Per l'archiviazione e la gestione dei dati raccolti, abbiamo utilizzato PostgreSQL(!TODO ancora non abbiamo scelto). Questo sistema di gestione di database relazionale è stato scelto per la sua robustezza, scalabilità e capacità di gestire grandi volumi di dati in modo efficiente. PostgreSQL supporta anche funzionalità avanzate di analisi dei dati, che possono essere utili per elaborazioni future.
-
-\item \subsubsection{Contenitori e Distribuzione}
-  Infine, abbiamo adottato Docker \cite{docker2024} per la gestione delle istanze del database e del frontend. Docker ci ha permesso di isolare l'ambiente di esecuzione, garantendo che ogni componente del sistema funzioni in modo coerente su qualsiasi piattaforma. L'uso di Docker semplifica anche il processo di distribuzione e aggiornamento del sistema, facilitando l'integrazione continua e il deployment.
-
+  \item \textbf{Broker}: Un broker MQTT come Mosquitto è l'elemento centrale in una rete MQTT. Tutti i messaggi passano attraverso di esso, e ha il compito di distribuire i messaggi dai publisher agli abbonati in modo efficiente. Il broker si occupa anche di mantenere le connessioni attive e gestire eventuali riconnessioni in caso di interruzioni.
+  \item \textbf{Efficienza e scalabilità}: Mosquitto è progettato per essere leggero e può gestire un gran numero di connessioni simultanee con un consumo minimo di risorse, il che lo rende ideale per l'utilizzo in reti distribuite come quella dell'Executer. Inoltre, Mosquitto supporta sia connessioni con autenticazione che connessioni criptate, garantendo un alto livello di sicurezza per le comunicazioni tra moduli.
 \end{itemize}
 
 
+\section{Supervisor}
+Il Supervisor, per svolgere correttamente il suo ruolo, deve avere una visione aggiornata di tutti i Probe attivi nel sistema. Ogni volta che un nuovo Probe si registra, invia un messaggio di registrazione tramite il protocollo MQTT. Questo messaggio, pubblicato su un topic specifico a cui l'Executer è iscritto, contiene un Probe ID univoco, che identifica il probe all'interno della rete.
+\newline
+Il Supervisor riceve il messaggio e, successivamente, memorizza l'ID del probe in una struttura dati. Attualmente, abbiamo scelto di utilizzare una coda come struttura temporanea per facilitare l'implementazione dell'algoritmo di bilanciamento del carico (load balancing). L'algoritmo scelto per la prima fase è il Round Robin , un metodo semplice e equo che garantisce a ogni probe registrato di ricevere incarichi in modo sequenziale, evitando la predominanza di uno rispetto agli altri.
+\newline
+Tuttavia, in futuro, sarà necessario adottare un approccio più avanzato per il bilanciamento del carico, che tenga conto delle dimensioni e della complessità delle reti gestite da ciascun Probe. Un possibile miglioramento prevede l'introduzione di una priorità associata ai probe che gestiscono porzioni più estese della rete, sempre garantendo che nessun probe venga trascurato o si trovi in condizione di starvation. Questo approccio permetterebbe una distribuzione più efficiente e dinamica dei compiti, bilanciando meglio il carico di lavoro tra i vari componenti del sistema.
 
-%% Capitolo
-\chapter{Lavoro principale}
-Nel corso dello sviluppo del sistema di analisi della topologia di rete, mi sono concentrato su diversi aspetti chiave dell'implementazione, contribuendo con soluzioni che hanno migliorato la leggibilità del codice, l'efficienza del sistema e la gestione dei dati. Di seguito, descrivo il lavoro che ho svolto.
+\section{Broker Communicator}
+Il Broker Communicator è responsabile dello scambio di messaggi con il broker MQTT, Mosquitto, gestendo sia l'invio che la ricezione delle comunicazioni all'interno del sistema distribuito. Le interazioni avvengono principalmente in due direzioni:
+\newline
+\textbf{Invio dei messaggi}: Quando il Supervisor richiede una scansione, il Broker Communicator si occupa di incorporare la richiesta all'interno di un messaggio MQTT strutturato e di pubblicarlo sul topic appropriato, che verrà poi processato dai vari probe registrati. Questo meccanismo garantisce che la richiesta raggiunga i destinatari in modo asincrono ed efficiente.
+\newline
+\textbf{Ricezione dei messaggi}: La ricezione dei messaggi da parte del Broker Communicator è suddivisa in tre principali categorie:
+\begin{itemize}
 
-\section{Miglioramento del Parser XML}
-Inizialmente, il parser per i dati XML era implementato come una macchina a stati finiti. Questo approccio, sebbene funzionante, rendeva il codice complesso, difficile da leggere e da mantenere. Dopo un'analisi approfondita, ho suggerito di adottare un approccio di parsing incrementale utilizzando la libreria Serde.
+  \item \textbf{Register}: Questi messaggi sono inviati dai probe per notificare la loro iscrizione al sistema. Ogni nuovo probe, al momento della registrazione, invia un messaggio contenente il suo identificativo univoco (Probe ID), permettendo così al sistema di tenerne traccia.
 
-Quando ho iniziato a lavorare su questo progetto, non avevo ancora una conoscenza approfondita di Rust. Ho provato a scrivere del codice per implementare il parser, ma non ha funzionato come previsto. Il codice per il parser finale è stato quindi scritto da un altro membro del team, ma la mia analisi e le mie raccomandazioni hanno guidato la transizione verso l'uso di Serde, migliorando significativamente la qualità del codice.
+  \item \textbf{Result}: Dopo aver completato una scansione, i probe inviano i risultati al sistema sotto forma di messaggi Result. Questi includono tutte le informazioni raccolte durante la scansione, che vengono poi elaborate dal Supervisor o da altri componenti del sistema.
 
-\section{Generazione di ID Unici per le Probes}
-Ho scritto il codice per la generazione di un ID univoco per ciascuna probe, basato sul loro MAC address. Questo ID univoco è essenziale per identificare in modo preciso e inequivocabile ogni probe all'interno del sistema distribuito, garantendo la coerenza e l'integrità dei dati raccolti.
+  \item \textbf{Info}: Questa categoria di messaggi include informazioni aggiuntive relative allo stato delle scansioni, come eventuali errori riscontrati o altri dati utili per il monitoraggio e il debug del sistema.
+\end{itemize}
 
-\section{Unit Testing e Risoluzione di Problemi nel Parser}
-Mi sono occupato della scrittura degli unit test per il parser XML, con l'obiettivo di garantire che il nuovo approccio basato su Serde funzionasse correttamente in tutti i casi previsti. Durante la fase di testing, ho identificato alcuni problemi relativi alle strutture dati che avevamo creato per Serde. In particolare, ho rilevato incongruenze che avrebbero potuto compromettere l'efficacia del parsing. Grazie a questi test, siamo stati in grado di risolvere i problemi e di ottimizzare ulteriormente le strutture dati utilizzate.
+Grazie a questa architettura, il Broker Communicator garantisce una comunicazione fluida e coordinata tra i vari componenti del sistema, mantenendo l'interoperabilità tra probe e Supervisor tramite Mosquitto.
 
-\section{Modifica della Gestione del File di Configurazione}
-Un'altra area su cui ho lavorato è stata la gestione del file di configurazione delle probes. Originariamente, questo file veniva creato nella directory in cui veniva eseguito il programma, una pratica che poteva causare confusione e problemi di gestione, soprattutto su sistemi multiutente. Ho modificato il codice affinché il file di configurazione venga ora creato in una directory standard di Linux per le configurazioni delle applicazioni: ~/.config/netstaldi/Config.toml. Questo cambiamento migliora la coerenza con le convenzioni di sistema e facilita la gestione delle configurazioni.
+\section{Collector}
+Questo modulo è progettato per ricevere messaggi dal Broker Communicator attraverso un canale mpsc (multi-producer, single-consumer). Il funzionamento del Collector è basato sul tipo di messaggio ricevuto, che viene processato in modo differente a seconda del suo contenuto.
 
-\section{Valutazione del Database Ottimale}
-Attualmente sto contribuendo alla valutazione del database più adatto da utilizzare per l'archiviazione dei dati raccolti. Inizialmente, abbiamo considerato l'uso di ScyllaDB per il suo supporto integrato ai JSON, che sembrava promettente per le nostre esigenze. Tuttavia, ho scoperto che ScyllaDB non supporta i JSON nidificati, una limitazione che potrebbe ostacolare la nostra capacità di gestire dati complessi in futuro. Questa scoperta ha portato a riconsiderare le opzioni disponibili, e sto collaborando con il team per esplorare alternative più adatte alle nostre necessità.
+Attualmente, il Collector gestisce i messaggi in questo modo:
+\begin{itemize}
+  \item \textbf{Messaggi di registrazione}: Se il messaggio ricevuto riguarda la registrazione di un Probe, il Collector estrae l'ID del probe e lo invia al Supervisor utilizzando l'apposito canale mpsc configurato per la comunicazione interna.
 
-%% Capitolo
-%\chapter{Risultati}
+  \item \textbf{Messaggi di risultati}: Quando viene ricevuto un messaggio contenente i risultati di una scansione effettuata da un probe, il Collector inoltra questi dati al Knowledge Base Connector, che si occupa di integrarli nel sistema di conoscenza della rete.
+
+  \item \textbf{Messaggi di info}: Per i messaggi di tipo informativo, come errori o aggiornamenti sullo stato delle scansioni, il Collector li trasmette anch'essi al Knowledge Base Connector per permettere un monitoraggio più accurato dello stato del sistema.
+\end{itemize}
+
+Nel futuro, sarà importante migliorare il sistema di filtraggio dei dati che il Collector elabora, garantendo comunque che la latenza rimanga il più bassa possibile. Questo permetterà di ottimizzare le prestazioni del sistema, soprattutto in ambienti di rete molto dinamici o in caso di elevato traffico di messaggi.
+
+\section{Altre librerie usate}
+Nel progetto, oltre alle librerie già menzionate, sono state utilizzate diverse altre librerie di Rust che hanno giocato un ruolo fondamentale nell'implementazione delle varie componenti del sistema. Di seguito vengono descritte alcune delle principali librerie e il loro utilizzo:
+\subsection{Anyhow}
+
+La libreria anyhow \cite{rust_anyhow} viene utilizzata per la gestione degli errori. Rust fornisce un sistema di gestione degli errori molto rigoroso, e anyhow semplifica notevolmente il processo, permettendo di trattare gli errori in modo più flessibile, specialmente nei contesti in cui la precisione nel gestire ogni singola casistica non è strettamente necessaria.
+\begin{itemize}
+  \item \textbf{Gestione degli errori flessibile}: Anyhow permette di aggregare e gestire vari tipi di errori attraverso il tipo anyhow::Error, rendendo la scrittura del codice più semplice e mantenendo comunque la robustezza necessaria in un sistema distribuito.
+  \item \textbf{Backtrace e Debugging}: Inoltre, anyhow fornisce strumenti per generare stack trace dettagliati, che sono molto utili durante il debugging, in modo da poter risalire velocemente alla causa di un errore.
+\end{itemize}
+In un sistema distribuito complesso come il nostro, in cui le comunicazioni tra moduli e il parsing dei dati devono essere sempre gestiti in modo corretto, anyhow facilita la cattura e la propagazione degli errori tra le varie componenti.
+
+\subsection{Tracing}
+La libreria tracing \cite{rust_tracing} è utilizzata per il logging strutturato e l'osservabilità del sistema. Diversamente dalle tradizionali librerie di logging, tracing permette di ottenere informazioni dettagliate sul comportamento del programma, fornendo uno strumento utile per monitorare in modo efficiente i flussi di esecuzione.
+\begin{itemize}
+  \item \textbf{Eventi e Span}: tracing introduce il concetto di span e eventi. Uno span rappresenta una singola operazione o funzione nel programma, e può essere nidificato o contenere altre operazioni all'interno. Gli eventi, invece, sono punti specifici che segnalano qualcosa di importante che accade nel programma. Questo modello risulta particolarmente utile per tracciare l'esecuzione asincrona, poiché rende possibile capire il contesto di esecuzione di una determinata operazione.
+  \item \textbf{Logging avanzato}: Rispetto ad altre librerie di logging, tracing consente di raccogliere informazioni più dettagliate su ogni evento e su come si relaziona ad altre operazioni del sistema. Questo è particolarmente utile in ambienti distribuiti come il nostro, dove molte operazioni avvengono in parallelo e potrebbero essere difficili da tracciare correttamente.
+\end{itemize}
+
+Grazie a tracing, è possibile tenere sotto controllo lo stato di esecuzione dei vari moduli, tra cui l'Executer, monitorando le loro interazioni e migliorando l'osservabilità e il debugging del sistema.
+
+\subsection{Tokio}
+Tokio \cite{rust_tokio} è una delle librerie più utilizzate in Rust per la gestione della programmazione asincrona. Poiché il nostro sistema è distribuito e molte operazioni devono essere eseguite contemporaneamente o in modo asincrono, tokio è stata fondamentale per implementare efficientemente il modello asincrono.
+\begin{itemize}
+  \item \textbf{Runtime asincrono}: Tokio fornisce un runtime asincrono basato su un modello di event loop, che permette al sistema di gestire molte operazioni in parallelo senza bloccare i thread. Questo è essenziale per l'esecuzione di task come l'invio e la ricezione di messaggi MQTT o la gestione delle comunicazioni tra moduli, che richiedono di essere gestite contemporaneamente ma senza sovraccaricare il sistema.
+  \item \textbf{Task e thread}: Tokio permette di creare task che possono essere eseguite su thread separati, bilanciando il carico di lavoro tra le diverse componenti del sistema in modo efficiente. È utilizzato nel nostro progetto per gestire le comunicazioni tra i vari moduli, permettendo loro di funzionare senza blocchi anche quando attendono nuovi messaggi o dati di input.
+\end{itemize}
+
+La scelta di Tokio è stata fondamentale per permettere al sistema di scalare, rendendo possibile la gestione di numerose connessioni simultanee senza compromettere le prestazioni.
+
+\subsection{Serde}
+La libreria serde \cite{rust_serde} è stata utilizzata per il serialization e deserialization dei dati, ovvero la conversione tra strutture di dati di Rust e formati esterni (come JSON o XML). Dato che il sistema comunica tramite protocolli che trasportano dati strutturati, serde è essenziale per poter convertire agevolmente questi dati da e verso i formati utilizzati nelle comunicazioni tra i moduli.
+\begin{itemize}
+  \item \textbf{Serializzazione/Deserializzazione}: Nel nostro progetto, serde viene utilizzata principalmente per il parsing dei dati XML ricevuti dai Probe. Consente di mappare facilmente i dati ricevuti in strutture Rust, semplificando l'analisi e la gestione delle informazioni all'interno del sistema.
+  \item \textbf{Modularità e flessibilità}: Grazie alla sua architettura modulare, serde permette di supportare vari formati di dati, adattandosi facilmente ai diversi requisiti del sistema.
+\end{itemize}
+
+Grazie all'utilizzo di serde, il sistema può gestire con facilità formati di dati complessi e strutturati, migliorando l'integrazione e la gestione delle comunicazioni tra i moduli.
+
 
 
 %% Capitolo
