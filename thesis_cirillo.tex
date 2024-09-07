@@ -43,13 +43,17 @@
 \maketitle
 
 %% Dedica (opzionale)
-%\begin{dedication}
-%	Al mio cane,\par per avermi ascoltato mentre ripassavo le lezioni.
-%\end{dedication}
+\begin{dedication}
+	A questa pagina, \par che mi ha aiutato ad aumentare le pagine totali.
+\end{dedication}
 
-%% Ringraziamenti (opzionali)
-%\acknowledgements
-%Sed vel lorem a arcu faucibus aliquet eu semper tortor. Aliquam dolor lacus, semper vitae ligula sed, blandit iaculis leo. Nam pharetra lobortis leo nec auctor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce ac risus pulvinar, congue eros non, interdum metus. Mauris tincidunt neque et aliquam imperdiet. Aenean ac tellus id nibh pellentesque pulvinar ut eu lacus. Proin tempor facilisis tortor, et hendrerit purus commodo laoreet. Quisque sed augue id ligula consectetur adipiscing. Vestibulum libero metus, lacinia ac vestibulum eu, varius non arcu. Nam et gravida velit.
+% Ringraziamenti (opzionali)
+\acknowledgements
+Vorrei esprimere un sentito ringraziamento a tutti coloro che mi hanno supportato durante questo percorso. Innanzitutto, un grazie speciale sia al mio relatore che il mio correlatore per la guida e la pazienza. Grazie ai miei compagni di progetto, senza i quali non sarei riuscito a superare le tante sfide incontrate lungo la strada.
+\newline
+Un ringraziamento va anche alla mia famiglia, che mi ha sostenuto in ogni momento, e ai miei amici, per avermi sempre spronato a dare il meglio di me.
+\newline
+Infine, grazie a chi ha creduto in me, rendendo questo traguardo possibile!
 
 %% Sommario (opzionale)
 %\abstract
@@ -61,8 +65,8 @@
 %% Lista delle tabelle (se presenti)
 %\listoftables
 
-%% Lista delle figure (se presenti)
-%\listoffigures
+% Lista delle figure (se presenti)
+\listoffigures
 
 %% Corpo principale del documento
 \mainmatter
@@ -85,7 +89,7 @@ Come descritto in \cite{tanenbaum2011computer} l'analisi della topologia di rete
 \end{itemize}
 
 \subsection{Scopi e obiettivi della tesi.}
-La tesi ha come scopo principale la progettazione e lo sviluppo di un sistema distribuito innovativo per l'analisi della topologia di reti di calcolatori, che superi i limiti degli strumenti attualmente disponibili, come SNMP (Simple Network Management Protocol) \cite{rfc1157} e altri metodi tradizionali.
+La tesi ha come scopo principale la progettazione e lo sviluppo di un sistema distribuito innovativo per l'analisi della topologia di reti di calcolatori, che superi i limiti degli strumenti attualmente disponibili, come SNMP (Simple Network Management Protocol) e altri metodi tradizionali.
 \newline
 Obiettivi Specifici:
 \begin{itemize}
@@ -126,7 +130,7 @@ Obiettivi Specifici:
 
 \section{Struttura della Tesi}
 \subsection{Breve panoramica dei capitoli successivi.}
-Questa tesi è organizzata in x(!TODO) capitoli, ciascuno dei quali affronta aspetti fondamentali dello sviluppo e dell'analisi di un sistema distribuito per l'analisi della topologia di reti di calcolatori. Di seguito viene presentata una panoramica della struttura della tesi.
+Questa tesi è organizzata in 7 capitoli, ciascuno dei quali affronta aspetti fondamentali dello sviluppo e dell'analisi di un sistema distribuito per l'analisi della topologia di reti di calcolatori. Di seguito viene presentata una panoramica della struttura della tesi.
 
 \begin{itemize}
   \item Capitolo 1: Introduzione
@@ -138,25 +142,24 @@ Questa tesi è organizzata in x(!TODO) capitoli, ciascuno dei quali affronta asp
     \begin{itemize}
       \item[] Nel secondo capitolo vengono esaminati i concetti fondamentali di topologia di rete e vengono descritti i metodi comuni utilizzati per la sua analisi. Viene inoltre condotta un'analisi critica degli strumenti attualmente disponibili, con particolare attenzione ai loro limiti e alle carenze, soprattutto riguardo a SNMP.
     \end{itemize}
-
-  \item    Capitolo 3: Soluzione Proposta
+  \item Capitolo 3: Requisiti di un buon sistema
     \begin{itemize}
-      \item[] In questo capitolo viene descritto il sistema proposto per l'analisi e la topologia di rete che vogliamo progettare evidenziando possibili vantaggi che altri strumenti come SNMP non possiedono.
+      \item[] In questo capitolo vengono discussi in dettaglio i problemi principali che emergono dall'utilizzo degli strumenti esistenti per l'analisi della topologia di rete. Vengono quindi identificati e descritti i requisiti in termini di accuratezza, scalabilità, latenza, efficienza, sicurezza e privacy che un buon sistema per l'analisi di rete dovrebbe avere.
     \end{itemize}
 
   \item Capitolo 4: Progettazione del Sistema
     \begin{itemize}
-      \item[] Il quarto capitolo descrive in dettaglio l'architettura del sistema proposto, i protocolli di comunicazione utilizzati, gli algoritmi sviluppati per l'analisi della topologia e le misure di sicurezza adottate. Viene fornita una descrizione tecnica della progettazione del sistema, enfatizzando le soluzioni innovative implementate.
+      \item[] Il quarto capitolo descrive la soluzione proposta e in dettaglio l'architettura del sistema, i protocolli di comunicazione utilizzati, gli algoritmi sviluppati per l'analisi della topologia e le misure di sicurezza adottate. Viene fornita una descrizione tecnica della progettazione del sistema, enfatizzando le soluzioni innovative implementate.
     \end{itemize}
 
-  \item Capitolo 5: Implementazione
+  \item Capitolo 5: In Dettaglio: Executer
     \begin{itemize}
-      \item[] In questo capitolo viene descritta l'implementazione pratica del sistema proposto. Viene esaminata la scelta delle tecnologie utilizzate, il processo di sviluppo del prototipo e i test effettuati per validare il sistema. Sono inoltre inclusi dettagli sull'integrazione delle diverse componenti.
+      \item[] Questo capitolo descrive l'architettura dell'Executer, il componente centrale responsabile della gestione e coordinazione delle operazioni di scansione sulla rete, e analizza in dettaglio come comunica con gli altri moduli tramite un sistema di messaggistica basato su canali FIFO e MQTT.
     \end{itemize}
 
-  \item Capitolo 6: Lavoro principale 
+  \item Capitolo 6: Implementazione Executer
     \begin{itemize}
-      \item[] Il sesto capitolo presenta una descrizione dei miei contributi specifici che ho apportato al progetto evidenziando come abbia affrontato varie sfide tecniche e collaborato con il team per migliorare l'architettura.
+      \item[] In questo capitolo vengono presentate le scelte tecniche e di implementazione dell'Executer, comprese le librerie utilizzate in Rust, la gestione della comunicazione tra moduli tramite MQTT e l'infrastruttura basata su Mosquitto per coordinare le scansioni e raccogliere i risultati.
     \end{itemize}
 
   \item Capitolo 7: Conclusioni
@@ -304,8 +307,10 @@ Il sistema è composto da una architettura client-server nella quale il backend 
 
 
 \begin{figure}[h]
-  \includegraphics[width=15cm, height=10cm]{client_server}
+  \includegraphics[width=\columnwidth]{client_server}
   \centering
+  \caption{Client-Server}
+  \label{client-server}
 \end{figure}
 
 \FloatBarrier
@@ -314,8 +319,10 @@ Per organizzazione e scalabilità abbiamo diviso l'architettura in 6 moduli prin
 
 
 \begin{figure}[h]
-  \includegraphics[width=15cm, height=10cm]{moduli_new}
+  \includegraphics[width=\columnwidth]{moduli}
   \centering
+  \caption{Moduli Architettura}
+  \label{moduli}
 \end{figure}
 
 \FloatBarrier
@@ -326,8 +333,10 @@ Ricevuto un comando il probe lo interpreta, esegue l'opportuna scansione e deser
 
 
 \begin{figure}[h]
-  \includegraphics[width=14cm, height=8cm]{probe}
+  \includegraphics[width=\columnwidth]{probe}
   \centering
+  \caption{Probe}
+  \label{probe}
 \end{figure}
 \FloatBarrier
 
@@ -337,8 +346,10 @@ Il Dispatcher è il modulo che controlla e coordina le operazioni necessarie per
 Riceve un comando dal Frontend che viene interpretato e mandato allo Scheduler che interagisce con l'Executer ed il Merger per eseguire la scansione e salvarla.
 
 \begin{figure}[h]
-  \includegraphics[width=14cm, height=8cm]{dispatcher}
+  \includegraphics[width=\columnwidth]{dispatcher}
   \centering
+  \caption{Dispatcher}
+  \label{dispatcher}
 \end{figure}
 
 \FloatBarrier
@@ -347,8 +358,10 @@ Riceve un comando dal Frontend che viene interpretato e mandato allo Scheduler c
 L'Executer riceve un comando dallo Scheduler e coordina gli Scan Probes nell'esecuzione della scansione tramite un broker di messaggi idoneo. I risultati delle scansioni vengono poi salvati nel Network Knowledge Base.
 
 \begin{figure}[h]
-  \includegraphics[width=14cm, height=8cm]{executer}
+  \includegraphics[width=\columnwidth]{executer}
   \centering
+  \caption{Executer}
+  \label{executer}
 \end{figure}
 
 \FloatBarrier
@@ -365,8 +378,10 @@ Il Merger si occupa di ricevere i dati generati dai Scan Probes ed amalgamarli p
 
 
 \begin{figure}[h]
-  \includegraphics[width=14cm, height=8cm]{merger}
+  \includegraphics[width=\columnwidth]{merger}
   \centering
+  \caption{Merger}
+  \label{merger}
 \end{figure}
 
 \FloatBarrier
@@ -379,14 +394,6 @@ La GUI (Graphical User Interface) è un'interfaccia grafica che viene provvista 
 
 \chapter{In Dettaglio: Executer}
 In questo capitolo viene descritto in dettaglio il funzionamento dell'executer che, come spiegato in breve nel capitolo prima, funge da componente centrale per la gestione della comunicazione e della supervisione delle attività all'interno del sistema.
-
-
-\begin{figure}[h]
-  \includegraphics[width=14cm, height=8cm]{executer}
-  \centering
-\end{figure}
-
-\FloatBarrier
 
 
 \subsection{Dispatcher Communicator}
@@ -491,6 +498,47 @@ Attualmente, il Collector gestisce i messaggi in questo modo:
 \end{itemize}
 
 Nel futuro, sarà importante migliorare il sistema di filtraggio dei dati che il Collector elabora, garantendo comunque che la latenza rimanga il più bassa possibile. Questo permetterà di ottimizzare le prestazioni del sistema, soprattutto in ambienti di rete molto dinamici o in caso di elevato traffico di messaggi.
+
+\section{Dispatcher Communicator}
+Per l'implementazione del Dispatcher Communicator, dato che il modulo del dispatcher non è ancora stato implementato, al momento utilizziamo una simulazione basata su MQTT per la gestione della comunicazione tra i moduli. Questa simulazione ci permette di testare l'invio e la ricezione dei messaggi in modo realistico, utilizzando il broker Mosquitto per replicare il comportamento previsto del dispatcher.
+
+In questo modo, possiamo procedere con lo sviluppo e la verifica del sistema, garantendo che i flussi di comunicazione siano correttamente gestiti e mantenendo flessibilità nell'evoluzione dell'architettura. L'integrazione del dispatcher effettivo verrà eseguita in futuro, sostituendo progressivamente la simulazione con l'implementazione finale.
+
+\section{Knowledge Base Connector}
+Il Knowledge Base Connector è una componente essenziale per l'architettura del sistema, progettata per gestire tutte le interazioni con il database da parte dell'Executer. La sua implementazione in Rust è stata pensata per essere modulare e flessibile, consentendo al sistema di archiviare e aggiornare informazioni sulla topologia di rete in modo efficiente e scalabile.
+
+\subsection{Connessione a ScyllaDB}
+Il database scelto per l’implementazione del Knowledge Base Connector è ScyllaDB \cite{scylladb2024}, un database NoSQL altamente scalabile, basato su una tecnologia compatibile con Cassandra \cite{cassandra2024}, ma ottimizzato per prestazioni superiori. La scelta di ScyllaDB si basa sulla sua capacità di gestire grandi quantità di dati distribuiti su più nodi, con bassa latenza e alta efficienza, requisiti fondamentali per un sistema distribuito che analizza una rete su larga scala.
+
+\subsection{Supporto JSON ScyllaDB}
+Uno dei vantaggi principali di ScyllaDB è il suo supporto nativo per il formato JSON. Questa funzionalità ci permette di memorizzare strutture di dati complesse in modo flessibile all'interno delle tabelle del database, mantenendo la struttura gerarchica dei dati senza la necessità di mappare ogni campo singolarmente in colonne tradizionali. Utilizzare JSON permette di avere un formato molto adatto a rappresentare i risultati delle scansioni di rete, che possono includere dettagli come indirizzi IP, porte aperte, protocolli e altre informazioni correlate alla topologia di rete.
+\newline
+La scelta di utilizzare il supporto JSON semplifica enormemente la gestione dei dati in quanto permette di inserire e recuperare oggetti complessi senza doverli disaggregare, migliorando così l'efficienza e riducendo la complessità delle query.
+
+\subsection{Interacce modulari}
+Per facilitare eventuali cambiamenti futuri nel database, l’implementazione del Knowledge Base Connector è stata costruita utilizzando interfacce modulari. Questo design consente al sistema di interagire con il database tramite un livello di astrazione che separa la logica dell'applicazione dai dettagli specifici del database scelto.
+\newline
+Grazie a questa struttura, è possibile sostituire ScyllaDB con un altro sistema di database, come PostgreSQL \cite{postgresql2024} o MongoDB \cite{mongodb2024}, con modifiche minime al codice. Il livello di astrazione garantisce che le operazioni principali come l’inserimento rimangano invariate, indipendentemente dal tipo di database sottostante.
+
+\subsection{Funzionamento Knowledge Base Connector}
+Il Knowledge Base Connector svolge diverse operazioni cruciali:
+
+\begin{itemize}
+  \item \textbf{Inserimento dei risultati delle scansioni}: Quando un Probe invia i risultati di una scansione, il Collector inoltra questi dati al Knowledge Base Connector. Questi dati, strutturati in formato JSON, vengono memorizzati in ScyllaDB tramite query appositamente create per gestire il formato JSON. Questo approccio permette di preservare la complessità e l'integrità delle informazioni senza necessità di trasformazioni complesse.
+  \item \textbf{Aggiornamento della topologia di rete}: Il sistema è progettato per eseguire aggiornamenti incrementali della topologia di rete. Man mano che arrivano nuove informazioni dai Probe, il Knowledge Base Connector aggiorna le entità esistenti nel database. Grazie alla flessibilità del formato JSON, è possibile modificare solo alcune parti dei dati senza dover riscrivere interamente un record, migliorando l'efficienza e riducendo la latenza delle operazioni di scrittura.
+  \item \textbf{Gestione delle query}: Per garantire che le prestazioni rimangano elevate anche in presenza di grandi volumi di dati, le query verso ScyllaDB sono state ottimizzate. La struttura a interfacce modulari permette di aggiungere o modificare facilmente query più avanzate per soddisfare requisiti futuri senza cambiare l'architettura di base del sistema.
+\end{itemize}
+
+
+
+\subsection{Vantaggi Modularità}
+La modularità offerta dall'utilizzo delle interfacce ha diversi vantaggi. Prima di tutto, permette una facile sostituzione del database qualora ScyllaDB non fosse più adeguato o se emergessero nuovi requisiti. Inoltre, questo approccio facilita l’aggiunta di nuove funzionalità legate alla gestione dei dati, come l’integrazione con motori di ricerca distribuiti o la possibilità di archiviare diversi tipi di dati in base a contesti specifici.
+\newline
+Infine, la modularità facilita anche lo sviluppo e la manutenzione del sistema nel lungo termine. Con un design che non è strettamente legato a ScyllaDB, gli sviluppatori possono continuare a evolvere il sistema mantenendo separata la logica applicativa dal livello di persistenza dei dati, rendendo l'intero sistema più flessibile e manutenibile.
+
+\subsection{Conclusione}
+L'implementazione del Knowledge Base Connector si fonda su principi di modularità, flessibilità e prestazioni. La scelta di ScyllaDB, con il suo supporto nativo per JSON, offre un'ottima base per gestire i dati complessi derivanti dalle scansioni di rete, mentre l'uso di interfacce garantisce la facilità di adattamento a cambiamenti futuri nel sistema di database. Questi elementi consentono al sistema di crescere ed evolvere in modo sostenibile, mantenendo alte prestazioni e una gestione efficiente della topologia di rete.
+
 
 \section{Altre librerie usate}
 Nel progetto, oltre alle librerie già menzionate, sono state utilizzate diverse altre librerie di Rust che hanno giocato un ruolo fondamentale nell'implementazione delle varie componenti del sistema. Di seguito vengono descritte alcune delle principali librerie e il loro utilizzo:
