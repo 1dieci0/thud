@@ -249,7 +249,7 @@ SNMP (Simple Network Management Protocol) è uno dei protocolli più utilizzati 
 \end{itemize}
 
 \chapter{Requisiti di un buon sistema}
-Per garantire una mappatura accurata ed efficiente della topologia di rete, un buon sistema di analisi dovrebbe soddisfare una serie di requisiti fondamentali. Questi requisiti derivano dagli svantaggi riscontrati negli strumenti esistenti, come SNMP.:
+Per garantire una mappatura accurata ed efficiente della topologia di rete, un buon sistema di analisi dovrebbe soddisfare una serie di requisiti fondamentali. Questi requisiti derivano dagli svantaggi riscontrati negli strumenti esistenti, come SNMP.
 
 \section{Scalabilità}
 Il sistema deve essere in grado di gestire reti di dimensioni variabili, dalla piccola rete locale fino a infrastrutture complesse e distribuite su scala geografica. È essenziale che il sistema possa espandersi senza perdere efficienza e senza introdurre colli di bottiglia man mano che il numero di dispositivi e sottoreti cresce.
@@ -301,9 +301,12 @@ Dal punto di vista della sicurezza, il sistema è progettato per ridurre al mini
 
 In sintesi, l'architettura distribuita proposta rappresenta un significativo miglioramento rispetto agli strumenti tradizionali di analisi della topologia di rete. Essa combina scalabilità, accuratezza, resilienza e sicurezza, offrendo una soluzione completa per la mappatura e il monitoraggio delle reti moderne.
 
+\newpage
 \section{Architettura del Sistema}
 \subsection{Descrizione dettagliata dell'architettura distribuita}
 Il sistema è composto da una architettura client-server nella quale il backend si occupa di fare le scansioni, di salvarne i risultati e di fornirli al frontend dove possono essere visualizzati dagli utenti dovrebbero interagire solo con esso. 
+Il sistema è basato su un'architettura client-server, un modello classico in cui due entità principali, il client e il server, interagiscono per eseguire e fornire servizi. In questo contesto, il backend agisce come il server, occupandosi delle scansioni di rete e dell'archiviazione dei risultati in un database. Il frontend, che rappresenta il client, richiede i dati al backend per visualizzare i risultati e interagire con essi, fornendo all'utente finale l'interfaccia per analizzare la topologia di rete e i dati raccolti.
+L'architettura client-server è un modello distribuito in cui il server fornisce risorse o servizi e il client li utilizza. Il client è tipicamente un'applicazione che invia richieste al server per ottenere informazioni o eseguire azioni. Il server, a sua volta, elabora le richieste, esegue i compiti necessari (come scansioni o elaborazioni dei dati), e risponde al client fornendo i risultati o i dati richiesti.
 
 
 \begin{figure}[h]
@@ -315,7 +318,7 @@ Il sistema è composto da una architettura client-server nella quale il backend 
 
 \FloatBarrier
 
-Per organizzazione e scalabilità abbiamo diviso l'architettura in 6 moduli principali.
+Come osservabile dalla Figura 4.2 il sistema è diviso in 6 moduli principali su cui ogni componente ha un ruolo specifico per garantire il corretto funzionamento del processo di scansione, elaborazione e analisi dei dati di rete. 
 
 
 \begin{figure}[h]
@@ -328,8 +331,18 @@ Per organizzazione e scalabilità abbiamo diviso l'architettura in 6 moduli prin
 \FloatBarrier
 
 \subsubsection{Scan Probes}
-Gli Scan Probes sono moduli che vengono collocati in giro per la rete a raccogliere informazioni. 
-Ricevuto un comando il probe lo interpreta, esegue l'opportuna scansione e deserializza l'output dello scan.
+La Figura 4.3 illustra la struttura interna di una Scan Probe, una componente chiave del sistema distribuito che esegue le scansioni della rete target. La Scan Probe è composta da quattro moduli principali:
+\begin{itemize}
+  \item \textbf{Broker Communicator}: Questo modulo gestisce la comunicazione tra la Scan Probe e il Broker centrale. Riceve comandi dal Broker e invia i risultati delle scansioni completate. Il Broker Communicator agisce come l'interfaccia esterna della sonda, assicurando che tutte le istruzioni e i dati siano trasmessi correttamente tramite un protocollo di messaggistica (come MQTT).
+
+  \item \textbf{Command Interpreter}: Una volta ricevuto un comando dal Broker Communicator, il Command Interpreter lo interpreta e lo trasforma in istruzioni eseguibili dal Scanner. Questo modulo è responsabile di tradurre i messaggi in azioni di scansione concrete, come eseguire una scansione specifica su una porzione di rete.
+
+  \item \textbf{Scanner}: Il modulo Scanner è quello che esegue effettivamente la scansione della rete target, utilizzando strumenti come Nmap per raccogliere informazioni su dispositivi, porte, e servizi attivi all'interno della rete. I risultati della scansione vengono poi inviati al Formatter per essere elaborati e formattati correttamente.
+
+  \item \textbf{Formatter}: Il modulo Formatter prende i dati raccolti dal Scanner e li organizza in un formato standard e comprensibile, pronto per essere inviato nuovamente al Broker Communicator. Questo step di formattazione è essenziale per assicurare che i risultati delle scansioni possano essere facilmente interpretati e utilizzati dagli altri moduli del sistema, come il Merger e la Knowledge Base.
+
+\end{itemize}
+In sintesi, la Scan Probe riceve comandi dal Broker, esegue le scansioni sulla rete target e restituisce i risultati in modo organizzato, consentendo al sistema di avere una visione aggiornata della rete in analisi.
 
 
 \begin{figure}[h]
@@ -342,8 +355,21 @@ Ricevuto un comando il probe lo interpreta, esegue l'opportuna scansione e deser
 
 
 \subsubsection{Dispatcher} 
-Il Dispatcher è il modulo che controlla e coordina le operazioni necessarie per le esecuzioni delle scansioni.
-Riceve un comando dal Frontend che viene interpretato e mandato allo Scheduler che interagisce con l'Executer ed il Merger per eseguire la scansione e salvarla.
+Il diagramma 4.4 rappresenta il funzionamento interno del Dispatcher, un componente fondamentale che gestisce la comunicazione tra la GUI e gli altri moduli del sistema, in particolare l'Executer e il Merger.
+
+\begin{itemize}
+  \item \textbf{GUI Communicator}: Questo modulo si occupa della comunicazione tra la GUI e il Dispatcher. Riceve i comandi dagli utenti attraverso l'interfaccia grafica e li invia al GUI Command Interpreter per l'elaborazione.
+
+  \item \textbf{GUI Command Interpreter}: Una volta ricevuti i comandi dalla GUI, il GUI Command Interpreter li interpreta e li traduce in istruzioni comprensibili per il resto del sistema. Questa componente agisce come traduttore tra l'interfaccia utente e i processi interni del Dispatcher.
+
+  \item \textbf{Scheduler}: Lo Scheduler prende le istruzioni dal GUI Command Interpreter e le organizza temporalmente, decidendo quando e come eseguire le azioni richieste. In pratica, stabilisce l'ordine e la priorità delle operazioni, gestendo le risorse disponibili.
+
+  \item \textbf{Executer Communicator}: Dopo la schedulazione, lo Scheduler comunica le istruzioni programmate all'Executer tramite questo modulo. Questo canale garantisce che il Dispatcher possa inviare correttamente i comandi al modulo che esegue le scansioni.
+
+  \item \textbf{Merger Communicator}: Infine, il Merger Communicator gestisce la comunicazione con il modulo Merger, inviando i dati necessari per la fusione dei risultati delle scansioni o altre informazioni elaborate. In questo modo, il Dispatcher collega direttamente i moduli di esecuzione delle scansioni e di gestione dei risultati.
+\end{itemize}
+
+il Dispatcher quindi è responsabile dell'interpretazione dei comandi dalla GUI, della loro programmazione e della gestione della comunicazione tra i vari moduli del sistema per garantire che le operazioni di scansione e fusione siano eseguite in modo efficiente e coordinato.
 
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{dispatcher}
@@ -355,7 +381,20 @@ Riceve un comando dal Frontend che viene interpretato e mandato allo Scheduler c
 \FloatBarrier
 
 \subsubsection{Executer} 
-L'Executer riceve un comando dallo Scheduler e coordina gli Scan Probes nell'esecuzione della scansione tramite un broker di messaggi idoneo. I risultati delle scansioni vengono poi salvati nel Network Knowledge Base.
+L'Executer (Figura 4.5) riceve un comando dallo Scheduler e coordina gli Scan Probes nell'esecuzione della scansione tramite un broker di messaggi idoneo. I risultati delle scansioni vengono poi salvati nel Network Knowledge Base.
+\begin{itemize}
+  \item \textbf{Dispatcher Communicator}: Riceve ordini dal Dispatcher che vengono interpretati ed inviati al supervisor.
+
+  \item \textbf{Supervisor}: Gestisce i Probe e decide come suddividere il lavoro fra di loro. 
+
+  \item \textbf{Broker Communicator}: Inoltra gli ordini dal Supervisor ai Probe e riceve i loro risultati ed eventuali altre informazioni tramite un Broker di messaggi.
+
+  \item \textbf{Collector}: Raccoglie i messaggi dei Probe dal Broker Communicator, invia delle informazioni al Supervisor e invia i risultati delle scansioni al Knowledge Base Connector.
+
+  \item \textbf{Knowledge Base Connector}: Riceve i dati delle scansioni e li invia alla Knowledge Base.
+\end{itemize}
+
+L'Executer in breve riceve i comandi dallo Scheduler e ordina ai singoli Probe di eseguire le scansioni. I risultati delle scansioni poi vengono inviati alla Network Base tramite il corrispondente connector.
 
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{executer}
@@ -369,12 +408,21 @@ L'Executer riceve un comando dallo Scheduler e coordina gli Scan Probes nell'ese
 %/newpage
 
 \subsubsection{Network Knowledge Base} 
-Il Network Knowledge Base è la componente dove vengono salvati tutti i dati delle scansioni in modo persistente e che permette la visualizzazione di uno storico delle precedenti analisi.
+Il modulo del Network Knowledge Base rappresenta il cuore del sistema di archiviazione e gestione dei dati raccolti dalle varie operazioni di scansione. La sua funzione principale è immagazzinare in modo sicuro e organizzato tutte le informazioni rilevanti sulla rete, come i risultati delle scansioni, i dettagli dei dispositivi rilevati, e altre metriche o log generati durante le attività di monitoraggio.
 
 \FloatBarrier
 
 \subsubsection{Merger}
-Il Merger si occupa di ricevere i dati generati dai Scan Probes ed amalgamarli per creare un'immagine comprensibile della rete analizzata. 
+Il Merger, rappresentato nella Figura 4.6, è una componente fondamentale del sistema che si occupa di raccogliere e unire i dati ottenuti dalle varie Scan Probe per fornire una visione completa e coerente della rete analizzata. Il suo scopo principale è quello di amalgamare i risultati delle scansioni provenienti da più sorgenti in una singola rappresentazione che permetta di comprendere lo stato complessivo della rete.
+\begin{itemize}
+  \item \textbf{Dispatcher Communicator}: Questo modulo ha il compito di ricevere comandi dal Dispatcher. I comandi che arrivano al Dispatcher Communicator vengono trasmessi al modulo successivo per essere interpretati e gestiti.
+
+  \item \textbf{Command Interpreter}: Come suggerisce il nome, il Command Interpreter è responsabile dell'interpretazione dei comandi ricevuti dal Dispatcher Communicator. Questo modulo verifica che i comandi siano corretti, li decodifica e determina quale operazione deve essere eseguita dall'Amalgamator. L'interpretazione precisa dei comandi è cruciale per garantire che il processo di aggregazione dei dati avvenga correttamente e nel giusto contesto operativo. 
+
+  \item \textbf{Amalgamator}: Il cuore del Merger, l'Amalgamator, è la componente che esegue l'effettiva amalgamazione dei dati. Una volta ricevuto un comando dal Command Interpreter, l'Amalgamator si connette al Knowledge Base Connector per recuperare tutti i dati necessari per generare una mappa aggiornata e comprensibile della rete. Questo processo di aggregazione utilizza un algoritmo che integra e sintetizza le informazioni provenienti dalle diverse scansioni, eliminando duplicazioni o discrepanze e creando una rappresentazione coerente. L'obiettivo finale è produrre un'istantanea della rete che riflette accuratamente lo stato attuale delle connessioni, dei dispositivi e delle eventuali vulnerabilità.
+
+  \item \textbf{Knowledge Base Connector}: Agisce come intermediario tra l'Amalgamator e il Network Knowledge Base. Si occupa di fornire all'Amalgamator tutti i dati necessari per l'aggregazione e successivamente di salvare le mappe di rete generate nel Knowledge Base per una consultazione futura. Grazie a questa componente, il Merger può interagire dinamicamente con il database e ottenere accesso rapido alle informazioni più aggiornate, garantendo che i dati utilizzati per l'amalgamazione siano sempre accurati e pertinenti.
+\end{itemize}
 
 
 \begin{figure}[h]
@@ -388,7 +436,16 @@ Il Merger si occupa di ricevere i dati generati dai Scan Probes ed amalgamarli p
 
 
 \subsubsection{GUI} 
-La GUI (Graphical User Interface) è un'interfaccia grafica che viene provvista a gli amministratori di rete per richiedere scansioni e visualizzarne i risultati.
+Il modulo della GUI (Graphical User Interface) è l'interfaccia utente del sistema, che consente agli amministratori di rete di interagire in modo intuitivo con le funzionalità del sistema. Attraverso la GUI, è possibile inviare comandi, visualizzare i risultati delle scansioni, monitorare lo stato della rete e gestire altre operazioni chiave senza dover interagire direttamente con i componenti backend.
+
+La GUI è composta da due parti principali:
+
+\begin{itemize}
+  \item \textbf{GUI Frontend}: L'interfaccia grafica vera e propria, visualizzata sullo schermo e utilizzata dagli utenti per inviare input, come richieste di scansione o richieste di visualizzazione della rete.
+  \item \textbf{GUI Backend}: Il modulo che si occupa della logica di elaborazione e della gestione delle richieste utente, interfacciandosi con il resto del sistema tramite il Dispatcher.
+\end{itemize}
+
+la GUI rende il sistema accessibile e facile da utilizzare, permettendo un controllo visivo e immediato della rete e delle operazioni in corso.
 
 \FloatBarrier
 
