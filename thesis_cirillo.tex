@@ -175,78 +175,76 @@ Questa tesi è organizzata in 7 capitoli, ciascuno dei quali affronta aspetti fo
 \section{Analisi della Topologia di Rete}
 \subsection{Metodi comuni di analisi della topologia.}
 L'analisi della topologia di rete implica l'identificazione, la mappatura e la valutazione della struttura della rete, al fine di ottimizzarne il funzionamento e la gestione. Ecco i metodi più comuni utilizzati per questa analisi:
-\subsubsection{SNMP (Simple Network Management Protocol) \cite{rfc1157}:}
-    \begin{itemize}
-      \item Descrizione: SNMP è un protocollo standardizzato per la gestione e il monitoraggio dei dispositivi di rete. Utilizzato per raccogliere informazioni sulla configurazione e lo stato dei dispositivi di rete, come router e switch.
-      \item Vantaggi: Facilità d'uso, ampiamente supportato dai dispositivi di rete, consente di monitorare e gestire una vasta gamma di informazioni.
-      \item Svantaggi: Limitato nella capacità di rilevare dinamicamente i cambiamenti nella topologia, difficoltà nell'analizzare reti complesse o eterogenee, problemi di scalabilità.
-    \end{itemize}
+\subsubsection{SNMP (Simple Network Management Protocol)} 
+SNMP (Simple Network Management Protocol) \cite{rfc1157} è un protocollo standardizzato progettato per la gestione e il monitoraggio dei dispositivi di rete. Funziona attraverso una struttura di gestione che include agenti e manager: gli agenti sono software installati sui dispositivi di rete, come router e switch, e si occupano di raccogliere e memorizzare informazioni riguardanti lo stato e le prestazioni di tali dispositivi. I manager, d'altra parte, sono applicazioni che interrogano gli agenti per ottenere i dati necessari. Questi dati sono organizzati in una MIB (Management Information Base), una struttura che rappresenta ogni oggetto di rete con un identificatore unico.
+\newline
+Il protocollo è relativamente semplice da configurare e gestire, anche per amministratori di rete meno esperti. Inoltre, SNMP è ampiamente supportato da una vasta gamma di dispositivi di rete, facilitando l'integrazione in ambienti di rete diversi. Il protocollo consente un monitoraggio e una gestione dettagliati di vari aspetti della rete, inclusi le prestazioni e lo stato dei dispositivi, contribuendo a mantenere l'efficienza e la disponibilità della rete.
+\newline
+La sua capacità di rilevare dinamicamente i cambiamenti nella topologia della rete è limitata, il che può ridurre l'efficacia del protocollo in ambienti molto dinamici. Inoltre, in reti complesse o eterogenee, l'analisi dei dati raccolti può diventare complicata, richiedendo strumenti avanzati per una corretta interpretazione. Infine, con l'aumentare delle dimensioni della rete, la scalabilità di SNMP può rappresentare un problema, poiché la gestione di un numero molto elevato di dispositivi può mettere a dura prova le capacità del manager e rendere più complessa la configurazione degli agenti.
 
-\subsubsection{Traceroute \cite{netbrain_traceroute}:}
-    \begin{itemize}
-      \item Descrizione: Traceroute è uno strumento diagnostico che mostra il percorso che i pacchetti di dati seguono attraverso una rete IP verso una destinazione specifica, identificando tutti i router attraversati.
-      \item Vantaggi: Utile per diagnosticare problemi di rete e identificare i percorsi dei dati tra dispositivi.
-      \item Svantaggi: Limitato alle reti IP, non fornisce una visione completa della topologia, può essere bloccato da firewall o altri dispositivi di sicurezza.
-    \end{itemize}
+\subsubsection{Traceroute}
+Traceroute \cite{netbrain_traceroute} è uno strumento diagnostico fondamentale utilizzato per analizzare il percorso dei pacchetti di dati attraverso una rete IP fino a una destinazione specifica. Funziona inviando pacchetti con tempi di vita (TTL) crescenti e misurando il tempo impiegato per ottenere una risposta da ciascun router intermedio. Questo processo consente di identificare tutti i router attraversati dal pacchetto, fornendo così una visione dettagliata del percorso seguito dai dati.
+\newline
+Permette di individuare i punti di congestione o i router che potrebbero essere malfunzionanti, facilitando così l’individuazione di problemi specifici lungo il percorso dei dati. Inoltre, offre una panoramica utile dei percorsi che i dati percorrono tra i diversi dispositivi, contribuendo a una migliore comprensione della rete e delle sue dinamiche.
+\newline
+È specificamente progettato per le reti IP, il che significa che non può essere utilizzato per diagnosticare problemi su reti non IP o su reti miste. Inoltre, non fornisce una visione completa della topologia della rete; si limita a mostrare il percorso dei pacchetti tra due punti senza considerare altri aspetti della rete, come la sua struttura complessiva. Infine, Traceroute può essere bloccato o filtrato da firewall e altri dispositivi di sicurezza, il che può impedire la raccolta di dati accurati e limitare l’efficacia dello strumento in ambienti protetti.
 
-\subsubsection{NetFlow/IPFIX \cite{rfc7011}:}
-    \begin{itemize}
-      \item Descrizione: NetFlow (e la sua evoluzione IPFIX) è un protocollo sviluppato da Cisco per raccogliere informazioni sui flussi di dati che attraversano un router o uno switch. Fornisce dettagli sulle conversazioni di rete tra dispositivi.
-      \item Vantaggi: Permette di monitorare il traffico di rete in dettaglio, utile per analisi del traffico e rilevamento di anomalie.
-      \item Svantaggi: Non fornisce direttamente una mappa della topologia, ma piuttosto informazioni sui flussi di traffico, richiede una notevole capacità di elaborazione e archiviazione dei dati.
-    \end{itemize}
+\subsubsection{NetFlow/IPFIX}
+NetFlow \cite{cisco_netflow}, insieme alla sua evoluzione IPFIX (Internet Protocol Flow Information Export) \cite{rfc7011}, è un protocollo sviluppato da Cisco per raccogliere e analizzare informazioni sui flussi di dati che transitano attraverso un router o uno switch di rete. Questo protocollo si concentra sull'acquisizione di dettagli relativi alle conversazioni tra dispositivi di rete, come indirizzi IP sorgente e destinazione, porte utilizzate, e volume di dati scambiati. NetFlow e IPFIX sono strumenti essenziali per il monitoraggio e la gestione delle reti, poiché forniscono una visione approfondita delle comunicazioni di rete e del traffico.
+\newline
+Questi protocolli consentono di effettuare analisi approfondite del traffico, identificare pattern di utilizzo, e rilevare anomalie che potrebbero indicare problemi come congestionamenti, attacchi DDoS o comportamenti non autorizzati. Le informazioni fornite da NetFlow e IPFIX possono essere utilizzate per ottimizzare le prestazioni della rete, migliorare la sicurezza e pianificare l'espansione della rete in modo informato.
+\newline
+Non forniscono direttamente una mappa della topologia di rete; piuttosto, si concentrano sui flussi di traffico, il che significa che non mostrano come i dispositivi sono connessi tra loro. Inoltre, la raccolta e l'analisi dei dati tramite questi protocolli richiedono significative risorse di elaborazione e archiviazione. La quantità di dati generata può essere molto elevata, specialmente in reti con elevato traffico, e richiede quindi sistemi di gestione e storage capaci di gestire grandi volumi di informazioni.
 
-\subsubsection{LLDP (Link Layer Discovery Protocol) \cite{ieee_lldp}:}
-    \begin{itemize}
-      \item Descrizione: LLDP è un protocollo di livello datalink utilizzato per scoprire dispositivi vicini e condividere informazioni sulla loro configurazione.
-      \item Vantaggi: Consente la scoperta automatica dei dispositivi connessi alla rete e facilita la gestione della rete.
-      \item Svantaggi: Limitato al livello 2 (livello di collegamento dati) della pila OSI, quindi non fornisce una visione completa della topologia a livello IP o superiore.
-    \end{itemize}
+\subsubsection{LLDP (Link Layer Discovery Protocol)}
+LLDP (Link Layer Discovery Protocol) \cite{ieee_lldp} è un protocollo di livello datalink progettato per facilitare la scoperta dei dispositivi di rete vicini e per la condivisione di informazioni riguardanti la loro configurazione. Operando al livello 2 del modello OSI, LLDP permette ai dispositivi di rete, come switch e router, di annunciare e scoprire informazioni sui dispositivi a loro collegati attraverso l'invio di pacchetti di dati. Questi pacchetti contengono dettagli utili, come l'identificativo del dispositivo, le sue capacità e il suo stato di configurazione, consentendo una visione più chiara dei dispositivi connessi direttamente alla stessa rete.
+\newline
+Uno dei principali vantaggi di LLDP è la sua capacità di automatizzare la scoperta dei dispositivi di rete. Questo processo semplifica la gestione della rete, poiché consente agli amministratori di ottenere informazioni aggiornate e precise sui dispositivi senza la necessità di una configurazione manuale dettagliata. Inoltre, la possibilità di condividere informazioni di configurazione aiuta nella gestione e nella risoluzione dei problemi della rete, migliorando la visibilità e la comprensione delle connessioni fisiche e delle relazioni tra i dispositivi.
+\newline
+Operando esclusivamente al livello 2 del modello OSI, il protocollo è confinato al livello di collegamento dati e non offre una visione completa della topologia a livello IP o superiore. Ciò significa che, mentre LLDP è efficace nel fornire dettagli sui dispositivi locali e le loro connessioni, non può fornire informazioni sulla topologia della rete a livello di rete (IP) o di livello superiore. Di conseguenza, per ottenere una panoramica completa della rete e delle sue connessioni a livello più alto, potrebbero essere necessari ulteriori strumenti e protocolli.
 
 \noindent Questi metodi offrono diverse prospettive sull'analisi della topologia di rete, ognuno con i propri punti di forza e debolezze. Tuttavia, nessuno di essi, preso singolarmente, offre una soluzione completa per l'analisi della topologia di reti complesse e dinamiche, evidenziando la necessità di strumenti più avanzati e integrati.
 
 \subsection{Problemi dell'utilizzo di SNMP per l'Analisi della Topologia}
 SNMP (Simple Network Management Protocol) è uno dei protocolli più utilizzati per il monitoraggio e la gestione delle reti, ma presenta diversi limiti significativi quando viene utilizzato per l'analisi della topologia di rete. Di seguito vengono analizzati i principali problemi associati all'uso di SNMP in questo contesto.
-\begin{itemize}
 
-  \item Scalabilità Limitata
+\subsubsection{Scalabilità Limitata}
     \begin{itemize}
-      \item Overhead di Polling: SNMP si basa su un meccanismo di polling, in cui un sistema di gestione della rete (NMS) invia richieste ai dispositivi per ottenere informazioni sul loro stato. In una rete di grandi dimensioni, il numero di richieste necessarie per raccogliere i dati da tutti i dispositivi può diventare ingente, causando un significativo overhead di rete e aumentando il carico sui dispositivi stessi.
-      \item Crescita Esponenziale del Traffico di Gestione: Man mano che il numero di dispositivi in rete aumenta, anche il volume del traffico di gestione generato da SNMP cresce esponenzialmente, rischiando di congestionare la rete e rallentare le operazioni di monitoraggio.
+      \item \textbf{Overhead di Polling}: SNMP si basa su un meccanismo di polling, in cui un sistema di gestione della rete (NMS) invia richieste ai dispositivi per ottenere informazioni sul loro stato. In una rete di grandi dimensioni, il numero di richieste necessarie per raccogliere i dati da tutti i dispositivi può diventare ingente, causando un significativo overhead di rete e aumentando il carico sui dispositivi stessi.
+      \item \textbf{Crescita Esponenziale del Traffico di Gestione}: Man mano che il numero di dispositivi in rete aumenta, anche il volume del traffico di gestione generato da SNMP cresce esponenzialmente, rischiando di congestionare la rete e rallentare le operazioni di monitoraggio.
     \end{itemize}
 
-  \item Visione Statica della Topologia
+\subsubsection{ Visione Statica della Topologia}
   \begin{itemize}
-      \item Informazioni Non in Tempo Reale: Poiché SNMP si basa su un ciclo di polling, i dati raccolti rappresentano istantanee dello stato della rete in momenti specifici. Questo significa che i cambiamenti dinamici nella topologia, come l'aggiunta o la rimozione di dispositivi, potrebbero non essere rilevati immediatamente, portando a una rappresentazione obsoleta della rete.
-      \item Mancanza di Rilevamento dei Cambiamenti Dinamici: In reti moderne, dove la topologia può cambiare rapidamente a causa della virtualizzazione, del cloud computing o delle configurazioni dinamiche, SNMP non riesce a rilevare e adattarsi efficacemente a questi cambiamenti.
+    \item \textbf{Informazioni Non in Tempo Reale}: Poiché SNMP si basa su un ciclo di polling, i dati raccolti rappresentano istantanee dello stato della rete in momenti specifici. Questo significa che i cambiamenti dinamici nella topologia, come l'aggiunta o la rimozione di dispositivi, potrebbero non essere rilevati immediatamente, portando a una rappresentazione obsoleta della rete.
+    \item \textbf{Mancanza di Rilevamento dei Cambiamenti Dinamici}: In reti moderne, dove la topologia può cambiare rapidamente a causa della virtualizzazione, del cloud computing o delle configurazioni dinamiche, SNMP non riesce a rilevare e adattarsi efficacemente a questi cambiamenti.
   \end{itemize}
 
 
-  \item Sicurezza Limitata
+\subsubsection{Sicurezza Limitata}
     \begin{itemize}
-      \item Vulnerabilità di SNMPv1 e SNMPv2: Le prime versioni di SNMP (v1 e v2) non supportano meccanismi di sicurezza robusti, come l'autenticazione o la crittografia. Le informazioni vengono trasmesse in chiaro, rendendo la rete vulnerabile a intercettazioni e attacchi man-in-the-middle.
-      \item Complessità di SNMPv3: Sebbene SNMPv3 introduca miglioramenti significativi in termini di sicurezza, includendo l'autenticazione e la crittografia, la sua implementazione è complessa e richiede una configurazione accurata per essere efficace. La complessità può scoraggiare la piena adozione o portare a configurazioni non sicure.
+      \item \textbf{Vulnerabilità di SNMPv1 e SNMPv2}: Le prime versioni di SNMP (v1 e v2) non supportano meccanismi di sicurezza robusti, come l'autenticazione o la crittografia. Le informazioni vengono trasmesse in chiaro, rendendo la rete vulnerabile a intercettazioni e attacchi man-in-the-middle.
+      \item \textbf{Complessità di SNMPv3}: Sebbene SNMPv3 introduca miglioramenti significativi in termini di sicurezza, includendo l'autenticazione e la crittografia, la sua implementazione è complessa e richiede una configurazione accurata per essere efficace. La complessità può scoraggiare la piena adozione o portare a configurazioni non sicure.
     \end{itemize}
 
-  \item Complessità di Configurazione e Manutenzione
+\subsubsection{Complessità di Configurazione e Manutenzione}
     \begin{itemize}
-      \item Configurazione Manuale: Per ottenere una visione accurata della topologia, ogni dispositivo deve essere configurato per rispondere alle richieste SNMP, e questa configurazione deve essere mantenuta e aggiornata nel tempo. In grandi reti, questo può diventare un compito oneroso.
-      \item Varianza di Supporto tra Vendor: Non tutti i dispositivi di rete supportano SNMP nello stesso modo, e le implementazioni possono variare tra i diversi vendor, portando a problemi di interoperabilità e difficoltà nel mantenere una mappa coerente della rete.
+      \item \textbf{Configurazione Manuale}: Per ottenere una visione accurata della topologia, ogni dispositivo deve essere configurato per rispondere alle richieste SNMP, e questa configurazione deve essere mantenuta e aggiornata nel tempo. In grandi reti, questo può diventare un compito oneroso.
+      \item \textbf{Varianza di Supporto tra Vendor}: Non tutti i dispositivi di rete supportano SNMP nello stesso modo, e le implementazioni possono variare tra i diversi vendor, portando a problemi di interoperabilità e difficoltà nel mantenere una mappa coerente della rete.
     \end{itemize}
 
-  \item Limitata Capacità di Mappatura della Topologia
+\subsubsection{Limitata Capacità di Mappatura della Topologia}
     \begin{itemize}
-      \item Dati Limitati sulla Connettività: SNMP è utile per raccogliere dati su singoli dispositivi, come lo stato delle interfacce, l'uso della CPU o della memoria, ma non fornisce informazioni dettagliate sulle connessioni tra i dispositivi. Questo rende difficile ottenere una mappa completa e accurata della topologia della rete.
-      \item Assenza di Informazioni di Layer 2: SNMP è principalmente focalizzato sui dati di Layer 3 (IP), mancando spesso le informazioni di Layer 2 (Ethernet), che sono cruciali per una mappatura dettagliata della topologia di rete, specialmente in ambienti complessi con VLAN e altri segmenti logici.
+      \item \textbf{Dati Limitati sulla Connettività}: SNMP è utile per raccogliere dati su singoli dispositivi, come lo stato delle interfacce, l'uso della CPU o della memoria, ma non fornisce informazioni dettagliate sulle connessioni tra i dispositivi. Questo rende difficile ottenere una mappa completa e accurata della topologia della rete.
+      \item \textbf{Assenza di Informazioni di Layer 2}: SNMP è principalmente focalizzato sui dati di Layer 3 (IP), mancando spesso le informazioni di Layer 2 (Ethernet), che sono cruciali per una mappatura dettagliata della topologia di rete, specialmente in ambienti complessi con VLAN e altri segmenti logici.
     \end{itemize}
 
 
-  \item Problemi di Performance
+\subsubsection{Problemi di Performance}
     \begin{itemize}
-      \item Impatto sulle Risorse del Dispositivo: L'elaborazione delle richieste SNMP può consumare risorse significative del dispositivo, specialmente su dispositivi con capacità hardware limitate. Questo può degradare le prestazioni del dispositivo stesso, influenzando la qualità del servizio di rete.
-      \item Ritardi nella Raccolta dei Dati: In reti con molti dispositivi o con un utilizzo intensivo di SNMP, i ritardi nella raccolta e nell'analisi dei dati possono aumentare, rendendo meno tempestive le informazioni disponibili e, di conseguenza, meno utile l'analisi della topologia.
+      \item \textbf{Impatto sulle Risorse del Dispositivo}: L'elaborazione delle richieste SNMP può consumare risorse significative del dispositivo, specialmente su dispositivi con capacità hardware limitate. Questo può degradare le prestazioni del dispositivo stesso, influenzando la qualità del servizio di rete.
+      \item \textbf{Ritardi nella Raccolta dei Dati}: In reti con molti dispositivi o con un utilizzo intensivo di SNMP, i ritardi nella raccolta e nell'analisi dei dati possono aumentare, rendendo meno tempestive le informazioni disponibili e, di conseguenza, meno utile l'analisi della topologia.
     \end{itemize}
-\end{itemize}
 
 \chapter{Requisiti di un buon sistema}
 Per garantire una mappatura accurata ed efficiente della topologia di rete, un buon sistema di analisi dovrebbe soddisfare una serie di requisiti fondamentali. Questi requisiti derivano dagli svantaggi riscontrati negli strumenti esistenti, come SNMP.
