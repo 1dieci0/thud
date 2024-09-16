@@ -161,7 +161,7 @@ Questa tesi è organizzata in 7 capitoli, ciascuno dei quali affronta aspetti fo
     \end{itemize}
 
 
-  \item \textbf{Capitolo 3:Requisiti di un sistema distribuito di mappatura di reti informatiche}
+  \item \textbf{Capitolo 3: Requisiti di un sistema distribuito di mappatura di reti informatiche}
     \begin{itemize}
       \item[] In questo capitolo vengono discussi in dettaglio i problemi principali che emergono dall'utilizzo degli strumenti esistenti per l'analisi della topologia di rete. Vengono quindi identificati e descritti i requisiti in termini di accuratezza, scalabilità, latenza, efficienza, sicurezza e privacy che un buon sistema per l'analisi di rete dovrebbe avere.
     \end{itemize}
@@ -199,31 +199,34 @@ Questa tesi è organizzata in 7 capitoli, ciascuno dei quali affronta aspetti fo
 L'analisi della topologia di rete implica l'identificazione, la mappatura e la valutazione della struttura della rete, al fine di ottimizzarne il funzionamento e la gestione. Ecco i metodi più comuni utilizzati per questa analisi:
 \subsubsection{SNMP (Simple Network Management Protocol)} 
 SNMP (Simple Network Management Protocol) \cite{rfc1157} è un protocollo standardizzato progettato per la gestione e il monitoraggio dei dispositivi di rete. Funziona attraverso una struttura di gestione che include agenti e manager: gli agenti sono software installati sui dispositivi di rete, come router e switch, e si occupano di raccogliere e memorizzare informazioni riguardanti lo stato e le prestazioni di tali dispositivi. I manager, d'altra parte, sono applicazioni che interrogano gli agenti per ottenere i dati necessari. Questi dati sono organizzati in una MIB (Management Information Base) \cite{rfc1213}, una struttura che rappresenta ogni oggetto di rete con un identificatore unico.
-\newline
+
 Il protocollo è relativamente semplice da configurare e gestire, anche per amministratori di rete meno esperti. Inoltre, SNMP è ampiamente supportato da una vasta gamma di dispositivi di rete, facilitando l'integrazione in ambienti di rete diversi. Il protocollo consente un monitoraggio e una gestione dettagliati di vari aspetti della rete, inclusi le prestazioni e lo stato dei dispositivi, contribuendo a mantenere l'efficienza e la disponibilità della rete.
-\newline
+
 La sua capacità di rilevare dinamicamente i cambiamenti nella topologia della rete è limitata, il che può ridurre l'efficacia del protocollo in ambienti molto dinamici. Inoltre, in reti complesse o eterogenee, l'analisi dei dati raccolti può diventare complicata, richiedendo strumenti avanzati per una corretta interpretazione. Infine, con l'aumentare delle dimensioni della rete, la scalabilità di SNMP può rappresentare un problema, poiché la gestione di un numero molto elevato di dispositivi può mettere a dura prova le capacità del manager e rendere più complessa la configurazione degli agenti.
 
 \subsubsection{Traceroute}
 Traceroute \cite{netbrain_traceroute} è uno strumento diagnostico fondamentale utilizzato per analizzare il percorso dei pacchetti di dati attraverso una rete IP fino a una destinazione specifica. Funziona inviando pacchetti con tempi di vita (TTL) crescenti e misurando il tempo impiegato per ottenere una risposta da ciascun router intermedio. Questo processo consente di identificare tutti i router attraversati dal pacchetto, fornendo così una visione dettagliata del percorso seguito dai dati.
-\newline
+
 Permette di individuare i punti di congestione o i router che potrebbero essere malfunzionanti, facilitando così l’individuazione di problemi specifici lungo il percorso dei dati. Inoltre, offre una panoramica utile dei percorsi che i dati percorrono tra i diversi dispositivi, contribuendo a una migliore comprensione della rete e delle sue dinamiche.
-\newline È specificamente progettato per le reti IP, il che significa che non può essere utilizzato per diagnosticare problemi su reti non IP o su reti miste. Inoltre, non fornisce una visione completa della topologia della rete; si limita a mostrare il percorso dei pacchetti tra due punti senza considerare altri aspetti della rete, come la sua struttura complessiva. Infine, Traceroute può essere bloccato o filtrato da firewall e altri dispositivi di sicurezza, il che può impedire la raccolta di dati accurati e limitare l’efficacia dello strumento in ambienti protetti.
+
+È specificamente progettato per le reti IP, il che significa che non può essere utilizzato per diagnosticare problemi su reti non IP o su reti miste. Inoltre, non fornisce una visione completa della topologia della rete; si limita a mostrare il percorso dei pacchetti tra due punti senza considerare altri aspetti della rete, come la sua struttura complessiva. Infine, Traceroute può essere bloccato o filtrato da firewall e altri dispositivi di sicurezza, il che può impedire la raccolta di dati accurati e limitare l’efficacia dello strumento in ambienti protetti.
+
 \subsubsection{NetFlow/IPFIX}
 NetFlow \cite{cisco_netflow}, insieme alla sua evoluzione IPFIX (Internet Protocol Flow Information Export) \cite{rfc7011}, è un protocollo sviluppato da Cisco per raccogliere e analizzare informazioni sui flussi di dati che transitano attraverso un router o uno switch di rete. Questo protocollo si concentra sull'acquisizione di dettagli relativi alle conversazioni tra dispositivi di rete, come indirizzi IP sorgente e destinazione, porte utilizzate, e volume di dati scambiati. NetFlow e IPFIX sono strumenti essenziali per il monitoraggio e la gestione delle reti, poiché forniscono una visione approfondita delle comunicazioni di rete e del traffico.
-\newline
+
 Questi protocolli consentono di effettuare analisi approfondite del traffico, identificare pattern di utilizzo, e rilevare anomalie che potrebbero indicare problemi come congestionamenti, attacchi DDoS o comportamenti non autorizzati. Le informazioni fornite da NetFlow e IPFIX possono essere utilizzate per ottimizzare le prestazioni della rete, migliorare la sicurezza e pianificare l'espansione della rete in modo informato.
-\newline
+
 Non forniscono direttamente una mappa della topologia di rete; piuttosto, si concentrano sui flussi di traffico, il che significa che non mostrano come i dispositivi sono connessi tra loro. Inoltre, la raccolta e l'analisi dei dati tramite questi protocolli richiedono significative risorse di elaborazione e archiviazione. La quantità di dati generata può essere molto elevata, specialmente in reti con elevato traffico, e richiede quindi sistemi di gestione e storage capaci di gestire grandi volumi di informazioni.
 
 \subsubsection{LLDP (Link Layer Discovery Protocol)}
 LLDP (Link Layer Discovery Protocol) \cite{ieee_lldp} è un protocollo di livello datalink progettato per facilitare la scoperta dei dispositivi di rete vicini e per la condivisione di informazioni riguardanti la loro configurazione. Operando al livello 2 del modello OSI, LLDP permette ai dispositivi di rete, come switch e router, di annunciare e scoprire informazioni sui dispositivi a loro collegati attraverso l'invio di pacchetti di dati. Questi pacchetti contengono dettagli utili, come l'identificativo del dispositivo, le sue capacità e il suo stato di configurazione, consentendo una visione più chiara dei dispositivi connessi direttamente alla stessa rete.
-\newline
-Uno dei principali vantaggi di LLDP è la sua capacità di automatizzare la scoperta dei dispositivi di rete. Questo processo semplifica la gestione della rete, poiché consente agli amministratori di ottenere informazioni aggiornate e precise sui dispositivi senza la necessità di una configurazione manuale dettagliata. Inoltre, la possibilità di condividere informazioni di configurazione aiuta nella gestione e nella risoluzione dei problemi della rete, migliorando la visibilità e la comprensione delle connessioni fisiche e delle relazioni tra i dispositivi.
-\newline
-Operando esclusivamente al livello 2 del modello OSI, il protocollo è confinato al livello di collegamento dati e non offre una visione completa della topologia a livello IP o superiore. Ciò significa che, mentre LLDP è efficace nel fornire dettagli sui dispositivi locali e le loro connessioni, non può fornire informazioni sulla topologia della rete a livello di rete (IP) o di livello superiore. Di conseguenza, per ottenere una panoramica completa della rete e delle sue connessioni a livello più alto, potrebbero essere necessari ulteriori strumenti e protocolli.
 
-\noindent Questi metodi offrono diverse prospettive sull'analisi della topologia di rete, ognuno con i propri punti di forza e debolezze. Tuttavia, nessuno di essi, preso singolarmente, offre una soluzione completa per l'analisi della topologia di reti complesse e dinamiche, evidenziando la necessità di strumenti più avanzati e integrati.
+Uno dei principali vantaggi di LLDP è la sua capacità di automatizzare la scoperta dei dispositivi di rete. Questo processo semplifica la gestione della rete, poiché consente agli amministratori di ottenere informazioni aggiornate e precise sui dispositivi senza la necessità di una configurazione manuale dettagliata. Inoltre, la possibilità di condividere informazioni di configurazione aiuta nella gestione e nella risoluzione dei problemi della rete, migliorando la visibilità e la comprensione delle connessioni fisiche e delle relazioni tra i dispositivi.
+
+Operando esclusivamente al livello 2 del modello OSI, il protocollo è confinato al livello di collegamento dati e non offre una visione completa della topologia a livello IP o superiore. Ciò significa che, mentre LLDP è efficace nel fornire dettagli sui dispositivi locali e le loro connessioni, non può fornire informazioni sulla topologia della rete a livello di rete (IP) o di livello superiore. Di conseguenza, per ottenere una panoramica completa della rete e delle sue connessioni a livello più alto, potrebbero essere necessari ulteriori strumenti e protocolli.
+\newline
+\newline
+Questi metodi offrono diverse prospettive sull'analisi della topologia di rete, ognuno con i propri punti di forza e debolezze. Tuttavia, nessuno di essi, preso singolarmente, offre una soluzione completa per l'analisi della topologia di reti complesse e dinamiche, evidenziando la necessità di strumenti più avanzati e integrati.
 
 \section{Problemi dell'utilizzo di SNMP per l'Analisi della Topologia}
 SNMP (Simple Network Management Protocol) è uno dei protocolli più utilizzati per il monitoraggio e la gestione delle reti, ma presenta diversi limiti significativi quando viene utilizzato per l'analisi della topologia di rete. Di seguito vengono analizzati i principali problemi associati all'uso di SNMP in questo contesto.
@@ -521,7 +524,7 @@ FIFO (First In, First Out): La coda che gestisce i messaggi all'interno del cana
 \textbf{Scalabilità}: La capacità di avere più produttori garantisce che il sistema possa scalare facilmente aggiungendo nuovi componenti che inviano dati su un singolo canale, senza dover cambiare la logica del consumatore.
 \subsection{Utilizzo nell'Executer}
 In questo contesto, ogni sottomodulo dell'Executer (come il Supervisor, il Dispatcher Communicator, il Broker Communicator, etc.) funge da produttore o consumatore, a seconda del flusso di comunicazione richiesto. Ad esempio il Dispatcher Communicator può inviare comandi al Supervisor attraverso un canale.
-\newline
+
 Questo schema di comunicazione rende il sistema modulare e facile da estendere, poiché ogni modulo è indipendente dagli altri e può essere collegato a più sottomoduli tramite semplici meccanismi di invio e ricezione di messaggi.
 
 \section{Comunicazione esterna}
@@ -544,9 +547,9 @@ Mosquitto \cite{mosquitto2024} è un'implementazione open-source del broker MQTT
 
 \section{Supervisor}
 Il Supervisor, per svolgere correttamente il suo ruolo, deve avere una visione aggiornata di tutti i Probe attivi nel sistema. Ogni volta che un nuovo Probe si registra, invia un messaggio di registrazione tramite il protocollo MQTT. Questo messaggio, pubblicato su un topic specifico a cui l'Executer è iscritto, contiene un Probe ID univoco, che identifica il probe all'interno della rete.
-\newline
+
 Il Supervisor riceve il messaggio e, successivamente, memorizza l'ID del probe in una struttura dati. Attualmente, abbiamo scelto di utilizzare una coda come struttura temporanea per facilitare l'implementazione dell'algoritmo di bilanciamento del carico (load balancing). L'algoritmo scelto per la prima fase è il Round Robin , un metodo semplice e equo che garantisce a ogni probe registrato di ricevere incarichi in modo sequenziale, evitando la predominanza di uno rispetto agli altri.
-\newline
+
 Tuttavia, in futuro, sarà necessario adottare un approccio più avanzato per il bilanciamento del carico, che tenga conto delle dimensioni e della complessità delle reti gestite da ciascun Probe. Un possibile miglioramento prevede l'introduzione di una priorità associata ai probe che gestiscono porzioni più estese della rete, sempre garantendo che nessun probe venga trascurato o si trovi in condizione di starvation. Questo approccio permetterebbe una distribuzione più efficiente e dinamica dei compiti, bilanciando meglio il carico di lavoro tra i vari componenti del sistema.
 
 \section{Broker Communicator}
@@ -593,12 +596,12 @@ Il database scelto per l’implementazione del Knowledge Base Connector è Scyll
 
 \subsection{Supporto JSON ScyllaDB}
 Uno dei vantaggi principali di ScyllaDB è il suo supporto nativo per il formato JSON. Questa funzionalità ci permette di memorizzare strutture di dati complesse in modo flessibile all'interno delle tabelle del database, mantenendo la struttura gerarchica dei dati senza la necessità di mappare ogni campo singolarmente in colonne tradizionali. Utilizzare JSON permette di avere un formato molto adatto a rappresentare i risultati delle scansioni di rete, che possono includere dettagli come indirizzi IP, porte aperte, protocolli e altre informazioni correlate alla topologia di rete.
-\newline
+
 La scelta di utilizzare il supporto JSON semplifica enormemente la gestione dei dati in quanto permette di inserire e recuperare oggetti complessi senza doverli disaggregare, migliorando così l'efficienza e riducendo la complessità delle query.
 
 \subsection{Interacce modulari}
 Per facilitare eventuali cambiamenti futuri nel database, l’implementazione del Knowledge Base Connector è stata costruita utilizzando interfacce modulari. Questo design consente al sistema di interagire con il database tramite un livello di astrazione che separa la logica dell'applicazione dai dettagli specifici del database scelto.
-\newline
+
 Grazie a questa struttura, è possibile sostituire ScyllaDB con un altro sistema di database, come PostgreSQL \cite{postgresql2024} o MongoDB \cite{mongodb2024}, con modifiche minime al codice. Il livello di astrazione garantisce che le operazioni principali come l’inserimento rimangano invariate, indipendentemente dal tipo di database sottostante.
 
 \subsection{Funzionamento Knowledge Base Connector}
@@ -614,7 +617,7 @@ Il Knowledge Base Connector svolge diverse operazioni cruciali:
 
 \subsection{Vantaggi Modularità}
 La modularità offerta dall'utilizzo delle interfacce ha diversi vantaggi. Prima di tutto, permette una facile sostituzione del database qualora ScyllaDB non fosse più adeguato o se emergessero nuovi requisiti. Inoltre, questo approccio facilita l’aggiunta di nuove funzionalità legate alla gestione dei dati, come l’integrazione con motori di ricerca distribuiti o la possibilità di archiviare diversi tipi di dati in base a contesti specifici.
-\newline
+
 Infine, la modularità facilita anche lo sviluppo e la manutenzione del sistema nel lungo termine. Con un design che non è strettamente legato a ScyllaDB, gli sviluppatori possono continuare a evolvere il sistema mantenendo separata la logica applicativa dal livello di persistenza dei dati, rendendo l'intero sistema più flessibile e manutenibile.
 
 \subsection{Conclusione}
