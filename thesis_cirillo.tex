@@ -666,11 +666,28 @@ Grazie all'utilizzo di serde, il sistema può gestire con facilità formati di d
 
 %% Capitolo
 \chapter{Conclusioni}
-In questa tesi è stato sviluppato e implementato il modulo \textbf{Executer}, che rappresenta una componente centrale nel sistema distribuito per l'analisi della topologia di reti di calcolatori. Il lavoro ha riguardato la gestione delle comunicazioni tra i vari moduli del sistema e il coordinamento delle operazioni di raccolta ed elaborazione dei dati di rete, sfruttando un'architettura a messaggistica distribuita. L'implementazione del modulo Executer è stata completata con successo, consentendo la ricezione, l'elaborazione e l'invio di comandi e risultati all'interno del sistema.
+Questa tesi ha descritto lo sviluppo del modulo Executer, uno dei componenti fondamentali di un sistema distribuito per l'analisi della topologia di reti di calcolatori. L'Executer gestisce l'attivazione dei Probes, in base alle richieste di scansione provenienti dal Dispatcher. Utilizzando un algoritmo di load balancing Round Robin, l'Executer distribuisce le richieste di scansione ai Probes e si occupa di raccogliere i risultati, che vengono poi trasmessi al Network Knowledge Base per l'archiviazione e l'analisi. Parallelamente, è stato sviluppato anche il modulo Probe, descritto nella tesi di un collega, che si occupa dell'esecuzione vera e propria delle scansioni.
 
-Sebbene durante lo sviluppo siano stati implementati anche altri moduli, come il \textbf{Probe}, che sarà descritto in un altro lavoro, rimangono da completare ulteriori componenti fondamentali. Tra questi, il \textbf{Dispatcher}, il \textbf{Merger}, il \textbf{Network Knowledge Base}, e alcuni miglioramenti alla GUI sono ancora in fase di progettazione. Attualmente, lo sviluppo è focalizzato sul \textbf{Network Knowledge Base}, e il lavoro è a uno stadio avanzato.
 
-Oltre alla realizzazione dei moduli rimanenti, sarà essenziale continuare a migliorare e ottimizzare le funzionalità già implementate per incrementare la scalabilità e la precisione del sistema, mantenendo al contempo bassa la latenza nelle comunicazioni e nelle analisi.
+Nonostante i progressi fatti, rimangono ancora molte implementazioni cruciali da completare per rendere il sistema pienamente operativo e ottimizzato. In primo luogo, deve ancora essere creato il modulo Dispatcher, che avrà il compito di generare le richieste di scansione in base alle necessità dell’analisi della rete. Il Dispatcher coordinerà le attività dell’Executer, richiedendo scansioni mirate per coprire le diverse sezioni della rete.
+
+
+Un altro modulo fondamentale da sviluppare è il Merger, il componente che si occuperà di aggregare i dati raccolti dalle scansioni dei vari Probes. Il Merger combinerà questi dati per creare una rappresentazione coerente e completa della topologia di rete. Si tratterà di un passo importante per fornire una visione unificata e accurata della rete analizzata, integrando informazioni provenienti da diverse fonti.
+
+
+Oltre alla creazione di questi moduli, ci saranno miglioramenti da apportare sia ai componenti esistenti che a quelli futuri. Il load balancing dell'Executer, attualmente basato su un semplice schema Round Robin, dovrà essere ottimizzato con algoritmi più avanzati che possano prendere in considerazione la capacità dei Probes e la complessità delle reti analizzate, per distribuire le scansioni in modo più efficiente. Questo aiuterà a ridurre il carico su singoli Probes, migliorando la scalabilità e le prestazioni del sistema.
+
+
+Il modulo Probe, sebbene sviluppato in parallelo, richiede ulteriori ottimizzazioni e test per assicurare la robustezza delle sue funzionalità di scansione. In particolare, andranno migliorati il parsing dei dati raccolti, l’efficienza complessiva e la configurabilità del Probe, in modo da adattarlo meglio a diverse tipologie di rete e ambienti operativi.
+
+
+Anche la GUI sviluppata in React, che consente agli utenti di interagire con il sistema e visualizzare i risultati delle scansioni, richiederà ulteriori migliorie. Attualmente funzionale, la GUI necessita di una maggiore ottimizzazione e usabilità per supportare il crescente numero di funzionalità e per migliorare l'esperienza utente.
+
+
+Infine, è già in corso il lavoro sul modulo del Network Knowledge Base, che sarà responsabile dell’archiviazione e della gestione dei dati raccolti dalle scansioni. Il progetto è a buon punto, ma saranno necessari ulteriori affinamenti per garantire una gestione efficace dei dati, con accessi rapidi e strutturati alle informazioni raccolte.
+
+
+In conclusione, il sistema ha gettato solide basi con l’implementazione dei componenti principali come l'Executer e il Probe, ma c'è ancora un ampio margine di miglioramento e sviluppo per renderlo un sistema distribuito completo e ottimizzato per l’analisi della topologia di rete.
 
 %%% Fine dei capitoli normali, inizio dei capitoli-appendice (opzionali)
 %\appendix
